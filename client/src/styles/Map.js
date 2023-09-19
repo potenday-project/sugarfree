@@ -23,8 +23,8 @@ export const Inputstyle = styled.input`
 `;
 
 export const MapContainer = styled.div`
-  width: 800px;
-  height: 800px;
+  width: 600px;
+  height: 600px;
   position: relative;
 `;
 
