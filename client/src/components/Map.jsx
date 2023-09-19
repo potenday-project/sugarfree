@@ -30,11 +30,11 @@ function setMapType(map, maptype) {
 }
 
 export default function Map() {
-  const [map, setMap] = useState(null);
+  const [map, setMap] = useState(null); // 상태, React에서 상태란, 리렌더링 시에도 유지되는 변수라고 생각하면 됩니다!
   const [place, setPlace] = useState("");
   const [markers, setMarkers] = useState([]);
 
-  const mapRef = useRef(null);
+  const mapRef = useRef(null); // useRef는 여러 용도로 쓰일 수 있지만 여기서는 DOM요소를 잡기 위해 사용했습니다.
 
   function zoomIn() {
     // 줌인
@@ -53,6 +53,7 @@ export default function Map() {
 
   function inputKeyUpHandler(e) {
     if (e.key === "Enter") {
+      // 누른 키가 엔터라면
       buttonClickHandler(place);
     }
   }
