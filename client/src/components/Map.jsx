@@ -14,13 +14,15 @@ import {
 } from "../styles/Map";
 
 function setMapType(map, maptype) {
-  const roadmapControl = document.getElementById("btnRoadmap");
+  const roadmapControl = document.getElementById("btnRoadmap"); // 이러한 id를 가진 DOM요소를 찾는다
   const skyviewControl = document.getElementById("btnSkyview");
   if (maptype === "roadmap") {
+    // 로드맵
     map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);
     roadmapControl.className = "selected_btn";
     skyviewControl.className = "btn";
   } else {
+    // 스카이뷰
     map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);
     skyviewControl.className = "selected_btn";
     roadmapControl.className = "btn";
@@ -35,35 +37,44 @@ export default function Map() {
   const mapRef = useRef(null);
 
   function zoomIn() {
+    // 줌인
     map.setLevel(map.getLevel() - 1);
   }
 
   function zoomOut() {
+    // 줌 아웃
     map.setLevel(map.getLevel() + 1);
   }
 
   function onChangeHandler(e) {
+    // 인풋 체인지 핸들러
     setPlace(e.target.value);
+  }
+
+  function inputKeyUpHandler(e) {
+    if (e.key === "Enter") {
+      buttonClickHandler(place);
+    }
   }
 
   function buttonClickHandler(place) {
     markers.forEach((el) => {
-      el.setVisible(false);
+      el.setVisible(false); // 마커 지우기
     });
 
-    setMarkers([]);
+    setMarkers([]); // 마커를 담을 배열
 
-    const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+    const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 }); // z-index : z방향, 층이 높아지는 개념으로 보면 됨, 레이어의 1층 2층, 숫자가 높아질수록 높은 층
     const ps = new kakao.maps.services.Places();
 
-    ps.keywordSearch(place, placesSearchCB);
+    ps.keywordSearch(place, placesSearchCB); // 키워드로 검색하는 함수
 
-    function placesSearchCB(data, status, pagination) {
+    function placesSearchCB(data, status /* pagination*/) {
       if (status === kakao.maps.services.Status.OK) {
         const bounds = new kakao.maps.LatLngBounds();
 
         for (let i = 0; i < data.length; i++) {
-          displayMarker(data[i]);
+          displayMarker(data[i]); // 마커를 표시하는 함수
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
         map.setBounds(bounds);
@@ -87,12 +98,13 @@ export default function Map() {
         image: markerImage, // 마커이미지 설정
       });
 
-      setMarkers((prev) => [...prev, marker]); // 최적화 필요
+      setMarkers((prev) => [...prev, marker]); // @todo : 최적화 필요
 
       kakao.maps.event.addListener(marker, "click", function () {
         infowindow.setContent(
+          // 인포윈도우, 지도에서 보면 말풍선을 띄워주는 역할
           '<div style="padding:5px;font-size:12px;">' +
-            place.place_name +
+            place.place_name + // 여기서는 장소 이름을 띄워줌
             "</div>"
         );
         infowindow.open(map, marker);
@@ -107,7 +119,10 @@ export default function Map() {
       <MainContainer>
         <MapContainer ref={mapRef}>
           <ButtonAndInput>
-            <Inputstyle onChange={onChangeHandler} />
+            <Inputstyle
+              onChange={onChangeHandler}
+              onKeyUp={inputKeyUpHandler}
+            />
             <MagImg
               onClick={() => buttonClickHandler(place)}
               src="/images/magnify.png"

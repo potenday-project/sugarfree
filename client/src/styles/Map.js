@@ -10,15 +10,16 @@ export const MainContainer = styled.div`
 
 export const MagImg = styled.img`
   width: 30px;
-  height: 30px;
+  height: 28px;
   position: absolute;
-  top: 5%;
-  right: 7%;
+  top: 6%;
+  right: 2%;
 `;
 
 export const Inputstyle = styled.input`
   width: 250px;
   height: 30px;
+  border-radius: 5px;
 `;
 
 export const MapContainer = styled.div`
@@ -53,7 +54,7 @@ export const ChangeViewButton = styled.button`
 
 export const ButtonAndInput = styled.div`
   position: absolute;
-  top: 5%;
+  top: 3%;
   right: 30%;
   display: flex;
   z-index: 5;
