@@ -9,6 +9,8 @@ import {
   ChangeViewButton,
   ChangeViewButton2,
   ButtonAndInput,
+  MagImg,
+  Inputstyle,
 } from "../styles/Map";
 
 function setMapType(map, maptype) {
@@ -104,6 +106,14 @@ export default function Map() {
     <>
       <MainContainer>
         <MapContainer ref={mapRef}>
+          <ButtonAndInput>
+            <Inputstyle onChange={onChangeHandler} />
+            <MagImg
+              onClick={() => buttonClickHandler(place)}
+              src="/images/magnify.png"
+              alt="돋보기"
+            />
+          </ButtonAndInput>
           <ZoomInButton onClick={zoomOut}>줌아웃</ZoomInButton>
           <ZoomOutButton onClick={zoomIn}>줌인</ZoomOutButton>
           <ChangeViewButton onClick={() => setMapType(map, "skyview")}>
@@ -114,12 +124,6 @@ export default function Map() {
           </ChangeViewButton2>
         </MapContainer>
         <div id="clickLatlng"></div>
-        <ButtonAndInput>
-          <label>
-            검색하세요 <input onChange={onChangeHandler} />
-          </label>
-          <button onClick={() => buttonClickHandler(place)}>검색하기</button>
-        </ButtonAndInput>
       </MainContainer>
     </>
   );
