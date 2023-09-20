@@ -4,23 +4,29 @@ import {
   MapTypeControl,
   ZoomControl,
   MapMarker,
+  CustomOverlayMap,
 } from "react-kakao-maps-sdk";
 import useKakaoLoader from "../hooks/useKakaoLoader";
 import { useEffect, useState } from "react";
+import CustomOveray from "./CustomOveray";
 
 export default function MapComponent({ place }) {
   const [position, setPosition] = useState();
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
+  const [isOpen, setIsOpen] = useState(false);
 
   useKakaoLoader();
+  const markerPosition = {
+    lat: 33.450701,
+    lng: 126.570667,
+  };
 
   useEffect(() => {
-    console.log(place);
     if (!map) return;
 
-    const ps = new kakao.maps.services.Places();
+    const ps = new kakao.maps.services.Places(); // kakao는 이미 불러져왔으므로 신경쓰지 않으셔도 됩니다.
 
     ps.keywordSearch(place, (data, status /*_pagination*/) => {
       if (status === kakao.maps.services.Status.OK) {
@@ -86,6 +92,12 @@ export default function MapComponent({ place }) {
             )}
           </MapMarker>
         ))}
+        <MapMarker position={markerPosition} onClick={() => setIsOpen(true)} />
+        {isOpen && (
+          <CustomOverlayMap position={markerPosition}>
+            <CustomOveray setIsOpen={setIsOpen} />
+          </CustomOverlayMap>
+        )}
       </Map>
       {position && (
         <p>
