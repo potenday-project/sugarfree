@@ -1,5 +1,8 @@
 import MapPage from "./pages/MapPage";
 import styled from "styled-components";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import LogoPage from "./pages/LogoPage";
 
 const AppContainer = styled.div`
   display: flex;
@@ -11,9 +14,15 @@ const AppContainer = styled.div`
 
 function App() {
   return (
-    <AppContainer>
-      <MapPage />
-    </AppContainer>
+    <BrowserRouter>
+      <AppContainer>
+        <Routes>
+          <Route exact path="/" element={<LogoPage />} />
+          <Route path="/map" element={<MapPage />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+      </AppContainer>
+    </BrowserRouter>
   );
 }
 
