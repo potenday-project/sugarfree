@@ -1,0 +1,27 @@
+[
+  {
+    "content": "스타벅스 슬렉점",
+    "position": { "lat": 36, "lng": 126 },
+    "count": 5
+  },
+  {
+    "content": "스타벅스 제주점",
+    "position": { "lat": 36, "lng": 127 },
+    "count": 4
+  },
+  {
+    "content": "스타벅스 멍멍점",
+    "position": { "lat": 35, "lng": 128 },
+    "count": 3
+  },
+  {
+    "content": "스타벅스 울산점",
+    "position": { "lat": 36, "lng": 123 },
+    "count": 2
+  },
+  {
+    "content": "안녕 멍멍점",
+    "position": { "lat": 35, "lng": 125 },
+    "count": 1
+  }
+]

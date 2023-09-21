@@ -1,21 +1,14 @@
 import PropTypes from "prop-types";
-import {
-  Map,
-  MapTypeControl,
-  ZoomControl,
-  MapMarker,
-  CustomOverlayMap,
-} from "react-kakao-maps-sdk";
+import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 import useKakaoLoader from "../hooks/useKakaoLoader";
 import { useEffect, useState } from "react";
 import CustomOveray from "./CustomOveray";
+import axios from "axios";
 
 export default function MapComponent({ place, current }) {
-  const [position, setPosition] = useState();
-  const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
+  const [kakaoMarkers, setKakaoMarkers] = useState([]);
   const [map, setMap] = useState();
-  const [isOpen, setIsOpen] = useState(false);
   const [state, setState] = useState({
     center: {
       lat: 33.450701,
@@ -25,11 +18,22 @@ export default function MapComponent({ place, current }) {
     isLoading: true,
   });
 
+  useKakaoLoader();
+
   useEffect(() => {
+    setState({
+      center: {
+        lat: 33.450701,
+        lng: 126.570667,
+      },
+      isPanto: false,
+    });
+
     if (navigator.geolocation) {
       // GeoLocation을 이용해서 접속 위치를 얻어옵니다
       navigator.geolocation.getCurrentPosition(
         (position) => {
+          console.log("Hey");
           setState((prev) => ({
             ...prev,
             center: {
@@ -57,19 +61,23 @@ export default function MapComponent({ place, current }) {
     }
   }, [current]);
 
-  useKakaoLoader();
-
-  const markerPosition = {
-    lat: 33.450701,
-    lng: 126.570667,
+  const asyncFunction = async (place) => {
+    const data = await axios.get("/dummy/dummy.json");
+    setMarkers(
+      data.data.filter((el) => {
+        console.log(el.content);
+        return el.content.indexOf(place) !== -1;
+      })
+    );
   };
 
   useEffect(() => {
-    if (!map) return;
+    if (!map || place === "") return;
+    asyncFunction(place);
 
-    const ps = new kakao.maps.services.Places(); // kakao는 이미 불러져왔으므로 신경쓰지 않으셔도 됩니다.
+    const ps = new kakao.maps.services.Places();
 
-    ps.keywordSearch(place, (data, status /*_pagination*/) => {
+    ps.keywordSearch(place, (data, status, _pagination) => {
       if (status === kakao.maps.services.Status.OK) {
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
@@ -88,7 +96,7 @@ export default function MapComponent({ place, current }) {
           // @ts-ignore
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
-        setMarkers(markers);
+        setKakaoMarkers(markers);
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
         map.setBounds(bounds);
@@ -100,62 +108,39 @@ export default function MapComponent({ place, current }) {
     <>
       <Map // 지도를 표시할 Container
         id="map"
-        center={{
-          // 지도의 중심좌표
-          lat: 33.450701,
-          lng: 126.570667,
-        }}
+        isPanto={true}
+        center={state.center}
         style={{
           // 지도의 크기
           width: "375px",
           height: "812px",
         }}
         level={3} // 지도의 확대 레벨
-        onClick={(_t, mouseEvent) =>
-          setPosition({
-            lat: mouseEvent.latLng.getLat(),
-            lng: mouseEvent.latLng.getLng(),
-          })
-        }
         onCreate={setMap}
       >
-        <MapTypeControl position={"TOPRIGHT"} />
-        <ZoomControl position={"RIGHT"} />
-        {position && <MapMarker position={position} />}
         {markers.map((marker) => (
-          <MapMarker
+          <div
             key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
-            position={marker.position}
-            onClick={() => setInfo(marker)}
-            image={{
-              src: "/images/lowMenu.png", // 마커이미지의 주소입니다
-              size: {
-                width: 20,
-                height: 20,
-              }, // 마커이미지의 크기입니다
-              options: {
-                offset: {
-                  x: 27,
-                  y: 69,
-                }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-              },
-            }}
           >
-            {info && info.content === marker.content && (
-              <div style={{ color: "#000" }}>{marker.content}</div>
-            )}
-          </MapMarker>
+            <CustomOverlayMap position={marker.position}>
+              <CustomOveray count={marker.count} kakao={false} />
+            </CustomOverlayMap>
+          </div>
         ))}
-        <MapMarker position={markerPosition} onClick={() => setIsOpen(true)} />
-        {isOpen && (
-          <CustomOverlayMap position={markerPosition}>
-            <CustomOveray setIsOpen={setIsOpen} />
-          </CustomOverlayMap>
-        )}
+        {kakaoMarkers.map((marker) => (
+          <div
+            key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
+          >
+            <CustomOverlayMap position={marker.position}>
+              <CustomOveray kakao={true} count={0} />
+            </CustomOverlayMap>
+          </div>
+        ))}
+
         {!state.isLoading && (
           <MapMarker position={state.center}>
             <div style={{ padding: "5px", color: "#000" }}>
-              {state.errMsg ? state.errMsg : "여기에 계신가요?!"}
+              {state.errMsg ? state.errMsg : "현 위치"}
             </div>
           </MapMarker>
         )}
@@ -166,4 +151,5 @@ export default function MapComponent({ place, current }) {
 
 MapComponent.propTypes = {
   place: PropTypes.string.isRequired,
+  current: PropTypes.bool.isRequired,
 };

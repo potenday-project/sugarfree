@@ -1,75 +1,127 @@
-import PropTypes from "prop-types";
 import styled from "styled-components";
+import PropTypes from "prop-types";
+import { useRef, useState } from "react";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const ModalDiv = styled.div`
-  width: 100%;
-  height: 100%;
+  height: 33px;
+  width: 62px;
   z-index: 5;
-  background-color: gray;
+  background-color: white;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  border: 1px solid #2ab7c0;
+  border-radius: 12px;
+  color: #2ab7c0;
+  position: relative;
 `;
 
 const WrapperDiv = styled.div`
   display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
 `;
 
-const ButtonDiv = styled.div`
-  cursor: pointer;
-  color: red;
+const Img = styled.img`
+  width: 20px;
+  height: 13px;
+  top: 27%;
+  left: 22%;
+  position: absolute;
 `;
 
-export default function CustomOveray({ setIsOpen }) {
+const ModalSpan = styled.span`
+  right: 15%;
+  bottom: 25%;
+  position: absolute;
+`;
+
+const HighImg = styled.img`
+  z-index: 5;
+  width: 34px;
+  height: 34px;
+`;
+
+export default function CustomOveray({ count, kakao }) {
+  const [color, setColor] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const imgRef = useRef(null);
+  const modalRef = useRef(null);
+  const spanRef = useRef(null);
+
+  const onClickHandler = () => {
+    if (color) {
+      imgRef.current.src = "/images/whiteCup.png";
+      modalRef.current.style.backgroundColor = "#2ab7c0";
+      spanRef.current.style.color = "white";
+      handleOpen();
+    } else {
+      imgRef.current.src = "/images/lowMenu.png";
+      modalRef.current.style.backgroundColor = "white";
+      spanRef.current.style.color = "#2ab7c0";
+      handleClose();
+    }
+    setColor(!color);
+  };
+
   return (
-    <ModalDiv>
-      <WrapperDiv className="wrap">
-        <div className="info">
-          <div className="title">
-            스타벅스 슬렉점
-            <div
-              className="close"
-              onClick={() => setIsOpen(false)}
-              title="닫기"
-            >
-              <ButtonDiv>X</ButtonDiv>
+    <>
+      <div>
+        {kakao ? (
+          <WrapperDiv className="wrap">
+            <div>
+              <HighImg src="images/highMenu.png" />
             </div>
-          </div>
-          <div className="body">
-            <div className="img">
-              <img
-                src="//t1.daumcdn.net/thumb/C84x76/?fname=http://t1.daumcdn.net/cfile/2170353A51B82DE005"
-                width="73"
-                height="70"
-                alt="카카오 스페이스닷원"
-              />
-            </div>
-            <div className="desc">
-              <div className="ellipsis">제주특별자치도 제주시 첨단로 242</div>
-              <div className="jibun ellipsis">
-                (우) 63309 (지번) 영평동 2181
-              </div>
+          </WrapperDiv>
+        ) : (
+          <ModalDiv ref={modalRef} onClick={onClickHandler}>
+            <WrapperDiv className="wrap">
               <div>
-                <a
-                  href="https://www.kakaocorp.com/main"
-                  target="_blank"
-                  className="link"
-                  rel="noreferrer"
-                >
-                  홈페이지
-                </a>
+                <Img ref={imgRef} src="images/lowMenu.png" />
+                <ModalSpan ref={spanRef}>{count}</ModalSpan>
               </div>
-            </div>
-          </div>
-        </div>
-      </WrapperDiv>
-    </ModalDiv>
+            </WrapperDiv>
+          </ModalDiv>
+        )}
+      </div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            스타벅스 멍멍점
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            안녕하세요 저는 멍멍이에요
+          </Typography>
+        </Box>
+      </Modal>
+    </>
   );
 }
-
 CustomOveray.propTypes = {
-  setIsOpen: PropTypes.func.isRequired,
+  count: PropTypes.number.isRequired,
+  kakao: PropTypes.bool.isRequired,
 };

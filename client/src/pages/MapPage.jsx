@@ -1,9 +1,8 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import MapComponent from "../components/MapComponent";
 import Rating from "@mui/material/Rating";
 import {
   Wrapper,
-  InputStyle,
   BottomBar,
   BottomBarClick,
   BottomBarSpan1,
@@ -16,19 +15,15 @@ import {
   ModalP2,
   CurrentImg,
 } from "../styles/MapPage";
+import TextField from "@mui/material/TextField";
+import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
+import { cafes } from "../assets/constantValues";
+const filter = createFilterOptions();
 
 export default function MapPage() {
   const [drop, setDrop] = useState(true);
   const [isModal, setIsModal] = useState(false);
-  const inputRef = useRef(null);
-  const [inputContent, SetInputContent] = useState(" ");
   const [current, setCurrent] = useState(false);
-
-  const onKeyUpHandler = (e) => {
-    if (e.key === "Enter") {
-      SetInputContent(inputRef.current.value);
-    }
-  };
 
   const onClickHandler = () => {
     setDrop(false);
@@ -56,17 +51,68 @@ export default function MapPage() {
   const imgHandler = () => {
     setCurrent(!current);
   };
-
+  const [value, setValue] = useState("");
   return (
     <>
       <Wrapper onClick={onClickHandler}>
-        <InputStyle
-          ref={inputRef}
-          onKeyUp={onKeyUpHandler}
-          placeholder="키워드,주소 검색"
+        <Autocomplete
+          value={value}
+          onChange={(event, newValue) => {
+            if (typeof newValue === "string") {
+              setValue({
+                title: newValue,
+              });
+            } else if (newValue && newValue.inputValue) {
+              // Create a new value from the user input
+              setValue({
+                title: newValue.inputValue,
+              });
+            } else {
+              setValue(newValue);
+            }
+          }}
+          filterOptions={(options, params) => {
+            const filtered = filter(options, params);
+
+            const { inputValue } = params;
+            // Suggest the creation of a new value
+            const isExisting = options.some(
+              (option) => inputValue === option.title
+            );
+            if (inputValue !== "" && !isExisting) {
+              filtered.push({
+                inputValue,
+                title: `Add "${inputValue}"`,
+              });
+            }
+            return filtered;
+          }}
+          selectOnFocus
+          clearOnBlur
+          handleHomeEndKeys
+          id="free-solo-with-text-demo"
+          options={cafes}
+          getOptionLabel={(option) => {
+            // Value selected with enter, right from the input
+            if (typeof option === "string") {
+              return option;
+            }
+            // Add "xxx" option created dynamically
+            if (option.inputValue) {
+              return option.inputValue;
+            }
+            // Regular option
+            return option.title;
+          }}
+          renderOption={(props, option) => <li {...props}>{option.title}</li>}
+          sx={{ width: 300 }}
+          freeSolo
+          renderInput={(params) => (
+            <TextField {...params} label="키워드, 장소를 검색하세요" />
+          )}
         />
         <CurrentImg onClick={imgHandler} src="images/currentLocation.png" />
-        <MapComponent place={inputContent} current={current} />
+        <MapComponent place={value} current={current} />
         {drop ? (
           <BottomBar onClick={bottomBarClickHandler}>
             <BottomBarClick>ㅡ</BottomBarClick>
