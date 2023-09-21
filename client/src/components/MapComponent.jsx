@@ -33,7 +33,6 @@ export default function MapComponent({ place, current }) {
       // GeoLocation을 이용해서 접속 위치를 얻어옵니다
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          console.log("Hey");
           setState((prev) => ({
             ...prev,
             center: {
@@ -72,7 +71,7 @@ export default function MapComponent({ place, current }) {
   };
 
   useEffect(() => {
-    if (!map || place === "") return;
+    if (!map || !place) return;
     asyncFunction(place);
 
     const ps = new kakao.maps.services.Places();

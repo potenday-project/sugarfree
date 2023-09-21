@@ -51,6 +51,7 @@ export default function MapPage() {
   const imgHandler = () => {
     setCurrent(!current);
   };
+
   const [value, setValue] = useState("");
   return (
     <>
@@ -112,7 +113,7 @@ export default function MapPage() {
           )}
         />
         <CurrentImg onClick={imgHandler} src="images/currentLocation.png" />
-        <MapComponent place={value} current={current} />
+        <MapComponent place={value ? value.title : ""} current={current} />
         {drop ? (
           <BottomBar onClick={bottomBarClickHandler}>
             <BottomBarClick>ㅡ</BottomBarClick>
