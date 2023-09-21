@@ -1,95 +1,28 @@
 import { useRef, useState } from "react";
 import MapComponent from "../components/MapComponent";
 import Rating from "@mui/material/Rating";
-import styled from "styled-components";
-
-const MenuDiv = styled.div`
-  font-family: var(--nanum);
-`;
-
-const InputStyle = styled.input`
-  width: 250px;
-  height: 42px;
-  border-radius: 5px;
-  position: absolute;
-  left: 3%;
-  z-index: 5;
-`;
-
-const Wrapper = styled.div`
-  position: relative;
-`;
-
-const BottomBar = styled.div`
-  position: absolute;
-  bottom: 0%;
-  z-index: 5;
-  background-color: white;
-  width: 100%;
-  height: 251px;
-  text-align: center;
-`;
-
-const BottomBarClick = styled.p`
-  cursor: pointer;
-  color: red;
-`;
-
-const BottomBarSpan1 = styled.span`
-  margin-right: 4rem;
-`;
-
-const BottomBarSpan2 = styled.span`
-  margin-left: 4rem;
-  cursor: pointer;
-`;
-
-const Modal = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
-  z-index: 9;
-  position: absolute;
-`;
-
-const ModalWrapper = styled.div`
-  width: 257px;
-  height: 223px;
-  position: absolute;
-  top: 20%;
-  right: 39%;
-  background-color: white;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  border-radius: 11px;
-`;
-
-const ModalStandard = styled.p`
-  margin-top: 2rem;
-`;
-
-const ModalP = styled.p`
-  margin-top: 2rem;
-  cursor: pointer;
-  &:hover {
-    color: #2ab7c0;
-  }
-`;
-
-const ModalP2 = styled.p`
-  text-align: right;
-  width: 100%;
-  margin-right: 1rem;
-  cursor: pointer;
-`;
+import {
+  Wrapper,
+  InputStyle,
+  BottomBar,
+  BottomBarClick,
+  BottomBarSpan1,
+  BottomBarSpan2,
+  MenuDiv,
+  Modal,
+  ModalWrapper,
+  ModalStandard,
+  ModalP,
+  ModalP2,
+  CurrentImg,
+} from "../styles/MapPage";
 
 export default function MapPage() {
   const [drop, setDrop] = useState(true);
   const [isModal, setIsModal] = useState(false);
   const inputRef = useRef(null);
   const [inputContent, SetInputContent] = useState(" ");
+  const [current, setCurrent] = useState(false);
 
   const onKeyUpHandler = (e) => {
     if (e.key === "Enter") {
@@ -120,6 +53,10 @@ export default function MapPage() {
     e.stopPropagation();
   };
 
+  const imgHandler = () => {
+    setCurrent(!current);
+  };
+
   return (
     <>
       <Wrapper onClick={onClickHandler}>
@@ -128,7 +65,8 @@ export default function MapPage() {
           onKeyUp={onKeyUpHandler}
           placeholder="키워드,주소 검색"
         />
-        <MapComponent place={inputContent} />
+        <CurrentImg onClick={imgHandler} src="images/currentLocation.png" />
+        <MapComponent place={inputContent} current={current} />
         {drop ? (
           <BottomBar onClick={bottomBarClickHandler}>
             <BottomBarClick>ㅡ</BottomBarClick>
