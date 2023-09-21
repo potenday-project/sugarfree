@@ -1,17 +1,41 @@
 import PropTypes from "prop-types";
+import styled from "styled-components";
+
+const ModalDiv = styled.div`
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  background-color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const WrapperDiv = styled.div`
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ButtonDiv = styled.div`
+  cursor: pointer;
+  color: red;
+`;
+
 export default function CustomOveray({ setIsOpen }) {
   return (
-    <>
-      <div className="wrap">
+    <ModalDiv>
+      <WrapperDiv className="wrap">
         <div className="info">
           <div className="title">
-            카카오 스페이스닷원
+            스타벅스 슬렉점
             <div
               className="close"
               onClick={() => setIsOpen(false)}
               title="닫기"
             >
-              <p>X</p>
+              <ButtonDiv>X</ButtonDiv>
             </div>
           </div>
           <div className="body">
@@ -41,8 +65,8 @@ export default function CustomOveray({ setIsOpen }) {
             </div>
           </div>
         </div>
-      </div>
-    </>
+      </WrapperDiv>
+    </ModalDiv>
   );
 }
 
