@@ -18,6 +18,7 @@ export default function MapComponent({ place }) {
   const [isOpen, setIsOpen] = useState(false);
 
   useKakaoLoader();
+
   const markerPosition = {
     lat: 33.450701,
     lng: 126.570667,
@@ -66,8 +67,8 @@ export default function MapComponent({ place }) {
         }}
         style={{
           // 지도의 크기
-          width: "44%",
-          height: "550px",
+          width: "375px",
+          height: "812px",
         }}
         level={3} // 지도의 확대 레벨
         onClick={(_t, mouseEvent) =>
@@ -86,6 +87,19 @@ export default function MapComponent({ place }) {
             key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
             position={marker.position}
             onClick={() => setInfo(marker)}
+            image={{
+              src: "/images/lowMenu.png", // 마커이미지의 주소입니다
+              size: {
+                width: 20,
+                height: 20,
+              }, // 마커이미지의 크기입니다
+              options: {
+                offset: {
+                  x: 27,
+                  y: 69,
+                }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+              },
+            }}
           >
             {info && info.content === marker.content && (
               <div style={{ color: "#000" }}>{marker.content}</div>
@@ -99,15 +113,6 @@ export default function MapComponent({ place }) {
           </CustomOverlayMap>
         )}
       </Map>
-      {position && (
-        <p>
-          {"클릭한 위치의 위도는 " +
-            position.lat +
-            " 이고, 경도는 " +
-            position.lng +
-            " 입니다"}
-        </p>
-      )}
     </>
   );
 }
