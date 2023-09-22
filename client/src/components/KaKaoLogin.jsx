@@ -1,10 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export default function KakaoLogin() {
   const [code, setCode] = useState("");
-  const navigate = useNavigate();
 
   // oauth 요청 URL
   const kakaoURL =

@@ -5,11 +5,11 @@ export const MenuDiv = styled.div`
 `;
 
 export const InputStyle = styled.input`
-  width: 250px;
+  width: 347px;
   height: 42px;
   border-radius: 5px;
+  left: 5%;
   position: absolute;
-  left: 3%;
   z-index: 5;
 `;
 
