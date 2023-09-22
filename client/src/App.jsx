@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import LogoPage from "./pages/LogoPage";
+import DetailPage from "./pages/DetailPage";
 
 const AppContainer = styled.div`
   display: flex;
@@ -20,6 +21,7 @@ function App() {
           <Route exact path="/" element={<LogoPage />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/detail" element={<DetailPage />} />
         </Routes>
       </AppContainer>
     </BrowserRouter>

@@ -30,11 +30,15 @@ import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import { useSelector, useDispatch } from "react-redux";
 import { cafes } from "../assets/constantValues";
 import { onDrop } from "../redux/userSlice";
+import { useNavigate } from "react-router-dom";
+
 const filter = createFilterOptions();
 
 export default function MapPage() {
   const [isModal, setIsModal] = useState(false);
   const [current, setCurrent] = useState(false);
+
+  const navigate = useNavigate();
 
   const markerInfo = useSelector((state) => state.marker);
   const dispatch = useDispatch();
@@ -81,6 +85,10 @@ export default function MapPage() {
   useEffect(() => {
     asyncFucntion();
   }, []);
+
+  const detailClickHandler = (item) => {
+    navigate("/detail", { state: item });
+  };
 
   return (
     <>
@@ -166,7 +174,9 @@ export default function MapPage() {
                           <DivideSpan>|</DivideSpan>
                           <span>리뷰 {el.reviews.length}</span>
                         </StarAndReviewDiv>
-                        <DetailDiv>자세히 보기</DetailDiv>
+                        <DetailDiv onClick={() => detailClickHandler(el)}>
+                          자세히 보기
+                        </DetailDiv>
                       </DropWrapper>
                     </DropOuter>
                   );

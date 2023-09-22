@@ -10,6 +10,7 @@
     "menu": [
       {
         "name": "americano",
+        "description": "아주 맛나용",
         "menuStar": 3.7,
         "img": "/images/coffee1.png",
         "price": 4500,
@@ -17,7 +18,13 @@
           "sugar": 2.5,
           "sodium": 3.4,
           "fat": 12.5,
-          "Caffeine": 1.5
+          "caffeine": 1.5,
+          "calories": 10,
+          "carbon": 10,
+          "protein": 5,
+          "colesterol": 4,
+          "transFat": 4,
+          "fourFat": 4
         },
         "reviews": [
           {
@@ -34,6 +41,7 @@
       },
       {
         "name": "americano",
+        "description": "아주 맛나용",
         "menuStar": 3.7,
         "price": 4500,
         "img": "/images/coffee1.png",
@@ -41,7 +49,13 @@
           "sugar": 2.5,
           "sodium": 3.4,
           "fat": 12.5,
-          "Caffeine": 1.5
+          "caffeine": 1.5,
+          "calories": 10,
+          "carbon": 10,
+          "protein": 5,
+          "colesterol": 4,
+          "transFat": 4,
+          "fourFat": 4
         },
         "reviews": [
           {
@@ -64,6 +78,7 @@
     "menu": [
       {
         "name": "americano",
+        "description": "아주 맛나용",
         "menuStar": 3.7,
         "img": "/images/coffee1.png",
         "price": 4500,
@@ -71,7 +86,13 @@
           "sugar": 2.5,
           "sodium": 3.4,
           "fat": 12.5,
-          "Caffeine": 1.5
+          "caffeine": 1.5,
+          "calories": 10,
+          "carbon": 10,
+          "protein": 5,
+          "colesterol": 4,
+          "transFat": 4,
+          "fourFat": 4
         },
         "reviews": [
           {
@@ -89,13 +110,20 @@
       {
         "name": "cappuchino",
         "menuStar": 3.7,
+        "description": "아주 맛나용",
         "price": 4500,
         "img": "/images/coffee1.png",
         "nutrients": {
           "sugar": 2.5,
           "sodium": 3.4,
           "fat": 12.5,
-          "Caffeine": 1.5
+          "caffeine": 1.5,
+          "calories": 10,
+          "carbon": 10,
+          "protein": 5,
+          "colesterol": 4,
+          "transFat": 4,
+          "fourFat": 4
         },
         "reviews": [
           {
