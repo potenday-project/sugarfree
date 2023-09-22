@@ -1,97 +1,76 @@
-import styled from "styled-components";
+import {
+  ModalDivKakao,
+  WrapperDiv,
+  Img2,
+  Img,
+  ModalSpan,
+  ModalDiv,
+} from "../styles/CustomOveray";
 import PropTypes from "prop-types";
-import { useEffect, useRef, useState } from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
-const ModalDiv = styled.div`
-  height: 33px;
-  width: 62px;
-  z-index: 5;
-  background-color: white;
-  display: flex;
-  border: 1px solid #2ab7c0;
-  border-radius: 12px;
-  color: #2ab7c0;
-  position: relative;
-`;
-
-const WrapperDiv = styled.div`
-  display: flex;
-`;
-
-const Img = styled.img`
-  width: 20px;
-  height: 13px;
-  top: 27%;
-  left: 22%;
-  position: absolute;
-`;
-
-const ModalSpan = styled.span`
-  right: 15%;
-  bottom: 25%;
-  position: absolute;
-`;
-
-const HighImg = styled.img`
-  z-index: 5;
-  width: 34px;
-  height: 34px;
-`;
-
-export default function CustomOveray({ count, kakao, selected }) {
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+import { useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { setMarker, onDrop } from "../redux/userSlice";
+export default function CustomOveray({
+  count,
+  kakao,
+  selected,
+  setSelected,
+  index,
+  marker,
+}) {
   const imgRef = useRef(null);
+  const imgRef2 = useRef(null);
   const modalRef = useRef(null);
+  const modalRef2 = useRef(null);
   const spanRef = useRef(null);
+  const spanRef2 = useRef(null);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (selected) {
-      imgRef.current.src = "/images/whiteCup.png";
-      modalRef.current.style.backgroundColor = "#2ab7c0";
-      spanRef.current.style.color = "white";
-      handleOpen();
+    if (index === selected) {
+      if (!kakao) {
+        imgRef.current.src = "/images/whiteCup.png";
+        modalRef.current.style.backgroundColor = "#2ab7c0";
+        spanRef.current.style.color = "white";
+      } else {
+        imgRef2.current.src = "/images/highMenuClicked.png";
+        modalRef2.current.style.backgroundColor = "#d6d6d6";
+        spanRef2.current.style.color = "white";
+      }
+      dispatch(setMarker(marker));
+      dispatch(onDrop({ clicked: true }));
     } else {
-      imgRef.current.src = "/images/lowMenu.png";
-      modalRef.current.style.backgroundColor = "white";
-      spanRef.current.style.color = "#2ab7c0";
-      handleClose();
+      if (!kakao) {
+        imgRef.current.src = "/images/lowMenu.png";
+        modalRef.current.style.backgroundColor = "white";
+        spanRef.current.style.color = "#2ab7c0";
+      } else {
+        imgRef2.current.src = "/images/highMenu.png";
+        modalRef2.current.style.backgroundColor = "white";
+        spanRef2.current.style.color = "gray";
+      }
     }
-  }, [selected]);
+  }, [selected, index, kakao]);
+
+  const onClickHandler = () => {
+    setSelected(index);
+  };
 
   return (
     <>
       <div>
         {kakao ? (
-          <WrapperDiv className="wrap">
-            <div>
-              <HighImg src="images/highMenu.png" />
-            </div>
-          </WrapperDiv>
+          <ModalDivKakao ref={modalRef2} onClick={onClickHandler}>
+            <WrapperDiv className="wrap">
+              <div>
+                <Img2 ref={imgRef2} src="images/highMenu.png" />
+                <ModalSpan ref={spanRef2}>{count}</ModalSpan>
+              </div>
+            </WrapperDiv>
+          </ModalDivKakao>
         ) : (
-          <ModalDiv ref={modalRef}>
+          <ModalDiv ref={modalRef} onClick={onClickHandler}>
             <WrapperDiv className="wrap">
               <div>
                 <Img ref={imgRef} src="images/lowMenu.png" />
@@ -101,26 +80,16 @@ export default function CustomOveray({ count, kakao, selected }) {
           </ModalDiv>
         )}
       </div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            스타벅스 멍멍점
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            안녕하세요 저는 멍멍이에요
-          </Typography>
-        </Box>
-      </Modal>
+      <p>{marker.content}</p>
     </>
   );
 }
+
 CustomOveray.propTypes = {
   count: PropTypes.number.isRequired,
   kakao: PropTypes.bool.isRequired,
-  selected: PropTypes.bool.isRequired,
+  index: PropTypes.number.isRequired,
+  selected: PropTypes.number.isRequired,
+  setSelected: PropTypes.func.isRequired,
+  marker: PropTypes.object.isRequired,
 };

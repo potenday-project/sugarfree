@@ -13,6 +13,41 @@ export const InputStyle = styled.input`
   z-index: 5;
 `;
 
+export const DropOuter = styled.div`
+  display: flex;
+`;
+
+export const DropWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  align-items: start;
+`;
+
+export const StarImg = styled.img`
+  margin-right: 0.2rem;
+`;
+
+export const DropFlex = styled.div`
+  display: flex;
+`;
+
+export const MenuStarSpan = styled.span`
+  margin-right: 1rem;
+  margin-left: 0.1rem;
+  margin-top: 0.2rem;
+`;
+
+export const DivideSpan = styled.span`
+  margin-right: 0.3rem;
+`;
+
+export const StarAndReviewDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const CurrentImg = styled.img`
   width: 35px;
   height: 35px;
@@ -23,6 +58,14 @@ export const CurrentImg = styled.img`
   left: 0%;
 `;
 
+export const InnerWrapper = styled.div`
+  position: absolute;
+  top: 0%;
+  left: 5%;
+  z-index: 5;
+  background-color: white;
+`;
+
 export const Wrapper = styled.div`
   position: relative;
 `;
@@ -30,15 +73,35 @@ export const Wrapper = styled.div`
 export const BottomBar = styled.div`
   position: absolute;
   bottom: 0%;
+  z-index: 11;
+  background-color: white;
+  width: 100%;
+  height: 310px;
+  text-align: center;
+`;
+
+export const TitleP = styled.p`
+  color: #2ab7c0;
+`;
+
+export const BottomBar2 = styled.div`
+  position: absolute;
   z-index: 5;
   background-color: white;
   width: 100%;
-  height: 251px;
+  height: 115px;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0%;
+  flex-direction: column;
 `;
 
 export const BottomBarClick = styled.p`
   cursor: pointer;
+  font-size: 3rem;
+  font-weight: bold;
   color: red;
 `;
 
@@ -90,4 +153,20 @@ export const ModalP2 = styled.p`
   width: 100%;
   margin-right: 1rem;
   cursor: pointer;
+`;
+
+export const DetailDiv = styled.div`
+  color: #2ab7c0;
+  border: 1px solid #2ab7c0;
+  width: 139px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #2ab7c0;
+    color: white;
+  }
 `;

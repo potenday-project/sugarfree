@@ -1,32 +1,115 @@
 [
   {
     "content": "스타벅스 슬렉점",
+    "id": 1,
     "position": { "lat": 36, "lng": 126 },
+    "address": "서울 용산구 슬렉지점",
+    "time": "09:00-21:00",
     "count": 5,
-    "clicked": false
-  },
-  {
-    "content": "스타벅스 제주점",
-    "position": { "lat": 36, "lng": 127 },
-    "count": 4,
-    "clicked": false
+    "cafeStar": 3.5,
+    "menu": [
+      {
+        "name": "americano",
+        "menuStar": 3.7,
+        "img": "/images/coffee1.png",
+        "price": 4500,
+        "nutrients": {
+          "sugar": 2.5,
+          "sodium": 3.4,
+          "fat": 12.5,
+          "Caffeine": 1.5
+        },
+        "reviews": [
+          {
+            "userId": 1,
+            "content": "어우 너무 맛있어요",
+            "createdAt": "date형식"
+          },
+          {
+            "userId": 2,
+            "content": "나는 노맛인데 ㅡㅡ",
+            "createdAt": "date형식"
+          }
+        ]
+      },
+      {
+        "name": "americano",
+        "menuStar": 3.7,
+        "price": 4500,
+        "img": "/images/coffee1.png",
+        "nutrients": {
+          "sugar": 2.5,
+          "sodium": 3.4,
+          "fat": 12.5,
+          "Caffeine": 1.5
+        },
+        "reviews": [
+          {
+            "userId": 2,
+            "content": "나는 노맛인데 ㅡㅡ",
+            "createdAt": "date형식"
+          }
+        ]
+      }
+    ]
   },
   {
     "content": "스타벅스 멍멍점",
-    "position": { "lat": 35, "lng": 128 },
-    "count": 3,
-    "clicked": false
-  },
-  {
-    "content": "스타벅스 울산점",
-    "position": { "lat": 36, "lng": 123 },
-    "count": 2,
-    "clicked": false
-  },
-  {
-    "content": "안녕 멍멍점",
-    "position": { "lat": 35, "lng": 125 },
-    "count": 1,
-    "clicked": false
+    "id": 1,
+    "position": { "lat": 35, "lng": 126 },
+    "address": "서울 용산구 멍멍지점",
+    "time": "09:00-21:00",
+    "count": 5,
+    "cafeStar": 3.5,
+    "menu": [
+      {
+        "name": "americano",
+        "menuStar": 3.7,
+        "img": "/images/coffee1.png",
+        "price": 4500,
+        "nutrients": {
+          "sugar": 2.5,
+          "sodium": 3.4,
+          "fat": 12.5,
+          "Caffeine": 1.5
+        },
+        "reviews": [
+          {
+            "userId": 1,
+            "content": "어우 너무 맛있어요",
+            "createdAt": "date형식"
+          },
+          {
+            "userId": 2,
+            "content": "나는 노맛인데 ㅡㅡ",
+            "createdAt": "date형식"
+          }
+        ]
+      },
+      {
+        "name": "cappuchino",
+        "menuStar": 3.7,
+        "price": 4500,
+        "img": "/images/coffee1.png",
+        "nutrients": {
+          "sugar": 2.5,
+          "sodium": 3.4,
+          "fat": 12.5,
+          "Caffeine": 1.5
+        },
+        "reviews": [
+          {
+            "userId": 1,
+            "content": "어우 너무 맛있어요",
+            "createdAt": "date형식"
+          },
+          {
+            "userId": 2,
+            "content": "나는 노맛인데 ㅡㅡ",
+            "createdAt": "date형식"
+          }
+        ]
+      }
+    ]
   }
 ]
