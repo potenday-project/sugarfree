@@ -17,7 +17,7 @@ export default function MapComponent({ place, current }) {
     errMsg: null,
     isLoading: true,
   });
-  const [selectedMarker, setSelectedMarker] = useState(null);
+  const [selected, setSelected] = useState(-1);
 
   useKakaoLoader();
 
@@ -63,20 +63,24 @@ export default function MapComponent({ place, current }) {
 
   const asyncFunction = async (place) => {
     const data = await axios.get("/dummy/dummy.json");
-    setMarkers(
-      data.data.filter((el) => {
-        return el.content.indexOf(place) !== -1;
-      })
-    );
+    place === ""
+      ? setMarkers(data.data)
+      : setMarkers(
+          data.data.filter((el) => {
+            return el.content.indexOf(place) !== -1;
+          })
+        );
   };
 
   useEffect(() => {
-    if (!map || !place) return;
+    if (!map) return;
     asyncFunction(place);
 
     const ps = new kakao.maps.services.Places();
 
-    ps.keywordSearch(place, (data, status, _pagination) => {
+    const defaultPlace = place || "카페";
+
+    ps.keywordSearch(defaultPlace, (data, status, _pagination) => {
       if (status === kakao.maps.services.Status.OK) {
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
@@ -103,11 +107,6 @@ export default function MapComponent({ place, current }) {
     });
   }, [map, place]);
 
-  const handleMarkerClick = (markerId) => {
-    setSelectedMarker(markerId);
-    console.log(markerId, selectedMarker);
-  };
-
   return (
     <>
       <Map // 지도를 표시할 Container
@@ -130,21 +129,32 @@ export default function MapComponent({ place, current }) {
               <CustomOveray
                 count={marker.count}
                 kakao={false}
-                onClick={() => handleMarkerClick(index)}
-                selected={selectedMarker === index}
+                index={index}
+                selected={selected}
+                setSelected={setSelected}
+                marker={marker}
               />
             </CustomOverlayMap>
           </div>
         ))}
-        {kakaoMarkers.map((marker) => (
-          <div
-            key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
-          >
-            <CustomOverlayMap position={marker.position}>
-              <CustomOveray kakao={true} count={0} />
-            </CustomOverlayMap>
-          </div>
-        ))}
+        {kakaoMarkers.map((marker, index) => {
+          return (
+            <div
+              key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
+            >
+              <CustomOverlayMap position={marker.position}>
+                <CustomOveray
+                  count={0}
+                  kakao={true}
+                  index={index + markers.length}
+                  selected={selected}
+                  setSelected={setSelected}
+                  marker={marker}
+                />
+              </CustomOverlayMap>
+            </div>
+          );
+        })}
         {!state.isLoading && (
           <MapMarker position={state.center}>
             <div style={{ padding: "5px", color: "#000" }}>
