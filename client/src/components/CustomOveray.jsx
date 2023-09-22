@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -53,8 +53,7 @@ const HighImg = styled.img`
   height: 34px;
 `;
 
-export default function CustomOveray({ count, kakao }) {
-  const [color, setColor] = useState(false);
+export default function CustomOveray({ count, kakao, selected }) {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -68,8 +67,8 @@ export default function CustomOveray({ count, kakao }) {
   const modalRef = useRef(null);
   const spanRef = useRef(null);
 
-  const onClickHandler = () => {
-    if (color) {
+  useEffect(() => {
+    if (selected) {
       imgRef.current.src = "/images/whiteCup.png";
       modalRef.current.style.backgroundColor = "#2ab7c0";
       spanRef.current.style.color = "white";
@@ -80,8 +79,7 @@ export default function CustomOveray({ count, kakao }) {
       spanRef.current.style.color = "#2ab7c0";
       handleClose();
     }
-    setColor(!color);
-  };
+  }, [selected]);
 
   return (
     <>
@@ -93,7 +91,7 @@ export default function CustomOveray({ count, kakao }) {
             </div>
           </WrapperDiv>
         ) : (
-          <ModalDiv ref={modalRef} onClick={onClickHandler}>
+          <ModalDiv ref={modalRef}>
             <WrapperDiv className="wrap">
               <div>
                 <Img ref={imgRef} src="images/lowMenu.png" />
@@ -124,4 +122,5 @@ export default function CustomOveray({ count, kakao }) {
 CustomOveray.propTypes = {
   count: PropTypes.number.isRequired,
   kakao: PropTypes.bool.isRequired,
+  selected: PropTypes.bool.isRequired,
 };

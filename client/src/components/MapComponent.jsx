@@ -17,6 +17,7 @@ export default function MapComponent({ place, current }) {
     errMsg: null,
     isLoading: true,
   });
+  const [selectedMarker, setSelectedMarker] = useState(null);
 
   useKakaoLoader();
 
@@ -64,7 +65,6 @@ export default function MapComponent({ place, current }) {
     const data = await axios.get("/dummy/dummy.json");
     setMarkers(
       data.data.filter((el) => {
-        console.log(el.content);
         return el.content.indexOf(place) !== -1;
       })
     );
@@ -103,6 +103,11 @@ export default function MapComponent({ place, current }) {
     });
   }, [map, place]);
 
+  const handleMarkerClick = (markerId) => {
+    setSelectedMarker(markerId);
+    console.log(markerId, selectedMarker);
+  };
+
   return (
     <>
       <Map // 지도를 표시할 Container
@@ -117,12 +122,17 @@ export default function MapComponent({ place, current }) {
         level={3} // 지도의 확대 레벨
         onCreate={setMap}
       >
-        {markers.map((marker) => (
+        {markers.map((marker, index) => (
           <div
             key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
           >
             <CustomOverlayMap position={marker.position}>
-              <CustomOveray count={marker.count} kakao={false} />
+              <CustomOveray
+                count={marker.count}
+                kakao={false}
+                onClick={() => handleMarkerClick(index)}
+                selected={selectedMarker === index}
+              />
             </CustomOverlayMap>
           </div>
         ))}
@@ -135,7 +145,6 @@ export default function MapComponent({ place, current }) {
             </CustomOverlayMap>
           </div>
         ))}
-
         {!state.isLoading && (
           <MapMarker position={state.center}>
             <div style={{ padding: "5px", color: "#000" }}>
