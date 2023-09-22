@@ -61,20 +61,14 @@ export default function MapComponent({ place, current }) {
     }
   }, [current]);
 
-  const asyncFunction = async (place) => {
+  const asyncFunction = async () => {
     const data = await axios.get("/dummy/dummy.json");
-    place === ""
-      ? setMarkers(data.data)
-      : setMarkers(
-          data.data.filter((el) => {
-            return el.content.indexOf(place) !== -1;
-          })
-        );
+    setMarkers(data.data);
   };
 
   useEffect(() => {
     if (!map) return;
-    asyncFunction(place);
+    asyncFunction();
 
     const ps = new kakao.maps.services.Places();
 
