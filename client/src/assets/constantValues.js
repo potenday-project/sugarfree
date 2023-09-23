@@ -1,4 +1,4 @@
-export const cafes = [
+export const cafesInfo = [
   { title: "스타벅스" },
   { title: "이디야" },
   { title: "백다방" },

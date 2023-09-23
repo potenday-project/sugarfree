@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MapComponent from "../components/MapComponent";
+import CarouselWrapper from "../components/CarouselWrapper";
 import axios from "axios";
 import {
   Wrapper,
@@ -24,19 +25,26 @@ import {
   MenuStarSpan,
   DivideSpan,
   TitleP,
+  ColoredSpan,
+  NearDivWrapper,
+  PopContainer,
 } from "../styles/MapPage";
-import TextField from "@mui/material/TextField";
-import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
+
 import { useSelector, useDispatch } from "react-redux";
-import { cafes } from "../assets/constantValues";
+import { cafesInfo } from "../assets/constantValues";
 import { onDrop } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
-
-const filter = createFilterOptions();
 
 export default function MapPage() {
   const [isModal, setIsModal] = useState(false);
   const [current, setCurrent] = useState(false);
+  const [auto, setAuto] = useState("");
+  const [value, setValue] = useState("");
+  const [distance, setDistance] = useState(0);
+  const [reviews, setReviews] = useState(0);
+  const [cafes, setCafes] = useState([]);
+
+  const inputRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -71,17 +79,23 @@ export default function MapPage() {
     }
   };
 
-  const [value, setValue] = useState("");
-  const [distance, setDistance] = useState(0);
-  const [reviews, setReviews] = useState(0);
-
   const asyncFucntion = async () => {
     // const data = await axios.post("/dummy/dummy2.json", {
     //   position: markerInfo.position, content:markerInfo.content, currentPosition : markerInfo.currentPosition
     // });
-    const data = await axios.get("/dummy/dummy2.json");
-    setDistance(data.data.distance);
+    const response = await axios.get("/dummy/dummy2.json");
+
+    setDistance(response.data.distance);
   };
+
+  const asyncFunction2 = async () => {
+    const response = await axios.get("/dummy/dummy4.json"); // 검색별로 카페 제공
+    setCafes(response.data);
+  };
+
+  useEffect(() => {
+    asyncFunction2(); // 거리별로 데이터를 가져와야 하는데 개어렵자나
+  }, [value]);
 
   useEffect(() => {
     asyncFucntion();
@@ -96,69 +110,41 @@ export default function MapPage() {
     navigate("/detail", { state: item });
   };
 
+  const onKeyDownHandler = (e) => {
+    if (e.key === "Enter") {
+      setValue(inputRef.current.value);
+    }
+  };
+
+  const onChangeHandler = (e) => {
+    setAuto(e.target.value);
+  };
+
+  useEffect(() => {}, [value]);
+
   return (
     <>
       <Wrapper>
         <InnerWrapper>
-          <Autocomplete
-            value={value}
-            onChange={(event, newValue) => {
-              if (typeof newValue === "string") {
-                setValue({
-                  title: newValue,
-                });
-              } else if (newValue && newValue.inputValue) {
-                // Create a new value from the user input
-                setValue({
-                  title: newValue.inputValue,
-                });
-              } else {
-                setValue(newValue);
-              }
-            }}
-            filterOptions={(options, params) => {
-              const filtered = filter(options, params);
-
-              const { inputValue } = params;
-              // Suggest the creation of a new value
-              const isExisting = options.some(
-                (option) => inputValue === option.title
-              );
-              if (inputValue !== "" && !isExisting) {
-                filtered.push({
-                  inputValue,
-                  title: `Add "${inputValue}"`,
-                });
-              }
-              return filtered;
-            }}
-            selectOnFocus
-            clearOnBlur
-            handleHomeEndKeys
-            id="free-solo-with-text-demo"
-            options={cafes}
-            getOptionLabel={(option) => {
-              // Value selected with enter, right from the input
-              if (typeof option === "string") {
-                return option;
-              }
-              // Add "xxx" option created dynamically
-              if (option.inputValue) {
-                return option.inputValue;
-              }
-              // Regular option
-              return option.title;
-            }}
-            renderOption={(props, option) => <li {...props}>{option.title}</li>}
-            sx={{ width: 347 }}
-            freeSolo
-            renderInput={(params) => (
-              <TextField {...params} label="키워드, 장소를 검색하세요" />
-            )}
+          <input
+            onChange={onChangeHandler}
+            ref={inputRef}
+            type="text"
+            onKeyDown={onKeyDownHandler}
           />
+          <div>
+            {inputRef.current?.value &&
+              cafesInfo
+                .filter((el) => {
+                  return el.title.indexOf(auto) !== -1;
+                })
+                .map((el) => {
+                  return <div key={el.title}>{el.title}</div>;
+                })}
+          </div>
         </InnerWrapper>
         <CurrentImg onClick={imgHandler} src="images/currentLocation.png" />
-        <MapComponent place={value ? value.title : ""} current={current} />
+        <MapComponent place={value ? value : "카페"} current={current} />
         {markerInfo.clicked ? (
           <BottomBar>
             <BottomBarClick onClick={bottomBarClick}>ㅡ</BottomBarClick>
@@ -168,9 +154,15 @@ export default function MapPage() {
             <img src="images/star.png" />
             <p>{markerInfo.cafeStar}</p>
             <p>리뷰 {reviews}</p>
-            <p>이 카페의 인기 저당 음료</p>
-            <span>별점순</span>
-            <span>후기순</span>
+            {markerInfo.menu ? (
+              <>
+                <p>이 카페의 인기 저당 음료</p> <span>별점순</span>
+                <span>후기순</span>
+              </>
+            ) : (
+              "정보없음"
+            )}
+
             <DropFlex>
               {markerInfo.menu !== undefined ? (
                 markerInfo.menu.map((el, idx) => {
@@ -202,12 +194,18 @@ export default function MapPage() {
           <>
             <BottomBar2>
               <BottomBarClick onClick={bottomBarClick}>ㅡ</BottomBarClick>
-              <div>
-                <BottomBarSpan1>내 주변 인기 저당 음료</BottomBarSpan1>
+              <PopContainer>
+                <BottomBarSpan1>
+                  내 주변 인기
+                  <ColoredSpan> 저당 음료</ColoredSpan>
+                </BottomBarSpan1>
                 <BottomBarSpan2 onClick={onClickHandlerSpan}>
                   거리순∨
                 </BottomBarSpan2>
-              </div>
+                <NearDivWrapper>
+                  {cafes.length > 0 && <CarouselWrapper items={cafes} />}
+                </NearDivWrapper>
+              </PopContainer>
             </BottomBar2>
           </>
         )}

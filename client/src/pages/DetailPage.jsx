@@ -182,7 +182,7 @@ export default function DetailPage() {
                   {isVisible ? (
                     <RecentDropDown>
                       <DropP>최신순</DropP>
-                      <DropP>인기순</DropP>
+                      <DropP>별점순</DropP>
                     </RecentDropDown>
                   ) : (
                     <></>
