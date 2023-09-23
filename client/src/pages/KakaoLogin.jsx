@@ -5,9 +5,12 @@ export default function KakaoLogin() {
   /*카카오로그인시작*/
   const [user, setUser] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
-  const { Kakao } = window;
+  const {
+    Kakao
+  } = window;
   const initKakao = async () => {
-    const jsKey = "인증키"; //"eeef591ad8f199dcc87122988f2885";
+    const jsKey = "인증키";//"eeef591ad8f199dcc87122988f2885";
+
     if (Kakao && !Kakao.isInitialized()) {
       await Kakao.init(jsKey);
       console.log(`kakao 초기화 ${Kakao.isInitialized()}`);
@@ -72,11 +75,20 @@ export default function KakaoLogin() {
     }
   }, [isLogin]);
 
+
+
+
+
+
   return (
     <div className="iphone-mini">
       <div className="div">
         <div>
+
+        {user ? (
+
           {user ? (
+
             <>
               <button onClick={kakaoLogout}>로그아웃</button>
               <h2>카카오 로그인 성공!</h2>
@@ -114,4 +126,8 @@ export default function KakaoLogin() {
       </div>
     </div>
   );
+
 }
+
+}
+
