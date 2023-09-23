@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import MapComponent from "../components/MapComponent";
 import CarouselWrapper from "../components/CarouselWrapper";
+import HamburgerBar from "../components/HamburgerBar";
 import axios from "axios";
 import {
   Wrapper,
@@ -54,11 +55,17 @@ import {
   RatingSor,
   ReviewSor,
   CoffeeImg2,
+  BottomBar3,
+  BottomTitle,
+  BottomAddress,
+  BottomTime,
+  BottomStar,
+  BottomReviews,
 } from "../styles/MapPage";
 
 import { useSelector, useDispatch } from "react-redux";
 import { cafesInfo } from "../assets/constantValues";
-import { onDrop } from "../redux/userSlice";
+import { onDrop } from "../redux/markerSlice";
 import { useNavigate } from "react-router-dom";
 
 export default function MapPage() {
@@ -73,6 +80,7 @@ export default function MapPage() {
   const [sort, setSort] = useState("거리순");
   const [isVisible, setIsVisible] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
+  const [ham, setHam] = useState(false);
 
   const imgRef = useRef(null);
   const inputRef = useRef(null);
@@ -112,7 +120,6 @@ export default function MapPage() {
       dispatch(onDrop({ clicked: false }));
     } else {
       dispatch(onDrop({ clicked: !markerInfo.clicked }));
-      setIsSearch(!isSearch);
     }
   };
 
@@ -144,10 +151,10 @@ export default function MapPage() {
   }, [markerInfo]);
 
   useEffect(() => {
-    if (value === "") return;
-    dispatch(onDrop({ clicked: true }));
-    cafes;
-  }, [value]);
+    if (markerInfo.clicked) {
+      setIsSearch(false);
+    }
+  }, [markerInfo.clicked]);
 
   const detailClickHandler = (item) => {
     navigate("/detail", { state: item });
@@ -158,6 +165,7 @@ export default function MapPage() {
       setValue(inputRef.current.value);
       setIsVisible(false);
       setIsSearch(true);
+      dispatch(onDrop({ clicked: false }));
     }
   };
 
@@ -182,17 +190,28 @@ export default function MapPage() {
     setValue(inputRef.current?.value);
     setIsVisible(false);
     setIsSearch(true);
+    dispatch(onDrop({ clicked: false }));
   };
+
   const autoHanlder = (title) => {
     setValue(title);
     inputRef.current.value = title;
     setIsVisible(false);
   };
 
+  const bottomBarClick2 = () => {
+    setIsSearch(false);
+  };
+
+  const hamburgerClick = () => {
+    setHam(!ham);
+  };
+
   return (
     <>
       <Wrapper>
-        <HamImg src="/images/hamburger.svg" />
+        <HamImg src="/images/hamburger.svg" onClick={hamburgerClick} />
+        {ham && <HamburgerBar setHam={setHam} />}
         <Input
           onChange={onChangeHandler}
           ref={inputRef}
@@ -224,8 +243,11 @@ export default function MapPage() {
           ref={imgRef}
           src="/images/current.png"
         />
-        <MapComponent place={value ? value : "카페"} current={current} />
-
+        <MapComponent
+          place={value ? value : "카페"}
+          current={current}
+          isSearch={isSearch}
+        />
         {markerInfo.clicked ? (
           <BottomBar>
             <BottomBarClickContainer>
@@ -286,26 +308,32 @@ export default function MapPage() {
             </DropFlex>
           </BottomBar>
         ) : (
-          <>
-            <BottomBar2>
-              <BottomBarClick onClick={bottomBarClick}>ㅡ</BottomBarClick>
-              <PopContainer>
-                <SpanFlexDiv>
-                  <BottomBarSpan1>
-                    내 주변
-                    <ColoredSpan> 인기 저당 음료</ColoredSpan>
-                  </BottomBarSpan1>
-                  <BottomBarSpan2 onClick={onClickHandlerSpan}>
-                    {sort}
-                    <ArrowImg src="/images/arrowDown.svg" />
-                  </BottomBarSpan2>
-                </SpanFlexDiv>
-                {cafes.length > 0 && <CarouselWrapper items={cafes} />}
-              </PopContainer>
-            </BottomBar2>
-          </>
+          isSearch && (
+            <BottomBar3>
+              <BottomBarClick onClick={bottomBarClick2}>ㅡ</BottomBarClick>
+              {cafes.map((el) => {
+                return (
+                  <div key={el.content}>
+                    <BottomTitle>{el.content}</BottomTitle>
+                    <BottomAddress> {el.address}</BottomAddress>
+                    <BottomTime> {el.time}</BottomTime>
+                    <img src="/images/star.png" />
+                    <BottomStar> {el.cafeStar}</BottomStar>
+                    <BottomReviews>
+                      리뷰
+                      {el.menu.reduce(
+                        (acc, cur) => (acc += cur.reviews.length),
+                        0
+                      )}
+                    </BottomReviews>
+                    <hr />
+                  </div>
+                );
+              })}
+            </BottomBar3>
+          )
         )}
-        {markerInfo.clicked === false && isSearch && (
+        <>
           <BottomBar2>
             <BottomBarClick onClick={bottomBarClick}>ㅡ</BottomBarClick>
             <PopContainer>
@@ -322,7 +350,7 @@ export default function MapPage() {
               {cafes.length > 0 && <CarouselWrapper items={cafes} />}
             </PopContainer>
           </BottomBar2>
-        )}
+        </>
       </Wrapper>
 
       {/* modal */}

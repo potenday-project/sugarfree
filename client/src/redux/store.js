@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import markerReducer from "./userSlice";
+import userReducer from "./userSlice";
+import markerReducer from "./markerSlice";
 
 export default configureStore({
   reducer: {
     marker: markerReducer,
+    user: userReducer,
   },
 });

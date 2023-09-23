@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { onDrop, setMarker } from "../redux/userSlice";
+import { onDrop, setMarker } from "../redux/markerSlice";
 
 export const EmblaSlide = styled.div`
   position: relative;

@@ -88,6 +88,7 @@ export const TitleP = styled.p`
 `;
 
 export const BottomBar2 = styled.div`
+  overflow-x: hidden;
   position: absolute;
   z-index: 5;
   background-color: white;
@@ -158,6 +159,12 @@ export const RatingSor = styled.span`
     color: #2ab7c0;
     font-weight: bold;
   }
+`;
+
+export const BottomBar3 = styled(BottomBar2)`
+  z-index: 10;
+  width: 100%;
+  left: 0%;
 `;
 
 export const CoffeeImg2 = styled.img`
@@ -381,4 +388,29 @@ export const AutoP = styled.p`
 
 export const SpanFlexDiv = styled.div`
   display: flex;
+`;
+
+export const BottomTitle = styled.p`
+  color: #2ab7c0;
+  font-weight: bold;
+  font-size: 17px;
+`;
+
+export const BottomAddress = styled.p`
+  color: gray;
+  font-size: 14px;
+`;
+
+export const BottomTime = styled.p`
+  font-size: 13px;
+`;
+
+export const BottomStar = styled.p`
+  font-weight: bold;
+  font-size: 12px;
+`;
+
+export const BottomReviews = styled.p`
+  color: gray;
+  font-size: 12px;
 `;

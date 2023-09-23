@@ -305,4 +305,5 @@ export default function MapComponent({ place, current }) {
 MapComponent.propTypes = {
   place: PropTypes.string.isRequired,
   current: PropTypes.bool.isRequired,
+  isSearch: PropTypes.bool.isRequired,
 };

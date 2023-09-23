@@ -9,7 +9,7 @@ import {
 import PropTypes from "prop-types";
 import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { setMarker, onDrop } from "../redux/userSlice";
+import { setMarker, onDrop } from "../redux/markerSlice";
 export default function CustomOveray({
   count,
   kakao,
