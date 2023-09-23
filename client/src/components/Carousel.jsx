@@ -36,10 +36,12 @@ export const Img = styled.img`
 
 export const FlexDiv = styled.div`
   display: flex;
+  margin-top: 32px;
 `;
 
 export const FlexDiv2 = styled.div`
   display: flex;
+  margin-right: 8px;
 `;
 
 export const NutCafeP = styled.p`
@@ -47,14 +49,32 @@ export const NutCafeP = styled.p`
   width: 95px;
   height: 32px;
   border: 1px solid #2ab7c0;
+  margin-right: 6px;
+  border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #2ab7c0;
+  margin-bottom: 3px;
+  margin-top: 19px;
   &:hover {
     background-color: #2ab7c0;
     color: white;
   }
+`;
+
+export const PlaceP = styled.p`
+  margin-top: 3px;
+  color: gray;
+  text-align: left;
+  margin-left: 13px;
+`;
+
+export const MenuP = styled.p`
+  font-size: 14px;
+  font-weight: bold;
+  text-align: left;
+  margin-left: 13px;
 `;
 
 export default function Carousel({ slides, options }) {
@@ -81,24 +101,22 @@ export default function Carousel({ slides, options }) {
               <FlexDiv>
                 <Img className="embla__slide__img" src={slide.menu[0].img} />
                 <div>
-                  <p>{slide.menu[0].name}</p>
-                  <p>{slide.address}</p>
-                  <FlexDiv2>
-                    <NutCafeP
-                      onClick={() =>
-                        onClickHandler("성분표", slide, slide.menu[0])
-                      }
-                    >
-                      성분표
-                    </NutCafeP>
-                    <NutCafeP
-                      onClick={() => onClickHandler("카페정보", slide, null)}
-                    >
-                      카페정보
-                    </NutCafeP>
-                  </FlexDiv2>
+                  <MenuP>{slide.menu[0].name}</MenuP>
+                  <PlaceP>{slide.address}</PlaceP>
                 </div>
               </FlexDiv>
+              <FlexDiv2>
+                <NutCafeP
+                  onClick={() => onClickHandler("성분표", slide, slide.menu[0])}
+                >
+                  성분표
+                </NutCafeP>
+                <NutCafeP
+                  onClick={() => onClickHandler("카페정보", slide, null)}
+                >
+                  카페정보
+                </NutCafeP>
+              </FlexDiv2>
             </EmblaSlide>
           ))}
         </EmblaContainer>

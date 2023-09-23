@@ -16,7 +16,6 @@ import {
   ModalP2,
   CurrentImg,
   BottomBar2,
-  InnerWrapper,
   DropWrapper,
   DropOuter,
   StarImg,
@@ -28,6 +27,19 @@ import {
   ColoredSpan,
   NearDivWrapper,
   PopContainer,
+  ArrowImg,
+  HRLine,
+  ModalP3,
+  ModalFlex,
+  CheckFlex,
+  CheckImg,
+  CheckImg2,
+  CheckFlex2,
+  Input,
+  HamImg,
+  MagImg,
+  AutoDiv,
+  AutoP,
 } from "../styles/MapPage";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -43,8 +55,11 @@ export default function MapPage() {
   const [distance, setDistance] = useState(0);
   const [reviews, setReviews] = useState(0);
   const [cafes, setCafes] = useState([]);
+  const [which, setWhich] = useState(0);
 
+  const imgRef = useRef(null);
   const inputRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   const navigate = useNavigate();
 
@@ -69,6 +84,11 @@ export default function MapPage() {
 
   const imgHandler = () => {
     setCurrent(!current);
+    if (current) {
+      imgRef.current.src = "/images/currentClicked.png";
+    } else {
+      imgRef.current.src = "/images/current.png";
+    }
   };
 
   const bottomBarClick = () => {
@@ -118,32 +138,57 @@ export default function MapPage() {
 
   const onChangeHandler = (e) => {
     setAuto(e.target.value);
+    setIsVisible(true);
   };
 
-  useEffect(() => {}, [value]);
+  const checkBoxHandler = (idx) => {
+    setWhich(idx);
+  };
 
+  const magClickHandler = () => {
+    setValue(inputRef.current?.value);
+    setIsVisible(false);
+  };
+  const autoHanlder = (title) => {
+    setValue(title);
+    inputRef.current.value = title;
+    setIsVisible(false);
+  };
   return (
     <>
       <Wrapper>
-        <InnerWrapper>
-          <input
-            onChange={onChangeHandler}
-            ref={inputRef}
-            type="text"
-            onKeyDown={onKeyDownHandler}
-          />
-          <div>
-            {inputRef.current?.value &&
-              cafesInfo
-                .filter((el) => {
-                  return el.title.indexOf(auto) !== -1;
-                })
-                .map((el) => {
-                  return <div key={el.title}>{el.title}</div>;
-                })}
-          </div>
-        </InnerWrapper>
-        <CurrentImg onClick={imgHandler} src="images/currentLocation.png" />
+        <HamImg src="/images/hamburger.svg" />
+        <Input
+          onChange={onChangeHandler}
+          ref={inputRef}
+          type="text"
+          onKeyDown={onKeyDownHandler}
+          placeholder="키워드, 주소 검색"
+        />
+        <MagImg src="/images/magnify.svg" onClick={magClickHandler} />
+        <AutoDiv>
+          {isVisible ? (
+            inputRef.current?.value &&
+            cafesInfo
+              .filter((el) => {
+                return el.title.indexOf(auto) !== -1;
+              })
+              .map((el) => {
+                return (
+                  <AutoP onClick={() => autoHanlder(el.title)} key={el.title}>
+                    {el.title}
+                  </AutoP>
+                );
+              })
+          ) : (
+            <></>
+          )}
+        </AutoDiv>
+        <CurrentImg
+          onClick={imgHandler}
+          ref={imgRef}
+          src="/images/current.png"
+        />
         <MapComponent place={value ? value : "카페"} current={current} />
         {markerInfo.clicked ? (
           <BottomBar>
@@ -196,11 +241,12 @@ export default function MapPage() {
               <BottomBarClick onClick={bottomBarClick}>ㅡ</BottomBarClick>
               <PopContainer>
                 <BottomBarSpan1>
-                  내 주변 인기
-                  <ColoredSpan> 저당 음료</ColoredSpan>
+                  내 주변
+                  <ColoredSpan> 인기 저당 음료</ColoredSpan>
                 </BottomBarSpan1>
                 <BottomBarSpan2 onClick={onClickHandlerSpan}>
-                  거리순∨
+                  거리순
+                  <ArrowImg src="/images/arrowDown.svg" />
                 </BottomBarSpan2>
                 <NearDivWrapper>
                   {cafes.length > 0 && <CarouselWrapper items={cafes} />}
@@ -216,10 +262,24 @@ export default function MapPage() {
         <Modal onClick={modalHandler}>
           <ModalWrapper onClick={modalWrapperHandler}>
             <ModalStandard>정렬 기준</ModalStandard>
-            <ModalP>거리순</ModalP>
-            <ModalP>인기순</ModalP>
-            <ModalP>당류 낮은 순</ModalP>
-            <ModalP2 onClick={cancleHandler}>취소</ModalP2>
+            <CheckFlex2>
+              <ModalP onClick={() => checkBoxHandler(0)}>거리순</ModalP>
+              {which === 0 && <CheckImg src="/images/checkBox.svg" />}
+            </CheckFlex2>
+            <HRLine />
+            <CheckFlex>
+              <ModalP3 onClick={() => checkBoxHandler(1)}>인기순</ModalP3>
+              {which === 1 && <CheckImg2 src="/images/checkBox.svg" />}
+            </CheckFlex>
+            <HRLine />
+            <CheckFlex>
+              <ModalP3 onClick={() => checkBoxHandler(2)}>당류 낮은 순</ModalP3>
+              {which === 2 && <CheckImg2 src="/images/checkBox.svg" />}
+            </CheckFlex>
+            <HRLine />
+            <ModalFlex>
+              <ModalP2 onClick={cancleHandler}>취소</ModalP2>
+            </ModalFlex>
           </ModalWrapper>
         </Modal>
       ) : (

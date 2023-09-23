@@ -30,6 +30,7 @@ export const StarImg = styled.img`
 
 export const DropFlex = styled.div`
   display: flex;
+  border: 1px solid gray;
 `;
 
 export const MenuStarSpan = styled.span`
@@ -49,13 +50,13 @@ export const StarAndReviewDiv = styled.div`
 `;
 
 export const CurrentImg = styled.img`
-  width: 35px;
-  height: 35px;
+  width: 85px;
+  height: 85px;
   cursor: pointer;
   z-index: 10;
   position: absolute;
-  bottom: 15%;
-  left: 3%;
+  bottom: 25%;
+  left: 2%;
 `;
 
 export const InnerWrapper = styled.div`
@@ -76,7 +77,8 @@ export const BottomBar = styled.div`
   z-index: 11;
   background-color: white;
   width: 100%;
-  height: 310px;
+  height: 251px;
+  width: 375px;
   text-align: center;
 `;
 
@@ -88,7 +90,8 @@ export const BottomBar2 = styled.div`
   position: absolute;
   z-index: 5;
   background-color: white;
-  width: 100%;
+  width: 375px;
+  overflow-x: hidden;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -107,11 +110,13 @@ export const BottomBarClick = styled.p`
 export const BottomBarSpan1 = styled.span`
   margin-right: 4rem;
   font-size: 17px;
-  margin-bottom: 32px;
+  margin-bottom: 16px;
+  font-weight: bold;
 `;
 
 export const ColoredSpan = styled.span`
   color: #2ab7c0;
+  font-weight: bold;
 `;
 
 export const BottomBarSpan2 = styled.span`
@@ -133,32 +138,49 @@ export const ModalWrapper = styled.div`
   width: 257px;
   height: 223px;
   position: absolute;
-  top: 20%;
-  right: 39%;
+  top: 25%;
+  right: 43%;
   background-color: white;
   z-index: 10;
   display: flex;
-  align-items: center;
+  align-items: start;
   flex-direction: column;
   border-radius: 11px;
 `;
 
+export const HRLine = styled.hr`
+  width: 100%;
+  border-color: #d6d6d6;
+  border: none; /* 기존 테두리 제거 */
+  border-top: 2px solid #d6d6d6; /* 위쪽 테두리 설정 */
+`;
+
 export const ModalStandard = styled.p`
-  margin-top: 2rem;
+  font-size: 17px;
+  font-weight: bold;
+  margin-left: 24px;
+  margin-top: 23px;
 `;
 
 export const ModalP = styled.p`
-  margin-top: 2rem;
+  margin-top: 15px;
+  font-size: 15px;
+  font-weight: bold;
+  margin-left: 24px;
   cursor: pointer;
   &:hover {
     color: #2ab7c0;
   }
 `;
 
+export const ModalP3 = styled(ModalP)`
+  margin-top: 0px;
+`;
+
 export const ModalP2 = styled.p`
   text-align: right;
   width: 100%;
-  margin-right: 1rem;
+  margin-right: 18px;
   cursor: pointer;
 `;
 
@@ -184,6 +206,8 @@ export const NearDiv = styled.div`
 
 export const NearDivWrapper = styled.div`
   display: flex;
+  width: 375px;
+  margin-left: 55px;
 `;
 
 export const CoffeeImg = styled.img`
@@ -193,3 +217,92 @@ export const CoffeeImg = styled.img`
 `;
 
 export const PopContainer = styled.div``;
+
+export const ArrowImg = styled.img`
+  width: 8px;
+  height: 4px;
+  margin-left: 7px;
+  margin-bottom: 2px;
+`;
+
+export const ModalFlex = styled.div`
+  display: flex;
+  align-items: end;
+  width: 100%;
+  margin-top: 15px;
+`;
+
+export const CheckFlex = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 18px;
+`;
+
+export const CheckFlex2 = styled.div`
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 32px;
+`;
+
+export const CheckImg = styled.img`
+  margin-right: 19px;
+  margin-top: 22px;
+`;
+
+export const CheckImg2 = styled.img`
+  margin-top: 0px;
+  margin-right: 19px;
+`;
+
+export const Input = styled.input`
+  width: 347px;
+  padding: 1px;
+  height: 42px;
+  position: absolute;
+  top: 5%;
+  border-radius: 10px;
+  left: 3%;
+  padding-left: 46px;
+  z-index: 5;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const HamImg = styled.img`
+  z-index: 6;
+  position: absolute;
+  top: 53px;
+  left: 31px;
+  cursor: pointer;
+`;
+
+export const MagImg = styled.img`
+  z-index: 6;
+  position: absolute;
+  top: 6.3%;
+  right: 35px;
+  cursor: pointer;
+`;
+
+export const AutoDiv = styled.div`
+  width: 345px;
+  position: absolute;
+  top: 9%;
+  z-index: 5;
+  left: 3.8%;
+  background-color: white;
+`;
+
+export const AutoP = styled.p`
+  margin-left: 17px;
+  height: 18px;
+  margin-bottom: 22px;
+  color: gray;
+  cursor: pointer;
+`;

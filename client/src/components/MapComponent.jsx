@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import CustomOveray from "./CustomOveray";
 import axios from "axios";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import styled from "styled-components";
 
 const style = {
   position: "absolute",
@@ -15,10 +15,81 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
   p: 4,
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  borderRadius: "10px",
 };
+
+export const FlexDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const BoldSpan = styled.span`
+  font-weight: bold;
+  font-size: 18px;
+`;
+
+export const FontP = styled.div`
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SmallP = styled.div`
+  font-size: 14px;
+  color: #8a8a8a;
+`;
+
+export const Img = styled.img`
+  width: 71px;
+  height: 66px;
+  margin-bottom: 25px;
+`;
+
+export const SmallP1 = styled.p`
+  font-size: 14px;
+  color: #8a8a8a;
+  margin-top: 10px;
+`;
+
+export const ButtonFlex = styled.div`
+  display: flex;
+`;
+
+export const Cancel = styled.div`
+  margin-top: 29px;
+  background-color: #d6d6d6;
+  color: white;
+  width: 150px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  cursor: pointer;
+`;
+
+export const Confirm = styled.div`
+  border-radius: 10px;
+  margin-left: 7px;
+  margin-top: 29px;
+  background-color: #2ab7c0;
+  color: white;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 44px;
+  cursor: pointer;
+`;
 
 export default function MapComponent({ place, current }) {
   const [markers, setMarkers] = useState([]);
@@ -39,6 +110,10 @@ export default function MapComponent({ place, current }) {
 
   const handleClose = () => {
     SetisModal(false);
+  };
+
+  const onClick = () => {
+    handleClose();
   };
 
   useEffect(() => {
@@ -202,14 +277,21 @@ export default function MapComponent({ place, current }) {
             aria-describedby="modal-modal-description"
           >
             <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                권한
-              </Typography>
-              <img src="/images/logo.png" />
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                ’슈가프리맵’이(가) 사용자의 위치 정보에 접근하려고 합니다.
-                사용자의 위치와 가까운 음료와 카페 정보를 검색하고 추천합니다
-              </Typography>
+              <FlexDiv>
+                <Img src="/images/logo_invert.svg" />
+                <FontP>
+                  <p>
+                    <BoldSpan>’슈가프리맵’</BoldSpan>이(가) 사용자의
+                  </p>
+                  <p>위치 정보에 접근하려고 합니다.</p>
+                  <SmallP1>사용자의 위치와 가까운 음료와</SmallP1>
+                  <SmallP>카페 정보를 검색하고 추천합니다</SmallP>
+                </FontP>
+              </FlexDiv>
+              <ButtonFlex>
+                <Cancel onClick={onClick}>취소</Cancel>
+                <Confirm onClick={onClick}>확인</Confirm>
+              </ButtonFlex>
             </Box>
           </Modal>
         ) : (
