@@ -30,11 +30,15 @@ import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import { useSelector, useDispatch } from "react-redux";
 import { cafes } from "../assets/constantValues";
 import { onDrop } from "../redux/userSlice";
+import { useNavigate } from "react-router-dom";
+
 const filter = createFilterOptions();
 
 export default function MapPage() {
   const [isModal, setIsModal] = useState(false);
   const [current, setCurrent] = useState(false);
+
+  const navigate = useNavigate();
 
   const markerInfo = useSelector((state) => state.marker);
   const dispatch = useDispatch();
@@ -69,6 +73,7 @@ export default function MapPage() {
 
   const [value, setValue] = useState("");
   const [distance, setDistance] = useState(0);
+  const [reviews, setReviews] = useState(0);
 
   const asyncFucntion = async () => {
     // const data = await axios.post("/dummy/dummy2.json", {
@@ -80,7 +85,16 @@ export default function MapPage() {
 
   useEffect(() => {
     asyncFucntion();
-  }, []);
+    let numberOfReviews = 0;
+    markerInfo.menu?.forEach((el) => {
+      numberOfReviews += el.reviews.length;
+    });
+    setReviews(numberOfReviews);
+  }, [markerInfo]);
+
+  const detailClickHandler = (item) => {
+    navigate("/detail", { state: item });
+  };
 
   return (
     <>
@@ -151,6 +165,12 @@ export default function MapPage() {
             <TitleP>{markerInfo.content}</TitleP>
             <p>{markerInfo.address}</p>
             <p>{distance}m 내</p>
+            <img src="images/star.png" />
+            <p>{markerInfo.cafeStar}</p>
+            <p>리뷰 {reviews}</p>
+            <p>이 카페의 인기 저당 음료</p>
+            <span>별점순</span>
+            <span>후기순</span>
             <DropFlex>
               {markerInfo.menu !== undefined ? (
                 markerInfo.menu.map((el, idx) => {
@@ -166,7 +186,9 @@ export default function MapPage() {
                           <DivideSpan>|</DivideSpan>
                           <span>리뷰 {el.reviews.length}</span>
                         </StarAndReviewDiv>
-                        <DetailDiv>자세히 보기</DetailDiv>
+                        <DetailDiv onClick={() => detailClickHandler(el)}>
+                          자세히 보기
+                        </DetailDiv>
                       </DropWrapper>
                     </DropOuter>
                   );
