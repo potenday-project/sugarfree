@@ -1,4 +1,3 @@
-import React from "react";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
@@ -79,7 +78,7 @@ export default function OnboardCheckPurpose0() {
       <GlobalStyles />
       <ElementWrapper>
         <Container>
-        <TextWrapper>
+          <TextWrapper>
             무엇을 위해
             <br />
             방문하게 되었나요?

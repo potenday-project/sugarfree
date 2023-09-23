@@ -1,4 +1,3 @@
-import React from "react";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 
 // :root 내용을 직접 정의합니다.
@@ -245,7 +244,7 @@ const TextWrapper8 = styled.div`
   white-space: nowrap;
 `;
 
-export default function OnboardingCheckPurpose(){
+export default function OnboardingCheckPurpose() {
   return (
     <ThemeProvider theme={{}}>
       <GlobalStyles />
@@ -283,7 +282,9 @@ export default function OnboardingCheckPurpose(){
           </OverlapGroup2>
           <TextWrapper5>SKIP</TextWrapper5>
           <TextWrapper6>이전</TextWrapper6>
-          <TextWrapper7>목표로 하고 있는 항목을 하나 선택해주세요.</TextWrapper7>
+          <TextWrapper7>
+            목표로 하고 있는 항목을 하나 선택해주세요.
+          </TextWrapper7>
           <Rectangle />
           <Group>
             <Ellipse />

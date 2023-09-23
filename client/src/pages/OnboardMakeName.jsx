@@ -1,5 +1,3 @@
-import React from "react";
-
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 
 // :root 내용을 직접 정의합니다.
@@ -22,7 +20,6 @@ const GlobalStyles = createGlobalStyle`
     --variable-collection-sub-pale-blue: rgba(220, 236, 255, 1);
     --variable-collection-SUB-yellow: rgba(255, 211, 97, 1);
   }`;
-  
 
 // 스타일 컴포넌트 정의
 const ElementWrapper = styled.div`
@@ -234,47 +231,47 @@ const Image = styled.img`
 `;
 
 // React 컴포넌트 정의
-export default function OnboardingMakeName(){
+export default function OnboardingMakeName() {
   return (
     <ThemeProvider theme={{}}>
-    <GlobalStyles />
-    <ElementWrapper>
-      <Div>
-        <TextWrapper>
-          사용자님의
-          <br />
-          이름을 알고 싶어요
-        </TextWrapper>
-        <OverlapGroup>
-          <TextWrapper2>당짠당짠</TextWrapper2>
-          <Overlap>
-            <TextWrapper3>중복확인</TextWrapper3>
-          </Overlap>
-        </OverlapGroup>
-        <DivWrapper>
-          <TextWrapper4>다음</TextWrapper4>
-        </DivWrapper>
-        <Group>
-          <Ellipse />
-          <Ellipse2 />
-          <Ellipse3 />
-          <Ellipse4 />
-        </Group>
-        <TextWrapper5>SKIP</TextWrapper5>
-        <TextWrapper6>이전</TextWrapper6>
-        <FlexContainer>
-          <Text>
-            <Span>
-              앱에서 사용할 닉네임을 입력해주세요.
-              <br />
-            </Span>
-          </Text>
-          <Text>
-            <Span>닉네임의 길이는 최대 8글자입니다.</Span>
-          </Text>
-        </FlexContainer>
-      </Div>
-    </ElementWrapper>
+      <GlobalStyles />
+      <ElementWrapper>
+        <Div>
+          <TextWrapper>
+            사용자님의
+            <br />
+            이름을 알고 싶어요
+          </TextWrapper>
+          <OverlapGroup>
+            <TextWrapper2>당짠당짠</TextWrapper2>
+            <Overlap>
+              <TextWrapper3>중복확인</TextWrapper3>
+            </Overlap>
+          </OverlapGroup>
+          <DivWrapper>
+            <TextWrapper4>다음</TextWrapper4>
+          </DivWrapper>
+          <Group>
+            <Ellipse />
+            <Ellipse2 />
+            <Ellipse3 />
+            <Ellipse4 />
+          </Group>
+          <TextWrapper5>SKIP</TextWrapper5>
+          <TextWrapper6>이전</TextWrapper6>
+          <FlexContainer>
+            <Text>
+              <Span>
+                앱에서 사용할 닉네임을 입력해주세요.
+                <br />
+              </Span>
+            </Text>
+            <Text>
+              <Span>닉네임의 길이는 최대 8글자입니다.</Span>
+            </Text>
+          </FlexContainer>
+        </Div>
+      </ElementWrapper>
     </ThemeProvider>
   );
-};
+}
