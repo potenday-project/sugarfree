@@ -1,4 +1,8 @@
 
+export default function KakaoLogin_2() {
+  const link = `https://kauth.kakao.com/oauth/authorize?client_id=0ec1fab818767700e9349aa13456eab9&redirect_uri=http://b232-175-192-26-222.ngrok-free.app/auth/idpresponse/kakao&response_type=code`;
+
+
 import { useEffect, useState } from "react";
 
 export default function KakaoLogin_2() {
