@@ -1,5 +1,5 @@
 export default function KakaoLogin_2() {
-  const link = `https://kauth.kakao.com/oauth/authorize?client_id=e7542f591ad8f199dcc87122988f2885&redirect_uri=http://b232-175-192-26-222.ngrok-free.app/auth/idpresponse/kakao&response_type=code`;
+  const link = `https://kauth.kakao.com/oauth/authorize?client_id=e7542f591ad8f199dcc87122988f2885&redirect_uri=http://b232-175-192-26-222.ngrok-free.app/auth/idpresponse/kakao/auth&response_type=code`;
 
   const kakaoLogin = () => {
     window.location.href = link;
