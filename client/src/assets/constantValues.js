@@ -6,4 +6,11 @@ export const cafesInfo = [
   { title: "홀리스 커피" },
   { title: "카페베네" },
   { title: "멍멍이커피" },
+  { title: "아메리카노" },
+  { title: "카푸치노" },
+  { title: "라떼" },
+  { title: "바나나라떼" },
+  { title: "얼음물" },
+  { title: "믹스커피" },
+  { title: "에스프레소" },
 ];
