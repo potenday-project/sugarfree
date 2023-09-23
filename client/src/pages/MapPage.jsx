@@ -39,6 +39,10 @@ export default function MapPage() {
   const [isModal, setIsModal] = useState(false);
   const [current, setCurrent] = useState(false);
   const [auto, setAuto] = useState("");
+  const [value, setValue] = useState("");
+  const [distance, setDistance] = useState(0);
+  const [reviews, setReviews] = useState(0);
+  const [cafes, setCafes] = useState([]);
 
   const inputRef = useRef(null);
 
@@ -75,11 +79,6 @@ export default function MapPage() {
     }
   };
 
-  const [value, setValue] = useState("");
-  const [distance, setDistance] = useState(0);
-  const [reviews, setReviews] = useState(0);
-  const [cafes, setCafes] = useState([]);
-
   const asyncFucntion = async () => {
     // const data = await axios.post("/dummy/dummy2.json", {
     //   position: markerInfo.position, content:markerInfo.content, currentPosition : markerInfo.currentPosition
@@ -114,13 +113,14 @@ export default function MapPage() {
   const onKeyDownHandler = (e) => {
     if (e.key === "Enter") {
       setValue(inputRef.current.value);
-      console.log("hey");
     }
   };
 
   const onChangeHandler = (e) => {
     setAuto(e.target.value);
   };
+
+  useEffect(() => {}, [value]);
 
   return (
     <>
