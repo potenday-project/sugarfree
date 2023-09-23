@@ -10,7 +10,7 @@
     "menu": [
       {
         "name": "americano",
-        "description": "아주 맛나용",
+        "description": "아주 맛나용 근데 아메리카노는 미국이 아닌거임?",
         "menuStar": 3.7,
         "img": "/images/coffee1.png",
         "price": 4500,
@@ -29,13 +29,15 @@
         "reviews": [
           {
             "userId": 1,
-            "content": "어우 너무 맛있어요",
-            "createdAt": "date형식"
+            "userStar": 2.5,
+            "content": "어우 너무 맛있어요 근데 별점은 2.5 ㅋ",
+            "createdAt": "2023-10-23"
           },
           {
             "userId": 2,
-            "content": "나는 노맛인데 ㅡㅡ",
-            "createdAt": "date형식"
+            "content": "나는 ㄱㅊ",
+            "userStar": 3.5,
+            "createdAt": "2023-10-23"
           }
         ]
       },
@@ -61,7 +63,8 @@
           {
             "userId": 2,
             "content": "나는 노맛인데 ㅡㅡ",
-            "createdAt": "date형식"
+            "createdAt": "2023-10-23",
+            "userStar": 3.5
           }
         ]
       }
@@ -98,12 +101,16 @@
           {
             "userId": 1,
             "content": "어우 너무 맛있어요",
-            "createdAt": "date형식"
+            "createdAt": "2023-10-23",
+            "userStar": 5,
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr__b8OyDN1dB-V9GPAyq7jcLP37eJqPT1iQ&usqp=CAU"
           },
           {
             "userId": 2,
+            "userStar": 1,
             "content": "나는 노맛인데 ㅡㅡ",
-            "createdAt": "date형식"
+            "createdAt": "2023-10-23",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr__b8OyDN1dB-V9GPAyq7jcLP37eJqPT1iQ&usqp=CAU"
           }
         ]
       },
@@ -128,13 +135,17 @@
         "reviews": [
           {
             "userId": 1,
+            "userStar": 4,
             "content": "어우 너무 맛있어요",
-            "createdAt": "date형식"
+            "createdAt": "2023-10-23",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr__b8OyDN1dB-V9GPAyq7jcLP37eJqPT1iQ&usqp=CAU"
           },
           {
             "userId": 2,
+            "userStar": 1,
             "content": "나는 노맛인데 ㅡㅡ",
-            "createdAt": "date형식"
+            "createdAt": "2023-10-23",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr__b8OyDN1dB-V9GPAyq7jcLP37eJqPT1iQ&usqp=CAU"
           }
         ]
       }

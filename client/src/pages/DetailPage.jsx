@@ -1,155 +1,66 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
-
-export const SuggestDiv = styled.div`
-  margin-bottom: 27px;
-  margin-top: 19px;
-`;
-
-export const ClickedSpan = styled.div`
-  color: #2ab7c0;
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 13px;
-  margin-left: 63px;
-  margin-top: 37px;
-`;
-
-export const ClickedSpan2 = styled(ClickedSpan)`
-  margin-right: 63px;
-`;
-export const DivideDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const NutrientDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const NutReDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.5rem;
-  margin-bottom: 13px;
-  height: 20px;
-`;
-
-export const Nutrient = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const HR = styled.hr`
-  width: 100%;
-`;
-
-export const HR2 = styled.hr`
-  width: 82px;
-  background-color: #2ab7c0;
-  margin-left: 50px;
-  margin-top: 38px;
-  height: 3px;
-`;
-
-export const Img = styled.img`
-  width: 375px;
-  height: 277px;
-`;
-
-export const InfoDiv = styled.div`
-  background-color: #2ab7c0;
-  color: white;
-  width: 39px;
-  height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  margin-top: 1rem;
-  margin-right: 0.2rem;
-`;
-export const InfoDiv2 = styled(InfoDiv)`
-  background-color: #8a8a8a;
-  border-radius: 4px;
-`;
-
-export const InfoWrapper = styled.div`
-  display: flex;
-  justify-content: start;
-  align-items: start;
-  width: 375px;
-`;
-
-export const Title = styled.p`
-  font-size: 19px;
-  position: absolute;
-  top: 9%;
-  left: 46%;
-  background-color: white;
-  border-radius: 5px;
-  font-size: 12px;
-  width: 109px;
-  height: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const OuterWrapper = styled.div`
-  position: relative;
-  width: 375px;
-`;
-
-export const Description = styled.p`
-  color: gray;
-`;
-
-export const Price = styled.p`
-  font-size: 20px;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-`;
-
-export const Name = styled.p`
-  font-size: 19px;
-  margin-top: 0.5rem;
-`;
-
-export const Suggest2 = styled.span`
-  font-size: 12px;
-  font-weight: bold;
-  margin-right: 107px;
-`;
-
-export const Suggest = styled.span`
-  font-size: 12px;
-  font-weight: bold;
-  margin-left: 18px;
-`;
-
-export const ArrowSpan = styled.span`
-  position: absolute;
-  left: 37%;
-  top: 5%;
-  color: white;
-  cursor: pointer;
-`;
+import {
+  SuggestDiv,
+  Star,
+  ClickedSpan,
+  Img2,
+  CommentNumber,
+  ImgFlex,
+  ClickedSpan2,
+  ClickedSpan3,
+  ClickedSpan4,
+  DivideDiv,
+  NutrientDiv,
+  NutReDiv,
+  Nutrient,
+  HR,
+  HR2,
+  HR3,
+  Img,
+  StarSort,
+  StarFlex,
+  InfoDiv,
+  InfoDiv2,
+  InfoWrapper,
+  Title,
+  OuterWrapper,
+  Description,
+  Price,
+  Name,
+  MenuStarFlex,
+  Suggest2,
+  Suggest,
+  ArrowSpan,
+  MapDiv,
+  Recent,
+  RecentDropDown,
+  DropP,
+  ReviewButton,
+} from "../styles/DetailPage";
+import axios from "axios";
+import Rating from "@mui/material/Rating";
 
 export default function DetailPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const markerInfo = useSelector((state) => state.marker);
 
+  const [users, setUsers] = useState([]);
   const [item, setItem] = useState({});
   const [clicked, setClicked] = useState("성분");
+  const [isVisible, setIsVisible] = useState(false);
+
+  const asyncFunction = async () => {
+    //const filteredArr = item.reviews.filter((el) => el.userId);
+    const response = await axios.get("/dummy/dummy3.json"); // @todo : 실제로는 post로 유저 id를 건네주고 정보를 받아와야함
+    setUsers(response.data);
+  };
 
   useEffect(() => {
     setItem(location.state);
-    console.log(location.state);
+    asyncFunction();
   }, []);
 
   const onClickHandler = (type) => {
@@ -160,8 +71,12 @@ export default function DetailPage() {
     }
   };
 
+  const onClickHandler2 = () => {
+    setIsVisible(!isVisible);
+  };
+
   return (
-    <div>
+    <OuterWrapper>
       <Img src="/images/coffee1.png" />
       <ArrowSpan onClick={() => navigate("/map")}>{"<"}</ArrowSpan>
       <InfoWrapper>
@@ -183,7 +98,7 @@ export default function DetailPage() {
               <NutReDiv>
                 <ClickedSpan>성분정보</ClickedSpan>
                 <ClickedSpan2 onClick={() => onClickHandler("리뷰")}>
-                  리뷰 <span>{item.reviews?.length}</span>
+                  리뷰 <CommentNumber>{item.reviews?.length}</CommentNumber>
                 </ClickedSpan2>
               </NutReDiv>
               <HR2 />
@@ -249,18 +164,58 @@ export default function DetailPage() {
           ) : (
             <>
               <NutReDiv>
-                <ClickedSpan onClick={() => onClickHandler("성분")}>
+                <ClickedSpan3 onClick={() => onClickHandler("성분")}>
                   성분정보
-                </ClickedSpan>
-                <ClickedSpan2 onClick={() => onClickHandler("리뷰")}>
-                  리뷰 <span>{item.reviews?.length}</span>
-                </ClickedSpan2>
+                </ClickedSpan3>
+                <ClickedSpan4 onClick={() => onClickHandler("리뷰")}>
+                  리뷰 <CommentNumber>{item.reviews?.length}</CommentNumber>
+                </ClickedSpan4>
               </NutReDiv>
-              <HR2 />
+              <HR3 />
+              <StarSort>
+                <MenuStarFlex>
+                  <Star src="images/star.png" />
+                  <span>{item.menuStar}</span>
+                </MenuStarFlex>
+                <Recent onClick={onClickHandler2}>
+                  최신순
+                  {isVisible ? (
+                    <RecentDropDown>
+                      <DropP>최신순</DropP>
+                      <DropP>인기순</DropP>
+                    </RecentDropDown>
+                  ) : (
+                    <></>
+                  )}
+                </Recent>
+              </StarSort>
+              {item.reviews.map((el, idx) => {
+                return (
+                  <MapDiv key={users[idx].nickname}>
+                    <ImgFlex>
+                      <Img2 src={users[idx].imgUrl} />
+                      <StarFlex>
+                        <span>{users[idx].nickname}</span>
+                        <Rating
+                          name="read-only"
+                          value={el.userStar}
+                          readOnly
+                          precision={0.5}
+                        />
+                      </StarFlex>
+                    </ImgFlex>
+                    <span>#{users[idx].tags}</span>
+                    <p>{el.content}</p>
+                    <img src={el.imageUrl} />
+                    <p>{el.createdAt} 작성</p>
+                  </MapDiv>
+                );
+              })}
+              <ReviewButton>리뷰 작성</ReviewButton>
             </>
           )}
         </DivideDiv>
       )}
-    </div>
+    </OuterWrapper>
   );
 }
