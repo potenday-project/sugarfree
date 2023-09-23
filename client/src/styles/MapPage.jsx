@@ -79,11 +79,12 @@ export const BottomBar = styled.div`
   width: 100%;
   height: 251px;
   width: 375px;
-  text-align: center;
 `;
 
 export const TitleP = styled.p`
   color: #2ab7c0;
+  font-weight: bold;
+  font-size: 17px;
 `;
 
 export const BottomBar2 = styled.div`
@@ -91,7 +92,6 @@ export const BottomBar2 = styled.div`
   z-index: 5;
   background-color: white;
   width: 375px;
-  overflow-x: hidden;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -108,6 +108,7 @@ export const BottomBarClick = styled.p`
 `;
 
 export const BottomBarSpan1 = styled.span`
+  display: block;
   margin-right: 4rem;
   font-size: 17px;
   margin-bottom: 16px;
@@ -120,7 +121,7 @@ export const ColoredSpan = styled.span`
 `;
 
 export const BottomBarSpan2 = styled.span`
-  margin-left: 4rem;
+  margin-left: 110px;
   cursor: pointer;
 `;
 
@@ -139,13 +140,87 @@ export const ModalWrapper = styled.div`
   height: 223px;
   position: absolute;
   top: 25%;
-  right: 43%;
+  right: 39.5%;
   background-color: white;
   z-index: 10;
   display: flex;
   align-items: start;
   flex-direction: column;
   border-radius: 11px;
+`;
+
+export const RatingSor = styled.span`
+  font-size: 12px;
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  &:hover {
+    color: #2ab7c0;
+    font-weight: bold;
+  }
+`;
+
+export const CoffeeImg2 = styled.img`
+  width: 139px;
+  height: 100px;
+`;
+
+export const ReviewSor = styled(RatingSor)`
+  margin-right: 0px;
+`;
+
+export const TitleP2 = styled.div`
+  font-size: 15px;
+  font-weight: bold;
+  margin-right: 118px;
+`;
+
+export const IPP = styled.div`
+  display: flex;
+`;
+
+export const PopSpan = styled.span`
+  color: #2ab7c0;
+`;
+
+export const DistDiv = styled.div`
+  display: flex;
+`;
+
+export const RatingDiv = styled.div`
+  display: flex;
+`;
+
+export const ReviewP = styled.p`
+  color: gray;
+  font-size: 12px;
+`;
+
+export const CafeHR = styled.hr`
+  width: 100%;
+`;
+
+export const StarP = styled.div`
+  font-size: 12px;
+  font-weight: bold;
+`;
+
+export const DistP = styled.p`
+  color: gray;
+
+  font-size: 14px;
+`;
+
+export const AddressP = styled.p`
+  color: gray;
+  font-size: 14px;
+  margin-left: 15px;
+`;
+
+export const BottomBarClickContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const HRLine = styled.hr`
@@ -200,14 +275,11 @@ export const DetailDiv = styled.div`
   }
 `;
 
-export const NearDiv = styled.div`
-  display: flex;
-`;
-
 export const NearDivWrapper = styled.div`
   display: flex;
   width: 375px;
   margin-left: 55px;
+  margin-top: 32px;
 `;
 
 export const CoffeeImg = styled.img`
@@ -305,4 +377,8 @@ export const AutoP = styled.p`
   margin-bottom: 22px;
   color: gray;
   cursor: pointer;
+`;
+
+export const SpanFlexDiv = styled.div`
+  display: flex;
 `;

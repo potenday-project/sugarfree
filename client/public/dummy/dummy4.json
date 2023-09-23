@@ -13,7 +13,7 @@
         "name": "americano",
         "description": "아주 맛나용 근데 아메리카노는 미국이 아닌거임?",
         "menuStar": 3.7,
-        "img": "/images/coffee1.png",
+        "img": "/images/americano.png",
         "price": 4500,
         "nutrients": {
           "sugar": 2.5,
@@ -47,7 +47,7 @@
         "description": "아주 맛나용",
         "menuStar": 3.7,
         "price": 4500,
-        "img": "/images/coffee1.png",
+        "img": "/images/americano.png",
         "nutrients": {
           "sugar": 2.5,
           "sodium": 3.4,
@@ -85,7 +85,7 @@
         "name": "americano",
         "description": "아주 맛나용",
         "menuStar": 3.7,
-        "img": "/images/coffee1.png",
+        "img": "/images/americano.png",
         "price": 4500,
         "nutrients": {
           "sugar": 2.5,
@@ -121,7 +121,7 @@
         "menuStar": 3.7,
         "description": "아주 맛나용",
         "price": 4500,
-        "img": "/images/coffee1.png",
+        "img": "/images/americano.png",
         "nutrients": {
           "sugar": 2.5,
           "sodium": 3.4,

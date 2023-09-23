@@ -25,7 +25,6 @@ import {
   DivideSpan,
   TitleP,
   ColoredSpan,
-  NearDivWrapper,
   PopContainer,
   ArrowImg,
   HRLine,
@@ -40,6 +39,21 @@ import {
   MagImg,
   AutoDiv,
   AutoP,
+  SpanFlexDiv,
+  BottomBarClickContainer,
+  AddressP,
+  DistDiv,
+  DistP,
+  IPP,
+  StarP,
+  ReviewP,
+  CafeHR,
+  TitleP2,
+  PopSpan,
+  RatingDiv,
+  RatingSor,
+  ReviewSor,
+  CoffeeImg2,
 } from "../styles/MapPage";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -56,10 +70,12 @@ export default function MapPage() {
   const [reviews, setReviews] = useState(0);
   const [cafes, setCafes] = useState([]);
   const [which, setWhich] = useState(0);
+  const [sort, setSort] = useState("거리순");
+  const [isVisible, setIsVisible] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
 
   const imgRef = useRef(null);
   const inputRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
 
   const navigate = useNavigate();
 
@@ -85,9 +101,9 @@ export default function MapPage() {
   const imgHandler = () => {
     setCurrent(!current);
     if (current) {
-      imgRef.current.src = "/images/currentClicked.png";
-    } else {
       imgRef.current.src = "/images/current.png";
+    } else {
+      imgRef.current.src = "/images/currentClicked.png";
     }
   };
 
@@ -96,6 +112,7 @@ export default function MapPage() {
       dispatch(onDrop({ clicked: false }));
     } else {
       dispatch(onDrop({ clicked: !markerInfo.clicked }));
+      setIsSearch(!isSearch);
     }
   };
 
@@ -109,7 +126,7 @@ export default function MapPage() {
   };
 
   const asyncFunction2 = async () => {
-    const response = await axios.get("/dummy/dummy4.json"); // 검색별로 카페 제공
+    const response = await axios.get("/dummy/dummy4.json"); // 검색별로 카페 제공 value 값을 이용
     setCafes(response.data);
   };
 
@@ -126,6 +143,12 @@ export default function MapPage() {
     setReviews(numberOfReviews);
   }, [markerInfo]);
 
+  useEffect(() => {
+    if (value === "") return;
+    dispatch(onDrop({ clicked: true }));
+    cafes;
+  }, [value]);
+
   const detailClickHandler = (item) => {
     navigate("/detail", { state: item });
   };
@@ -133,6 +156,8 @@ export default function MapPage() {
   const onKeyDownHandler = (e) => {
     if (e.key === "Enter") {
       setValue(inputRef.current.value);
+      setIsVisible(false);
+      setIsSearch(true);
     }
   };
 
@@ -143,17 +168,27 @@ export default function MapPage() {
 
   const checkBoxHandler = (idx) => {
     setWhich(idx);
+    if (idx === 0) {
+      setSort("거리순");
+    } else if (idx === 1) {
+      setSort("인기순");
+    } else {
+      setSort("당류낮은순");
+    }
+    setIsModal(false);
   };
 
   const magClickHandler = () => {
     setValue(inputRef.current?.value);
     setIsVisible(false);
+    setIsSearch(true);
   };
   const autoHanlder = (title) => {
     setValue(title);
     inputRef.current.value = title;
     setIsVisible(false);
   };
+
   return (
     <>
       <Wrapper>
@@ -190,19 +225,34 @@ export default function MapPage() {
           src="/images/current.png"
         />
         <MapComponent place={value ? value : "카페"} current={current} />
+
         {markerInfo.clicked ? (
           <BottomBar>
-            <BottomBarClick onClick={bottomBarClick}>ㅡ</BottomBarClick>
+            <BottomBarClickContainer>
+              <BottomBarClick onClick={bottomBarClick}>ㅡ</BottomBarClick>
+            </BottomBarClickContainer>
             <TitleP>{markerInfo.content}</TitleP>
-            <p>{markerInfo.address}</p>
-            <p>{distance}m 내</p>
-            <img src="images/star.png" />
-            <p>{markerInfo.cafeStar}</p>
-            <p>리뷰 {reviews}</p>
+            <DistDiv>
+              <DistP>반경 {distance}m 내</DistP>
+              <AddressP>{markerInfo.address}</AddressP>
+            </DistDiv>
+            <p>{markerInfo.time}</p>
+            <IPP>
+              <img src="images/star.png" />
+              <StarP>{markerInfo.cafeStar}</StarP>
+              <ReviewP>리뷰 {reviews}</ReviewP>
+            </IPP>
+            <CafeHR />
             {markerInfo.menu ? (
               <>
-                <p>이 카페의 인기 저당 음료</p> <span>별점순</span>
-                <span>후기순</span>
+                <RatingDiv>
+                  <TitleP2>
+                    이 카페의 <PopSpan>인기 저당 음료</PopSpan>
+                  </TitleP2>
+                  <RatingSor>별점순</RatingSor>
+                  <span>|</span>
+                  <ReviewSor>후기순</ReviewSor>
+                </RatingDiv>
               </>
             ) : (
               "정보없음"
@@ -214,7 +264,7 @@ export default function MapPage() {
                   return (
                     <DropOuter key={idx}>
                       <DropWrapper>
-                        <img src={el.img} />
+                        <CoffeeImg2 src={el.img} />
                         <span>{el.name}</span>
                         <span>{el.price}원</span>
                         <StarAndReviewDiv>
@@ -240,20 +290,38 @@ export default function MapPage() {
             <BottomBar2>
               <BottomBarClick onClick={bottomBarClick}>ㅡ</BottomBarClick>
               <PopContainer>
+                <SpanFlexDiv>
+                  <BottomBarSpan1>
+                    내 주변
+                    <ColoredSpan> 인기 저당 음료</ColoredSpan>
+                  </BottomBarSpan1>
+                  <BottomBarSpan2 onClick={onClickHandlerSpan}>
+                    {sort}
+                    <ArrowImg src="/images/arrowDown.svg" />
+                  </BottomBarSpan2>
+                </SpanFlexDiv>
+                {cafes.length > 0 && <CarouselWrapper items={cafes} />}
+              </PopContainer>
+            </BottomBar2>
+          </>
+        )}
+        {markerInfo.clicked === false && isSearch && (
+          <BottomBar2>
+            <BottomBarClick onClick={bottomBarClick}>ㅡ</BottomBarClick>
+            <PopContainer>
+              <SpanFlexDiv>
                 <BottomBarSpan1>
                   내 주변
                   <ColoredSpan> 인기 저당 음료</ColoredSpan>
                 </BottomBarSpan1>
                 <BottomBarSpan2 onClick={onClickHandlerSpan}>
-                  거리순
+                  {sort}
                   <ArrowImg src="/images/arrowDown.svg" />
                 </BottomBarSpan2>
-                <NearDivWrapper>
-                  {cafes.length > 0 && <CarouselWrapper items={cafes} />}
-                </NearDivWrapper>
-              </PopContainer>
-            </BottomBar2>
-          </>
+              </SpanFlexDiv>
+              {cafes.length > 0 && <CarouselWrapper items={cafes} />}
+            </PopContainer>
+          </BottomBar2>
         )}
       </Wrapper>
 

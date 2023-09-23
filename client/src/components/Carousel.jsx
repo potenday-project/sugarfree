@@ -25,7 +25,7 @@ export const EmblaSlide = styled.div`
 export const EmblaContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin-left: -20px;
+  margin-right: 6px;
 `;
 
 export const Img = styled.img`
@@ -36,12 +36,11 @@ export const Img = styled.img`
 
 export const FlexDiv = styled.div`
   display: flex;
-  margin-top: 32px;
 `;
 
 export const FlexDiv2 = styled.div`
   display: flex;
-  margin-right: 8px;
+  margin-top: 14px;
 `;
 
 export const NutCafeP = styled.p`
@@ -64,9 +63,10 @@ export const NutCafeP = styled.p`
 `;
 
 export const PlaceP = styled.p`
-  margin-top: 3px;
-  color: gray;
   text-align: left;
+  color: gray;
+  font-size: 12px;
+  margin-top: 3px;
   margin-left: 13px;
 `;
 
@@ -75,6 +75,27 @@ export const MenuP = styled.p`
   font-weight: bold;
   text-align: left;
   margin-left: 13px;
+`;
+
+export const ViewPort = styled.div`
+  overflow-x: hidden;
+`;
+
+export const FlexDiv3 = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const RelativeDiv = styled.div`
+  position: relative;
+`;
+
+export const Img2 = styled.img`
+  position: absolute;
+  top: 37%;
+  left: 25%;
 `;
 
 export default function Carousel({ slides, options }) {
@@ -94,16 +115,19 @@ export default function Carousel({ slides, options }) {
 
   return (
     <div className="embla">
-      <div className="embla__viewport" ref={emblaRef}>
+      <ViewPort className="embla__viewport" ref={emblaRef}>
         <EmblaContainer className="embla__container">
           {slides.map((slide, index) => (
             <EmblaSlide className="embla__slide" key={index}>
               <FlexDiv>
-                <Img className="embla__slide__img" src={slide.menu[0].img} />
-                <div>
+                <RelativeDiv>
+                  <Img2 src="/images/lowSugar.svg" />
+                  <Img className="embla__slide__img" src={slide.menu[0].img} />
+                </RelativeDiv>
+                <FlexDiv3>
                   <MenuP>{slide.menu[0].name}</MenuP>
                   <PlaceP>{slide.address}</PlaceP>
-                </div>
+                </FlexDiv3>
               </FlexDiv>
               <FlexDiv2>
                 <NutCafeP
@@ -120,7 +144,7 @@ export default function Carousel({ slides, options }) {
             </EmblaSlide>
           ))}
         </EmblaContainer>
-      </div>
+      </ViewPort>
     </div>
   );
 }
