@@ -75,6 +75,10 @@ export default function DetailPage() {
     setIsVisible(!isVisible);
   };
 
+  const gotoReview = () => {
+    navigate("/write", { state: item });
+  };
+
   return (
     <OuterWrapper>
       <Img src="/images/coffee1.png" />
@@ -211,7 +215,7 @@ export default function DetailPage() {
                   </MapDiv>
                 );
               })}
-              <ReviewButton>리뷰 작성</ReviewButton>
+              <ReviewButton onClick={gotoReview}>리뷰 작성</ReviewButton>
             </>
           )}
         </DivideDiv>

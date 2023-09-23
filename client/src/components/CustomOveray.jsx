@@ -9,7 +9,7 @@ import {
 import PropTypes from "prop-types";
 import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { setMarker, onDrop } from "../redux/userSlice";
+import { setMarker, onDrop } from "../redux/markerSlice";
 export default function CustomOveray({
   count,
   kakao,
@@ -64,7 +64,7 @@ export default function CustomOveray({
           <ModalDivKakao ref={modalRef2} onClick={onClickHandler}>
             <WrapperDiv className="wrap">
               <div>
-                <Img2 ref={imgRef2} src="images/highMenu.png" />
+                <Img2 ref={imgRef2} src="images/highCafe.svg" />
                 <ModalSpan ref={spanRef2}>{count}</ModalSpan>
               </div>
             </WrapperDiv>
@@ -73,7 +73,7 @@ export default function CustomOveray({
           <ModalDiv ref={modalRef} onClick={onClickHandler}>
             <WrapperDiv className="wrap">
               <div>
-                <Img ref={imgRef} src="images/lowMenu.png" />
+                <Img ref={imgRef} src="images/lowCafe.svg" />
                 <ModalSpan ref={spanRef}>{count}</ModalSpan>
               </div>
             </WrapperDiv>
