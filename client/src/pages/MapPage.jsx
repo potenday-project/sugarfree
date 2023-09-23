@@ -73,6 +73,7 @@ export default function MapPage() {
 
   const [value, setValue] = useState("");
   const [distance, setDistance] = useState(0);
+  const [reviews, setReviews] = useState(0);
 
   const asyncFucntion = async () => {
     // const data = await axios.post("/dummy/dummy2.json", {
@@ -84,7 +85,12 @@ export default function MapPage() {
 
   useEffect(() => {
     asyncFucntion();
-  }, []);
+    let numberOfReviews = 0;
+    markerInfo.menu?.forEach((el) => {
+      numberOfReviews += el.reviews.length;
+    });
+    setReviews(numberOfReviews);
+  }, [markerInfo]);
 
   const detailClickHandler = (item) => {
     navigate("/detail", { state: item });
@@ -159,6 +165,12 @@ export default function MapPage() {
             <TitleP>{markerInfo.content}</TitleP>
             <p>{markerInfo.address}</p>
             <p>{distance}m 내</p>
+            <img src="images/star.png" />
+            <p>{markerInfo.cafeStar}</p>
+            <p>리뷰 {reviews}</p>
+            <p>이 카페의 인기 저당 음료</p>
+            <span>별점순</span>
+            <span>후기순</span>
             <DropFlex>
               {markerInfo.menu !== undefined ? (
                 markerInfo.menu.map((el, idx) => {

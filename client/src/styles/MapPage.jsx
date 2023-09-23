@@ -54,8 +54,8 @@ export const CurrentImg = styled.img`
   cursor: pointer;
   z-index: 10;
   position: absolute;
-  bottom: 1%;
-  left: 0%;
+  bottom: 15%;
+  left: 3%;
 `;
 
 export const InnerWrapper = styled.div`
