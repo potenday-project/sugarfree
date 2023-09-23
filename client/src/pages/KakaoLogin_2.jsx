@@ -22,6 +22,7 @@ export default function KakaoLogin_2() {
         <div className="overlap-group">
           <img className="btng" alt="Btng" src="/images/btng-2.png" />
         </div>
+        <div></div>
         <div className="text-wrapper-4">네이버 로그인</div>
       </div>
     </div>
