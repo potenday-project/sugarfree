@@ -89,7 +89,6 @@ export const BottomBar2 = styled.div`
   z-index: 5;
   background-color: white;
   width: 100%;
-  height: 115px;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -107,6 +106,12 @@ export const BottomBarClick = styled.p`
 
 export const BottomBarSpan1 = styled.span`
   margin-right: 4rem;
+  font-size: 17px;
+  margin-bottom: 32px;
+`;
+
+export const ColoredSpan = styled.span`
+  color: #2ab7c0;
 `;
 
 export const BottomBarSpan2 = styled.span`
@@ -121,6 +126,8 @@ export const Modal = styled.div`
   z-index: 9;
   position: absolute;
 `;
+
+export const BottomDiv = styled.div``;
 
 export const ModalWrapper = styled.div`
   width: 257px;
@@ -170,3 +177,19 @@ export const DetailDiv = styled.div`
     color: white;
   }
 `;
+
+export const NearDiv = styled.div`
+  display: flex;
+`;
+
+export const NearDivWrapper = styled.div`
+  display: flex;
+`;
+
+export const CoffeeImg = styled.img`
+  width: 60px;
+  border-radius: 100%;
+  height: 60px;
+`;
+
+export const PopContainer = styled.div``;
