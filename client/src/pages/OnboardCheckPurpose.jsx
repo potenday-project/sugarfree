@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 
 // :root 내용을 직접 정의합니다.
@@ -24,7 +25,6 @@ const GlobalStyles = createGlobalStyle`
 
 // 스타일드 컴포넌트를 사용하여 스타일을 정의합니다.
 const ElementWrapper = styled.div`
-  background-color: #ffffff;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -32,14 +32,12 @@ const ElementWrapper = styled.div`
 `;
 
 const Container = styled.div`
-  background-color: #ffffff;
   height: 812px;
   position: relative;
   width: 375px;
 `;
 
 const TextWrapper = styled.div`
-  color: var(--variable-collection-black);
   font-family: "Pretendard-Bold", Helvetica;
   font-size: 24px;
   font-weight: 700;
@@ -51,17 +49,22 @@ const TextWrapper = styled.div`
 `;
 
 const Overlap = styled.div`
-  background-color: var(--variable-collection-SUB-pale);
   border-radius: 8px;
   height: 50px;
   left: 20px;
   position: absolute;
   top: 430px;
   width: 335px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(42, 183, 192, 1);
+    color: white;
+  }
+  background-color: ${(props) => (props.isselected ? "#2ab7c0" : "")};
+  color: ${(props) => (props.isselected ? "white" : "black")};
 `;
 
 const Paragraph = styled.p`
-  color: var(--variable-collection-black);
   font-family: "Pretendard-Bold", Helvetica;
   font-size: 14px;
   font-weight: 400;
@@ -70,6 +73,8 @@ const Paragraph = styled.p`
   line-height: normal;
   position: absolute;
   top: 16px;
+  background-color: ${(props) => (props.isselected ? "#2ab7c0" : "")};
+  color: ${(props) => (props.isselected ? "white" : "black")};
 `;
 
 const Span = styled.span`
@@ -81,17 +86,29 @@ const TextWrapper2 = styled.span`
 `;
 
 const OverlapGroup = styled.div`
-  background-color: var(--variable-collection-SUB-pale);
   border-radius: 8px;
   height: 50px;
   left: 20px;
   position: absolute;
   top: 488px;
   width: 335px;
+  background-color: ${(props) => (props.isselected ? "#2ab7c0" : "")};
+  color: ${(props) => (props.isselected ? "white" : "black")};
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(42, 183, 192, 1);
+    color: white;
+  }
 `;
 
 const DivWrapper = styled.div`
-  background-color: var(--variable-collection-SUB-pale);
+  background-color: ${(props) => (props.isselected ? "#2ab7c0" : "")};
+  color: ${(props) => (props.isselected ? "white" : "black")};
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(42, 183, 192, 1);
+    color: white;
+  }
   border-radius: 8px;
   height: 50px;
   left: 20px;
@@ -101,7 +118,13 @@ const DivWrapper = styled.div`
 `;
 
 const OverlapGroup2 = styled.div`
-  background-color: var(--variable-collection-SUB-pale);
+  background-color: ${(props) => (props.isselected ? "#2ab7c0" : "")};
+  color: ${(props) => (props.isselected ? "white" : "black")};
+  cursor: pointer;
+  &:hover {
+    color: white;
+    background-color: rgba(42, 183, 192, 1);
+  }
   border-radius: 8px;
   height: 50px;
   left: 20px;
@@ -111,7 +134,6 @@ const OverlapGroup2 = styled.div`
 `;
 
 const Div2 = styled.p`
-  color: var(--variable-collection-black);
   font-family: "Pretendard-Regular", Helvetica;
   font-size: 14px;
   font-weight: 400;
@@ -123,21 +145,17 @@ const Div2 = styled.p`
 `;
 
 const TextWrapper3 = styled.span`
-  color: #252525;
-  font-family: "Pretendard-Regular", Helvetica;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
   letter-spacing: -0.14px;
 `;
 
 const TextWrapper4 = styled.span`
-  font-family: "Pretendard-Bold", Helvetica;
+  font-size: 12px;
   font-weight: 700;
 `;
 
 const TextWrapper5 = styled.div`
-  color: var(--variable-collection-dark-gray);
-  font-family: "Pretendard-Regular", Helvetica;
   font-size: 14px;
   font-weight: 400;
   left: 326px;
@@ -149,8 +167,6 @@ const TextWrapper5 = styled.div`
 `;
 
 const TextWrapper6 = styled.div`
-  color: var(--variable-collection-dark-gray);
-  font-family: "Pretendard-Regular", Helvetica;
   font-size: 14px;
   font-weight: 400;
   left: 20px;
@@ -161,8 +177,6 @@ const TextWrapper6 = styled.div`
 `;
 
 const TextWrapper7 = styled.p`
-  color: var(--variable-collection-dark-gray);
-  font-family: "Pretendard-Regular", Helvetica;
   font-size: 14px;
   font-weight: 400;
   left: 20px;
@@ -173,7 +187,6 @@ const TextWrapper7 = styled.p`
 `;
 
 const Rectangle = styled.div`
-  background-color: var(--variable-collection-light-gray);
   border-radius: 100px;
   height: 50px;
   left: 20px;
@@ -231,8 +244,6 @@ const Ellipse4 = styled.div`
 `;
 
 const TextWrapper8 = styled.div`
-  color: #ffffff; /* "다음" 텍스트의 색상을 하얀색으로 변경 */
-  font-family: "Pretendard-Bold", Helvetica;
   font-size: 15px;
   font-weight: 700;
   left: 174px;
@@ -242,9 +253,16 @@ const TextWrapper8 = styled.div`
   text-align: center;
   top: 728px;
   white-space: nowrap;
+  cursor: pointer;
 `;
 
 export default function OnboardingCheckPurpose() {
+  const [idx, setIdx] = useState(-1);
+
+  const onClickHandler = (index) => {
+    setIdx(index);
+  };
+
   return (
     <ThemeProvider theme={{}}>
       <GlobalStyles />
@@ -255,25 +273,37 @@ export default function OnboardingCheckPurpose() {
             <br />
             방문하게 되었나요?
           </TextWrapper>
-          <Overlap>
+          <Overlap
+            onClick={() => onClickHandler(0)}
+            isselected={idx === 0 ? true : false}
+          >
             <Paragraph>
               <Span>당뇨</Span>
               <TextWrapper2>로 인해 식단 관리를 하고 있어요</TextWrapper2>
             </Paragraph>
           </Overlap>
-          <OverlapGroup>
+          <OverlapGroup
+            onClick={() => onClickHandler(1)}
+            isselected={idx === 1 ? true : false}
+          >
             <Paragraph>
               <Span>다이어트</Span>
               <TextWrapper2> 및 체형 관리를 하고 싶어요</TextWrapper2>
             </Paragraph>
           </OverlapGroup>
-          <DivWrapper>
+          <DivWrapper
+            onClick={() => onClickHandler(2)}
+            isselected={idx === 2 ? true : false}
+          >
             <Paragraph>
               <Span>임신성 당뇨</Span>
               <TextWrapper2>를 예방, 관리하고 싶어요</TextWrapper2>
             </Paragraph>
           </DivWrapper>
-          <OverlapGroup2>
+          <OverlapGroup2
+            onClick={() => onClickHandler(3)}
+            isselected={idx === 3 ? true : false}
+          >
             <Div2>
               <TextWrapper3>뚜렷한 목표는 없지만 </TextWrapper3>
               <TextWrapper4>건강한 식습관</TextWrapper4>
@@ -292,7 +322,7 @@ export default function OnboardingCheckPurpose() {
             <Ellipse3 />
             <Ellipse4 />
           </Group>
-          <TextWrapper8>다음</TextWrapper8>
+          {idx !== -1 ? <TextWrapper8>다음</TextWrapper8> : <></>}
         </Container>
       </ElementWrapper>
     </ThemeProvider>

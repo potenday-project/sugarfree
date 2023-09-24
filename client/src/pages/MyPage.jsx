@@ -6,6 +6,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const constTags = [
   "#저당비기너",
@@ -153,10 +154,31 @@ export const NickNameFlex = styled.div`
   display: flex;
 `;
 
+export const RelaDiv = styled.div`
+  position: relative;
+  width: 375px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Img = styled.img`
+  position: absolute;
+  top: 1%;
+  left: 1%;
+`;
+
+export const WriteImg = styled.img`
+  cursor: pointer;
+`;
+
 export default function MyPage() {
   const [goal, setGoal] = useState("");
   const [tags, setTags] = useState([]);
   const [edit, setEdit] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setGoal(event.target.value);
@@ -188,19 +210,22 @@ export default function MyPage() {
 
   return (
     <>
-      <div>
+      <RelaDiv>
+        <Img onClick={() => navigate("/map")} src="/images/back.svg" />
         <MyPageP>마이페이지</MyPageP>
         <div>
           <UserImg src={userInfo.imgUrl} alt="유저 이미지" />
         </div>
         <NickNameDiv>
-          <NickName>{userInfo.nickname}</NickName>
           {!edit && (
-            <img
-              src="/images/edit.svg"
-              onClick={imgClickHandler}
-              alt="연필이미지"
-            />
+            <>
+              <NickName>{userInfo.nickname}</NickName>
+              <WriteImg
+                src="/images/edit.svg"
+                onClick={imgClickHandler}
+                alt="연필이미지"
+              />
+            </>
           )}
           {edit && (
             <>
@@ -214,7 +239,7 @@ export default function MyPage() {
             </>
           )}
         </NickNameDiv>
-      </div>
+      </RelaDiv>
       <HR />
 
       <div>

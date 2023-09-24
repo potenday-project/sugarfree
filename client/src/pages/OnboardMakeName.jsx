@@ -1,5 +1,6 @@
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
-
+import { Navigate, useNavigate } from "react-router-dom";
+import { useState } from "react";
 // :root 내용을 직접 정의합니다.
 const GlobalStyles = createGlobalStyle`
 :root {
@@ -61,7 +62,7 @@ const OverlapGroup = styled.div`
   width: 335px;
 `;
 
-const TextWrapper2 = styled.div`
+const TextWrapper2 = styled.input`
   color: var(--variable-collection-black);
   font-family: "Pretendard-Regular", Helvetica;
   font-size: 14px;
@@ -84,6 +85,7 @@ const Overlap = styled.div`
 `;
 
 const TextWrapper3 = styled.div`
+  cursor: pointer;
   color: #ffffff;
   font-family: "Pretendard-Regular", Helvetica;
   font-size: 14px;
@@ -104,9 +106,32 @@ const DivWrapper = styled.div`
   top: 713px;
   width: 335px;
 `;
+const DivWrapper2 = styled.div`
+  cursor: pointer;
+  background-color: var(--variable-collection-MAIN-turquoise);
+  border-radius: 100px;
+  height: 50px;
+  left: 20px;
+  position: absolute;
+  top: 713px;
+  width: 335px;
+`;
 
 const TextWrapper4 = styled.div`
-  color: #ffffff;
+  font-family: "Pretendard-Bold", Helvetica;
+  font-size: 14px;
+  font-weight: 700;
+  left: 155px;
+  letter-spacing: -0.14px;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 16px;
+`;
+
+const TextWrapper44 = styled(TextWrapper4)`
+  cursor: pointer;
+  background-color: var(--variable-collection-MAIN-turquoise);
   font-family: "Pretendard-Bold", Helvetica;
   font-size: 14px;
   font-weight: 700;
@@ -167,6 +192,7 @@ const Ellipse4 = styled.div`
 `;
 
 const TextWrapper5 = styled.div`
+  cursor: pointer;
   color: var(--variable-collection-dark-gray);
   font-family: "Pretendard-Regular", Helvetica;
   font-size: 14px;
@@ -180,6 +206,7 @@ const TextWrapper5 = styled.div`
 `;
 
 const TextWrapper6 = styled.div`
+  cursor: pointer;
   color: var(--variable-collection-dark-gray);
   font-family: "Pretendard-Regular", Helvetica;
   font-size: 14px;
@@ -222,16 +249,19 @@ const Span = styled.span`
   letter-spacing: -0.14px;
 `;
 
-const Image = styled.img`
-  height: 291px;
-  left: 0;
-  position: fixed;
-  top: 521px;
-  width: 375px;
+const Span2 = styled.span`
+  color: var(--variable-collection-MAIN-turquoise);
 `;
 
 // React 컴포넌트 정의
 export default function OnboardingMakeName() {
+  const [name, setName] = useState("");
+  const navigate = useNavigate();
+
+  const onChangeHandler = (e) => {
+    setName(e.target.value);
+  };
+
   return (
     <ThemeProvider theme={{}}>
       <GlobalStyles />
@@ -243,22 +273,35 @@ export default function OnboardingMakeName() {
             이름을 알고 싶어요
           </TextWrapper>
           <OverlapGroup>
-            <TextWrapper2>당짠당짠</TextWrapper2>
+            <TextWrapper2
+              onChange={onChangeHandler}
+              placeholder="단짠단짠"
+              value={name}
+            />
             <Overlap>
               <TextWrapper3>중복확인</TextWrapper3>
             </Overlap>
           </OverlapGroup>
-          <DivWrapper>
-            <TextWrapper4>다음</TextWrapper4>
-          </DivWrapper>
+          {name.length > 0 ? (
+            <DivWrapper2>
+              <TextWrapper44 onClick={() => navigate("/check")}>
+                다음
+              </TextWrapper44>
+            </DivWrapper2>
+          ) : (
+            <DivWrapper>
+              <TextWrapper4>다음 </TextWrapper4>
+            </DivWrapper>
+          )}
           <Group>
             <Ellipse />
             <Ellipse2 />
             <Ellipse3 />
             <Ellipse4 />
           </Group>
-          <TextWrapper5>SKIP</TextWrapper5>
-          <TextWrapper6>이전</TextWrapper6>
+
+          <TextWrapper5 onClick={() => navigate("/map")}>SKIP</TextWrapper5>
+          <TextWrapper6 onClick={() => navigate("/name")}>이전</TextWrapper6>
           <FlexContainer>
             <Text>
               <Span>

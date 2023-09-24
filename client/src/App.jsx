@@ -6,7 +6,10 @@ import LoginPage from "./pages/LoginPage";
 import LogoPage from "./pages/LogoPage";
 import DetailPage from "./pages/DetailPage";
 import ReviewPage from "./pages/ReviewPage";
-
+import OnboardMakeName from "./pages/OnboardMakeName";
+import OnboardName from "./pages/OnboardName";
+import OnboardCheckPurpose from "./pages/OnboardCheckPurpose";
+import KakaoLoginButton from "./components/KakaoLoginButton";
 const AppContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -26,6 +29,10 @@ function App() {
           <Route path="/detail" element={<DetailPage />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/write" element={<ReviewPage />} />
+          <Route path="/login/kakao" element={<KakaoLoginButton />} />
+          <Route path="/make" element={<OnboardMakeName />} />
+          <Route path="/name" element={<OnboardName />} />
+          <Route path="/check" element={<OnboardCheckPurpose />} />
         </Routes>
       </AppContainer>
     </BrowserRouter>

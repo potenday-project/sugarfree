@@ -1,8 +1,18 @@
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+// KakaoLoginButton 컴포넌트
+
 export default function KakaoLogin_2() {
-  const link = `https://kauth.kakao.com/oauth/authorize?client_id=65730ce4d847f9f7e07176bc6e9db3b0&redirect_uri=http://b232-175-192-26-222.ngrok-free.app/auth/idpresponse/kakao&response_type=code`;
+  const link = `https://kauth.kakao.com/oauth/authorize?client_id=17414f65711c4da6b10f0fdd69ea262c&redirect_uri=http://b232-175-192-26-222.ngrok-free.app/auth/idpresponse/kakao&response_type=code`;
+
+  const navigate = useNavigate();
 
   const kakaoLogin = () => {
     window.location.href = link;
+    const code = new URL(location.toString()).searchParams.get("code"); // 이상한코드가한가득
+    axios.post("", { code });
+    navigate("/name");
   };
 
   return (
@@ -20,9 +30,12 @@ export default function KakaoLogin_2() {
           </div>
         </div>
         <div className="overlap-group">
-          <img className="btng" alt="Btng" src="/images/btng-2.png" />
+          <img
+            className="btng"
+            alt="Btng"
+            src="../../public/images/btng-2.png"
+          />
         </div>
-        <div></div>
         <div className="text-wrapper-4">네이버 로그인</div>
       </div>
     </div>

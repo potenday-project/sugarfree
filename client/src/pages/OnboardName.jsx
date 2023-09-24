@@ -1,5 +1,5 @@
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
-
+import { useNavigate } from "react-router-dom";
 const GlobalStyles = createGlobalStyle`
   :root {
     --drop-shadow-1-down: 0px 2px 10px 0px rgba(0, 0, 0, 0.25);
@@ -56,10 +56,12 @@ const Rectangle = styled.div`
   position: absolute;
   top: 713px;
   width: 335px;
+  cursor: pointer;
 `;
 
 const TextWrapper2 = styled.div`
   color: #ffffff;
+  cursor: pointer;
   font-family: "Pretendard-Bold", Helvetica;
   font-size: 15px;
   font-weight: 700;
@@ -73,6 +75,7 @@ const TextWrapper2 = styled.div`
 `;
 
 export default function OnboardName() {
+  const navigate = useNavigate();
   return (
     <ThemeProvider theme={{}}>
       <GlobalStyles />
@@ -83,8 +86,8 @@ export default function OnboardName() {
             <br />
             이름을 알고 싶어요
           </TextWrapper>
-          <Rectangle />
-          <TextWrapper2>다음</TextWrapper2>
+          <Rectangle onClick={() => navigate("/make")} />
+          <TextWrapper2 onClick={() => navigate("/make")}> 다음</TextWrapper2>
         </Container>
       </ElementWrapper>
     </ThemeProvider>

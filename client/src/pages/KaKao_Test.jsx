@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
-
+import { useNavigate } from "react-router-dom";
 // :root 내용을 직접 정의합니다.
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -97,77 +97,79 @@ const TextWrapper3 = styled.div`
 `;
 
 export default function Element() {
-/*카카오로그인시작*/
-const [user, setUser] = useState(null);
-const [isLogin, setIsLogin] = useState(false);
-const {
-  Kakao
-} = window;
-const initKakao = async () => {
-  const jsKey = "e7542f591ad8f199dcc87122988f2885"
-  if (Kakao && !Kakao.isInitialized()) {
-    await Kakao.init(jsKey);
-    console.log(`kakao 초기화 ${Kakao.isInitialized()}`);
-  }
-};
-const kakaoLogin = async () => {
-  await Kakao.Auth.login({
-    success(res) {
-      console.log(res);
-      Kakao.Auth.setAccessToken(res.access_token);
-      console.log("카카오 로그인 성공");
+  /*카카오로그인시작*/
+  const [user, setUser] = useState(null);
+  const [isLogin, setIsLogin] = useState(false);
+  const { Kakao } = window;
 
-      Kakao.API.request({
-        url: "/v2/user/me",
-        success(res) {
-          console.log("카카오 인가 요청 성공");
-          setIsLogin(true);
-          const kakaoAccount = res.kakao_account;
-          localStorage.setItem("email", kakaoAccount.email);
-          localStorage.setItem(
-            "profileImg",
-            kakaoAccount.profile.profile_image_url
-          );
-          localStorage.setItem("nickname", kakaoAccount.profile.nickname);
-        },
-        fail(error) {
-          console.log(error);
-        },
-      });
-    },
-    fail(error) {
-      console.log(error);
-    },
-  });
-};
-/* 버튼 구현 할지 여부 */
-const kakaoLogout = () => {
-  Kakao.Auth.logout((res) => {
-    //logout시, localstrage 데이터 삭제
-    console.log(Kakao.Auth.getAccessToken());
-    console.log(res);
-    localStorage.removeItem("email");
-    localStorage.removeItem("profileImg");
-    localStorage.removeItem("nickname");
-    setUser(null);
-  });
-};
+  const navigate = useNavigate();
 
-useEffect(() => {
-  initKakao();
-  Kakao.Auth.getAccessToken() ? setIsLogin(true) : setIsLogin(false);
-}, []);
+  const initKakao = async () => {
+    const jsKey = "e7542f591ad8f199dcc87122988f2885";
+    if (Kakao && !Kakao.isInitialized()) {
+      await Kakao.init(jsKey);
+      console.log(`kakao 초기화 ${Kakao.isInitialized()}`);
+    }
+  };
+  const kakaoLogin = async () => {
+    await Kakao.Auth.login({
+      success(res) {
+        console.log(res);
+        Kakao.Auth.setAccessToken(res.access_token);
+        console.log("카카오 로그인 성공");
 
-useEffect(() => {
-  console.log(isLogin);
-  if (isLogin) {
-    setUser({
-      email: localStorage.getItem("email"),
-      profileImg: localStorage.getItem("profileImg"),
-      nickname: localStorage.getItem("nickname"),
+        Kakao.API.request({
+          url: "/v2/user/me",
+          success(res) {
+            console.log("카카오 인가 요청 성공");
+            setIsLogin(true);
+            navigate("/onboard");
+            const kakaoAccount = res.kakao_account;
+            localStorage.setItem("email", kakaoAccount.email);
+            localStorage.setItem(
+              "profileImg",
+              kakaoAccount.profile.profile_image_url
+            );
+            localStorage.setItem("nickname", kakaoAccount.profile.nickname);
+          },
+          fail(error) {
+            console.log(error);
+          },
+        });
+      },
+      fail(error) {
+        console.log(error);
+      },
     });
-  }
-}, [isLogin]);
+  };
+  /* 버튼 구현 할지 여부 */
+  const kakaoLogout = () => {
+    Kakao.Auth.logout((res) => {
+      //logout시, localstrage 데이터 삭제
+      console.log(Kakao.Auth.getAccessToken());
+      console.log(res);
+      localStorage.removeItem("email");
+      localStorage.removeItem("profileImg");
+      localStorage.removeItem("nickname");
+      setUser(null);
+    });
+  };
+
+  useEffect(() => {
+    initKakao();
+    Kakao.Auth.getAccessToken() ? setIsLogin(true) : setIsLogin(false);
+  }, []);
+
+  useEffect(() => {
+    console.log(isLogin);
+    if (isLogin) {
+      setUser({
+        email: localStorage.getItem("email"),
+        profileImg: localStorage.getItem("profileImg"),
+        nickname: localStorage.getItem("nickname"),
+      });
+    }
+  }, [isLogin]);
   return (
     <ThemeProvider theme={{}}>
       <GlobalStyles />

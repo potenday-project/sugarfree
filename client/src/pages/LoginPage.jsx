@@ -1,9 +1,9 @@
-import KakaoLogin_2 from "./KakaoLogin_2";
-
+//import KakaoLoginButton from "../components/KakaoLoginButton";
+import KakaoLogin from "../components/KaKaoLogin";
 export default function LoginPage() {
   return (
     <>
-      <KakaoLogin_2 />
+      <KakaoLogin />
       <div>환영해요!</div>
     </>
   );
