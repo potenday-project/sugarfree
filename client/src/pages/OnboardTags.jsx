@@ -1,0 +1,334 @@
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const GlobalStyles = createGlobalStyle`
+:root {
+  --drop-shadow-1-down: 0px 2px 10px 0px rgba(0, 0, 0, 0.25);
+  --drop-shadow-2-up: 0px -4px 20px 0px rgba(0, 0, 0, 0.12);
+  --variable-collection: rgba(255, 0, 0, 1);
+  --variable-collection-alert-red: rgba(255, 94, 94, 1);
+  --variable-collection-ALT-violet: rgba(139, 70, 181, 1);
+  --variable-collection-black: rgba(37, 37, 37, 1);
+  --variable-collection-dark-gray: rgba(138, 138, 138, 1);
+  --variable-collection-light-gray: rgba(214, 214, 214, 1);
+  --variable-collection-main-blue: rgba(87, 148, 238, 1);
+  --variable-collection-MAIN-turquoise: rgba(42, 183, 192, 1);
+  --variable-collection-pale-gray: rgba(245, 245, 245, 1);
+  --variable-collection-SUB-light: rgba(140, 216, 221, 1);
+  --variable-collection-sub-light-blue: rgba(139, 192, 255, 1);
+  --variable-collection-SUB-pale: rgba(232, 248, 249, 1);
+  --variable-collection-sub-pale-blue: rgba(220, 236, 255, 1);
+  --variable-collection-SUB-yellow: rgba(255, 211, 97, 1);
+}
+`;
+const constTags = [
+  "#저당비기너",
+  "#헬스장 지박령",
+  "#당뇨위험군",
+  "#당뇨n년차",
+  "#프로다이어터",
+  "#키토식 고수",
+  "#예비엄마",
+  "#예비아빠",
+];
+
+export const TagsDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 260px;
+`;
+
+export const MyPageP = styled.p`
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 23px;
+`;
+
+export const UserImg = styled.img`
+  width: 63px;
+  height: 63px;
+  margin-bottom: 18px;
+`;
+
+export const NickName = styled.p`
+  font-size: 15px;
+  margin-top: 12px;
+`;
+
+export const TagMan = styled.p`
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 6px;
+`;
+
+export const DESC = styled.p`
+  font-size: 14px;
+  color: gray;
+  margin-bottom: 18px;
+`;
+
+export const KeyWordP = styled.p`
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 44px;
+  margin-bottom: 6px;
+`;
+
+export const KeyWordPExplain = styled.p`
+  font-size: 14px;
+  color: darkgray;
+  margin-bottom: 15px;
+`;
+
+export const Xbutton = styled.span`
+  cursor: pointer;
+  color: darkgray;
+  margin-left: 5px;
+  color: ${(props) => (props.isSelected ? "white" : "black")};
+`;
+
+export const NickNameDiv = styled.div`
+  display: flex;
+`;
+
+export const TagContainer = styled.div`
+  width: 116px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  align-items: center;
+  border-radius: 8px;
+
+  background-color: ${(props) => (props.isSelected ? "#2ab7c0" : "white")};
+  color: ${(props) => (props.isSelected ? "white" : "black")};
+
+  &:hover {
+    background-color: #2ab7c0;
+    color: white;
+  }
+`;
+
+export const Double = styled.div`
+  background-color: darkgray;
+  width: 55px;
+  height: 27px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  top: 5%;
+  right: 3%;
+  border-radius: 6px;
+  &:hover {
+    background-color: #2ab7c0;
+  }
+`;
+export const Change = styled.div`
+  width: 51px;
+  height: 33px;
+  background-color: darkgray;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  margin-left: 12px;
+  cursor: pointer;
+  &:hover {
+    background-color: #2ab7c0;
+  }
+`;
+
+export const HR = styled.hr`
+  width: 335px;
+  margin-bottom: 24px;
+`;
+
+export const NickNameChange = styled.div`
+  width: 188px;
+  height: 33px;
+  position: relative;
+  border: 1px solid gray;
+  border-radius: 6px;
+  display: flex;
+`;
+
+export const UserName = styled.p`
+  position: absolute;
+  top: 25%;
+  left: 6%;
+`;
+
+export const NickNameFlex = styled.div`
+  display: flex;
+`;
+
+export const RelaDiv = styled.div`
+  position: relative;
+  width: 375px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Img = styled.img`
+  position: absolute;
+  top: 1%;
+  left: 1%;
+`;
+
+export const WriteImg = styled.img`
+  cursor: pointer;
+`;
+
+const ElementWrapper = styled.div`
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+`;
+
+const Container = styled.div`
+  background-color: #ffffff;
+  height: 812px;
+  position: relative;
+  width: 375px;
+`;
+
+const TextWrapper = styled.div`
+  color: var(--variable-collection-MAIN-turquoise);
+  font-family: "Pretendard-Bold", Helvetica;
+  font-size: 32px;
+  font-weight: 700;
+  left: 20px;
+  letter-spacing: -0.32px;
+  line-height: 44.8px;
+  position: absolute;
+  top: 284px;
+`;
+
+const Rectangle = styled.div`
+  background-color: var(--variable-collection-MAIN-turquoise);
+  border-radius: 100px;
+  height: 50px;
+  left: 20px;
+  position: absolute;
+  top: 713px;
+  width: 335px;
+  cursor: pointer;
+`;
+
+const TextWrapper2 = styled.div`
+  color: black;
+  cursor: pointer;
+  font-family: "Pretendard-Bold", Helvetica;
+  font-size: 15px;
+  font-weight: 700;
+  left: 174px;
+  letter-spacing: -0.15px;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 728px;
+  white-space: nowrap;
+`;
+
+export default function OnboardTags() {
+  const navigate = useNavigate();
+  const [tags, setTags] = useState([]);
+  const [time, setTime] = useState(true);
+
+  const onClickHandler = (elem, bool) => {
+    if (bool) {
+      setTags(tags.filter((el) => el !== elem));
+    } else {
+      if (tags.includes(elem)) {
+        return;
+      }
+      setTags([...tags, elem]);
+    }
+  };
+
+  const onClickHandler2 = (elem) => {
+    if (tags.includes(elem)) {
+      return;
+    }
+    setTags([...tags, elem]);
+  };
+
+  return (
+    <>
+      <div>
+        {time ? (
+          <ThemeProvider theme={{}}>
+            <GlobalStyles />
+            <ElementWrapper>
+              <Container>
+                <TextWrapper>
+                  사용자님을
+                  <br />
+                  한마디로 표현한다면?
+                </TextWrapper>
+                <Rectangle></Rectangle>
+                <TextWrapper2 onClick={() => setTime(false)}>다음</TextWrapper2>
+              </Container>
+            </ElementWrapper>
+          </ThemeProvider>
+        ) : (
+          <div>
+            <ThemeProvider theme={{}}>
+              <GlobalStyles />
+              <ElementWrapper>
+                <Container>
+                  <TextWrapper></TextWrapper>
+                  <KeyWordP>키워드 관리</KeyWordP>
+                  <KeyWordPExplain>
+                    나를 가장 잘 나타낼 수 있는 키워드예요.
+                  </KeyWordPExplain>
+                  <TagsDiv>
+                    {constTags.map((el) => {
+                      return (
+                        <TagContainer key={el} isSelected={tags.includes(el)}>
+                          <p onClick={() => onClickHandler2(el)}>{el}</p>
+                          <Xbutton
+                            onClick={() =>
+                              onClickHandler(el, tags.includes(el))
+                            }
+                            isSelected={tags.includes(el)}
+                          >
+                            {tags.includes(el) ? (
+                              <img src="/images/tag_delete.svg" />
+                            ) : (
+                              <img src="/images/tag_plus.svg" />
+                            )}
+                          </Xbutton>
+                        </TagContainer>
+                      );
+                    })}
+                  </TagsDiv>
+                  {tags.length > 0 ? (
+                    <>
+                      <Rectangle />
+                      <TextWrapper2 onClick={() => navigate("/confirm")}>
+                        다음
+                      </TextWrapper2>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </Container>
+              </ElementWrapper>
+            </ThemeProvider>
+          </div>
+        )}
+      </div>
+    </>
+  );
+}

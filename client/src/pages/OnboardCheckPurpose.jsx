@@ -1,27 +1,8 @@
 import { useState } from "react";
-import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 // :root 내용을 직접 정의합니다.
-const GlobalStyles = createGlobalStyle`
-  :root {
-    --drop-shadow-1-down: 0px 2px 10px 0px rgba(0, 0, 0, 0.25);
-    --drop-shadow-2-up: 0px -4px 20px 0px rgba(0, 0, 0, 0.12);
-    --variable-collection: rgba(255, 0, 0, 1);
-    --variable-collection-alert-red: rgba(255, 94, 94, 1);
-    --variable-collection-ALT-violet: rgba(139, 70, 181, 1);
-    --variable-collection-black: rgba(37, 37, 37, 1);
-    --variable-collection-dark-gray: rgba(138, 138, 138, 1);
-    --variable-collection-light-gray: rgba(214, 214, 214, 1);
-    --variable-collection-main-blue: rgba(87, 148, 238, 1);
-    --variable-collection-MAIN-turquoise: rgba(42, 183, 192, 1);
-    --variable-collection-pale-gray: rgba(245, 245, 245, 1);
-    --variable-collection-SUB-light: rgba(140, 216, 221, 1);
-    --variable-collection-sub-light-blue: rgba(139, 192, 255, 1);
-    --variable-collection-SUB-pale: rgba(232, 248, 249, 1);
-    --variable-collection-sub-pale-blue: rgba(220, 236, 255, 1);
-    --variable-collection-SUB-yellow: rgba(255, 211, 97, 1);
-  }
-`;
 
 // 스타일드 컴포넌트를 사용하여 스타일을 정의합니다.
 const ElementWrapper = styled.div`
@@ -49,22 +30,29 @@ const TextWrapper = styled.div`
 `;
 
 const Overlap = styled.div`
+  background-color: ${(props) => (props.isselected ? "#2ab7c0" : "")};
+  color: ${(props) => (props.isselected ? "white" : "black")};
+  cursor: pointer;
+  &:hover {
+    color: white;
+    background-color: rgba(42, 183, 192, 1);
+  }
   border-radius: 8px;
   height: 50px;
   left: 20px;
   position: absolute;
   top: 430px;
   width: 335px;
-  cursor: pointer;
-  &:hover {
-    background-color: rgba(42, 183, 192, 1);
-    color: white;
-  }
-  background-color: ${(props) => (props.isselected ? "#2ab7c0" : "")};
-  color: ${(props) => (props.isselected ? "white" : "black")};
 `;
 
 const Paragraph = styled.p`
+  background-color: ${(props) => (props.isselected ? "#2ab7c0" : "")};
+  color: ${(props) => (props.isselected ? "white" : "black")};
+  cursor: pointer;
+  &:hover {
+    color: white;
+    background-color: rgba(42, 183, 192, 1);
+  }
   font-family: "Pretendard-Bold", Helvetica;
   font-size: 14px;
   font-weight: 400;
@@ -73,32 +61,28 @@ const Paragraph = styled.p`
   line-height: normal;
   position: absolute;
   top: 16px;
-  background-color: ${(props) => (props.isselected ? "#2ab7c0" : "")};
-  color: ${(props) => (props.isselected ? "white" : "black")};
 `;
 
 const Span = styled.span`
   font-weight: 700;
 `;
 
-const TextWrapper2 = styled.span`
-  font-family: "Pretendard-Regular", Helvetica;
-`;
+const TextWrapper2 = styled.span``;
 
 const OverlapGroup = styled.div`
+  background-color: ${(props) => (props.isselected ? "#2ab7c0" : "")};
+  color: ${(props) => (props.isselected ? "white" : "black")};
+  cursor: pointer;
+  &:hover {
+    color: white;
+    background-color: rgba(42, 183, 192, 1);
+  }
   border-radius: 8px;
   height: 50px;
   left: 20px;
   position: absolute;
   top: 488px;
   width: 335px;
-  background-color: ${(props) => (props.isselected ? "#2ab7c0" : "")};
-  color: ${(props) => (props.isselected ? "white" : "black")};
-  cursor: pointer;
-  &:hover {
-    background-color: rgba(42, 183, 192, 1);
-    color: white;
-  }
 `;
 
 const DivWrapper = styled.div`
@@ -106,8 +90,8 @@ const DivWrapper = styled.div`
   color: ${(props) => (props.isselected ? "white" : "black")};
   cursor: pointer;
   &:hover {
-    background-color: rgba(42, 183, 192, 1);
     color: white;
+    background-color: rgba(42, 183, 192, 1);
   }
   border-radius: 8px;
   height: 50px;
@@ -134,7 +118,6 @@ const OverlapGroup2 = styled.div`
 `;
 
 const Div2 = styled.p`
-  font-family: "Pretendard-Regular", Helvetica;
   font-size: 14px;
   font-weight: 400;
   left: 21px;
@@ -257,6 +240,8 @@ const TextWrapper8 = styled.div`
 `;
 
 export default function OnboardingCheckPurpose() {
+  const navigate = useNavigate();
+
   const [idx, setIdx] = useState(-1);
 
   const onClickHandler = (index) => {
@@ -264,8 +249,7 @@ export default function OnboardingCheckPurpose() {
   };
 
   return (
-    <ThemeProvider theme={{}}>
-      <GlobalStyles />
+    <>
       <ElementWrapper>
         <Container>
           <TextWrapper>
@@ -322,9 +306,13 @@ export default function OnboardingCheckPurpose() {
             <Ellipse3 />
             <Ellipse4 />
           </Group>
-          {idx !== -1 ? <TextWrapper8>다음</TextWrapper8> : <></>}
+          {idx !== -1 ? (
+            <TextWrapper8 onClick={() => navigate("/tags")}>다음</TextWrapper8>
+          ) : (
+            <></>
+          )}
         </Container>
       </ElementWrapper>
-    </ThemeProvider>
+    </>
   );
 }

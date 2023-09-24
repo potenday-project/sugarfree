@@ -10,6 +10,8 @@ import OnboardMakeName from "./pages/OnboardMakeName";
 import OnboardName from "./pages/OnboardName";
 import OnboardCheckPurpose from "./pages/OnboardCheckPurpose";
 import KakaoLoginButton from "./components/KakaoLoginButton";
+import OnboardTags from "./pages/OnboardTags";
+import ConfirmPage from "./pages/ConfirmPage";
 const AppContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -33,6 +35,8 @@ function App() {
           <Route path="/make" element={<OnboardMakeName />} />
           <Route path="/name" element={<OnboardName />} />
           <Route path="/check" element={<OnboardCheckPurpose />} />
+          <Route path="/tags" element={<OnboardTags />} />
+          <Route path="/confirm" element={<ConfirmPage />} />
         </Routes>
       </AppContainer>
     </BrowserRouter>
