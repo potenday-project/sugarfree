@@ -170,6 +170,7 @@ const TextWrapper7 = styled.p`
 `;
 
 const Rectangle = styled.div`
+  background-color: #2ab7c0;
   border-radius: 100px;
   height: 50px;
   left: 20px;
@@ -227,16 +228,19 @@ const Ellipse4 = styled.div`
 `;
 
 const TextWrapper8 = styled.div`
+  position: absolute;
+  z-index: 5;
   font-size: 15px;
   font-weight: 700;
-  left: 174px;
   letter-spacing: -0.15px;
   line-height: normal;
   position: fixed;
   text-align: center;
-  top: 728px;
+  top: 785px;
   white-space: nowrap;
   cursor: pointer;
+  left: 20px;
+  left: 640px;
 `;
 
 export default function OnboardingCheckPurpose() {
@@ -299,18 +303,21 @@ export default function OnboardingCheckPurpose() {
           <TextWrapper7>
             목표로 하고 있는 항목을 하나 선택해주세요.
           </TextWrapper7>
-          <Rectangle />
           <Group>
             <Ellipse />
             <Ellipse2 />
             <Ellipse3 />
             <Ellipse4 />
           </Group>
-          {idx !== -1 ? (
-            <TextWrapper8 onClick={() => navigate("/tags")}>다음</TextWrapper8>
-          ) : (
-            <></>
-          )}
+          <Rectangle>
+            {idx !== -1 ? (
+              <TextWrapper8 onClick={() => navigate("/tags")}>
+                다음
+              </TextWrapper8>
+            ) : (
+              <></>
+            )}
+          </Rectangle>
         </Container>
       </ElementWrapper>
     </>
