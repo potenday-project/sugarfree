@@ -251,7 +251,7 @@ export default function OnboardTags() {
               한마디로 표현한다면?
             </TextWrapper>
             <Rectangle onClick={() => setTime(false)} />
-            <TextWrapper2>다음</TextWrapper2>
+            <TextWrapper2 onClick={() => setTime(false)}>다음</TextWrapper2>
           </ElementWrapper>
         </ThemeProvider>
       ) : (
