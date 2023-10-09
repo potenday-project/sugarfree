@@ -160,6 +160,7 @@ const TextWrapper7 = styled.p`
 `;
 
 const Rectangle = styled.div`
+  cursor: pointer;
   background-color: #2ab7c0;
   border-radius: 100px;
   height: 50px;
@@ -308,10 +309,8 @@ export default function OnboardingCheckPurpose() {
             <Ellipse4 />
           </Group>
           {idx !== -1 ? (
-            <Rectangle>
-              <TextWrapper8 onClick={() => navigate("/tags")}>
-                다음
-              </TextWrapper8>
+            <Rectangle onClick={() => navigate("/tags")}>
+              <TextWrapper8>다음</TextWrapper8>
             </Rectangle>
           ) : (
             <Rectangle2>

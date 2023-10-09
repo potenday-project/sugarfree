@@ -17,6 +17,10 @@ const AppContainer = styled.div`
   position: relative;
   height: 812px;
   width: 375px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 function App() {

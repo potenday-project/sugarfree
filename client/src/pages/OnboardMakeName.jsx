@@ -267,10 +267,8 @@ export default function OnboardingMakeName() {
           </Overlap>
 
           {name.length > 0 ? (
-            <DivWrapper2>
-              <TextWrapper44 onClick={() => navigate("/check")}>
-                다음
-              </TextWrapper44>
+            <DivWrapper2 onClick={() => navigate("/check")}>
+              <TextWrapper44>다음</TextWrapper44>
             </DivWrapper2>
           ) : (
             <DivWrapper>

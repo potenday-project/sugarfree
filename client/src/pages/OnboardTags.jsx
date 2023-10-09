@@ -23,14 +23,14 @@ const GlobalStyles = createGlobalStyle`
 }
 `;
 const constTags = [
-  "#저당비기너",
-  "#헬스장 지박령",
-  "#당뇨위험군",
-  "#당뇨n년차",
-  "#프로다이어터",
-  "#키토식 고수",
-  "#예비엄마",
-  "#예비아빠",
+  "저당비기너",
+  "헬스장 지박령",
+  "당뇨위험군",
+  "당뇨n년차",
+  "프로다이어터",
+  "키토식 고수",
+  "예비엄마",
+  "예비아빠",
 ];
 
 export const TagsDiv = styled.div`
@@ -39,7 +39,7 @@ export const TagsDiv = styled.div`
   top: 430px;
   left: 20px;
   position: absolute;
-  width: 260px;
+  width: 310px;
 `;
 
 export const MyPageP = styled.p`
@@ -82,34 +82,31 @@ export const KeyWordPExplain = styled.p`
   margin-bottom: 15px;
 `;
 
-export const Xbutton = styled.span`
-  cursor: pointer;
-  color: darkgray;
-  margin-left: 5px;
-  color: ${(props) => (props.$isSelected ? "#E8F8F9" : "black")};
-`;
-
 export const NickNameDiv = styled.div`
   display: flex;
 `;
 
 export const TagContainer = styled.div`
-  width: 116px;
-  height: 30px;
+  width: 102px;
+  height: 31px;
   display: flex;
   font-size: 14px;
   justify-content: center;
   cursor: pointer;
   align-items: center;
   border-radius: 8px;
-
-  background-color: ${(props) => (props.$isSelected ? "#2ab7c0" : "white")};
-  color: ${(props) => (props.$isSelected ? "white" : "black")};
+  background-color: #e8f8f9;
+  color: black;
 
   &:hover {
     background-color: #2ab7c0;
     color: white;
   }
+`;
+
+export const TagContainer2 = styled(TagContainer)`
+  background-color: #2ab7c0;
+  color: white;
 `;
 
 export const Double = styled.div`
@@ -213,8 +210,12 @@ const Rectangle = styled.div`
   width: 335px;
   cursor: pointer;
 `;
+export const Rectangle2 = styled(Rectangle)`
+  background-color: #d6d6d6;
+`;
 
 const TextWrapper2 = styled.div`
+  z-index: 5;
   color: white;
   cursor: pointer;
   font-family: "Pretendard-Bold", Helvetica;
@@ -231,25 +232,11 @@ const TextWrapper2 = styled.div`
 
 export default function OnboardTags() {
   const navigate = useNavigate();
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState("");
   const [time, setTime] = useState(true);
 
-  const onClickHandler = (elem, bool) => {
-    if (bool) {
-      setTags(tags.filter((el) => el !== elem));
-    } else {
-      if (tags.includes(elem)) {
-        return;
-      }
-      setTags([...tags, elem]);
-    }
-  };
-
-  const onClickHandler2 = (elem) => {
-    if (tags.includes(elem)) {
-      return;
-    }
-    setTags([...tags, elem]);
+  const onClickHandler = (elem) => {
+    setTags(elem);
   };
 
   return (
@@ -263,8 +250,8 @@ export default function OnboardTags() {
               <br />
               한마디로 표현한다면?
             </TextWrapper>
-            <Rectangle></Rectangle>
-            <TextWrapper2 onClick={() => setTime(false)}>다음</TextWrapper2>
+            <Rectangle onClick={() => setTime(false)} />
+            <TextWrapper2>다음</TextWrapper2>
           </ElementWrapper>
         </ThemeProvider>
       ) : (
@@ -282,32 +269,27 @@ export default function OnboardTags() {
               </KeyWordPExplain>
               <TagsDiv>
                 {constTags.map((el) => {
-                  return (
-                    <TagContainer key={el} $isSelected={tags.includes(el)}>
-                      <p onClick={() => onClickHandler2(el)}>{el}</p>
-                      <Xbutton
-                        onClick={() => onClickHandler(el, tags.includes(el))}
-                        isSelected={tags.includes(el)}
-                      >
-                        {tags.includes(el) ? (
-                          <img src="/images/tag_delete.svg" />
-                        ) : (
-                          <img src="/images/tag_plus.svg" />
-                        )}
-                      </Xbutton>
+                  return tags === el ? (
+                    <TagContainer2 key={el}>
+                      <p onClick={() => onClickHandler(el)}>{el}</p>
+                    </TagContainer2>
+                  ) : (
+                    <TagContainer key={el}>
+                      <p onClick={() => onClickHandler(el)}>{el}</p>
                     </TagContainer>
                   );
                 })}
               </TagsDiv>
               {tags.length > 0 ? (
                 <>
-                  <Rectangle />
-                  <TextWrapper2 onClick={() => navigate("/confirm")}>
-                    다음
-                  </TextWrapper2>
+                  <Rectangle onClick={() => navigate("/confirm")} />
+                  <TextWrapper2>다음</TextWrapper2>
                 </>
               ) : (
-                <></>
+                <>
+                  <Rectangle2 />
+                  <TextWrapper2>다음</TextWrapper2>
+                </>
               )}
             </ElementWrapper>
           </ThemeProvider>
