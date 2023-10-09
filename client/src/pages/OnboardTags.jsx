@@ -283,7 +283,9 @@ export default function OnboardTags() {
               {tags.length > 0 ? (
                 <>
                   <Rectangle onClick={() => navigate("/confirm")} />
-                  <TextWrapper2>다음</TextWrapper2>
+                  <TextWrapper2 onClick={() => navigate("/confirm")}>
+                    다음
+                  </TextWrapper2>
                 </>
               ) : (
                 <>
