@@ -12,12 +12,11 @@ import OnboardCheckPurpose from "./pages/OnboardCheckPurpose";
 import KakaoLoginButton from "./components/KakaoLoginButton";
 import OnboardTags from "./pages/OnboardTags";
 import ConfirmPage from "./pages/ConfirmPage";
+
 const AppContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  flex-direction: column;
+  position: relative;
+  height: 812px;
+  width: 375px;
 `;
 
 function App() {

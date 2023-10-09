@@ -23,55 +23,49 @@ const GlobalStyles = createGlobalStyle`
 
 const ElementWrapper = styled.div`
   background-color: #ffffff;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
   width: 100%;
+  height: 100%;
 `;
 
 const Container = styled.div`
   background-color: #ffffff;
-  height: 812px;
-  position: relative;
-  width: 375px;
+  height: 100%;
 `;
 
 const TextWrapper = styled.div`
-  color: var(--variable-collection-MAIN-turquoise);
-  font-family: "Pretendard-Bold", Helvetica;
-  font-size: 32px;
-  font-weight: 700;
-  left: 20px;
-  letter-spacing: -0.32px;
-  line-height: 44.8px;
+  color: #2ab7c0;
   position: absolute;
-  top: 284px;
+  top: 285px;
+  left: 20px;
+  font-family: Pretendard;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 140%; /* 33.6px */
+  letter-spacing: -0.24px;
 `;
 
 const Rectangle = styled.div`
   background-color: var(--variable-collection-MAIN-turquoise);
   border-radius: 100px;
   height: 50px;
-  left: 20px;
-  position: absolute;
-  top: 713px;
   width: 335px;
+  position: absolute;
+  bottom: 49px;
   cursor: pointer;
+  bottom: 49px;
+  left: 20px;
 `;
 
 const TextWrapper2 = styled.div`
   color: #ffffff;
   cursor: pointer;
-  font-family: "Pretendard-Bold", Helvetica;
   font-size: 15px;
   font-weight: 700;
-  left: 174px;
-  letter-spacing: -0.15px;
-  line-height: normal;
   position: absolute;
   text-align: center;
-  top: 728px;
-  white-space: nowrap;
+  top: 16px;
+  left: 155px;
 `;
 
 export default function OnboardName() {
@@ -86,8 +80,9 @@ export default function OnboardName() {
             <br />
             이름을 알고 싶어요
           </TextWrapper>
-          <Rectangle onClick={() => navigate("/make")} />
-          <TextWrapper2 onClick={() => navigate("/make")}> 다음</TextWrapper2>
+          <Rectangle onClick={() => navigate("/make")}>
+            <TextWrapper2 onClick={() => navigate("/make")}> 다음</TextWrapper2>
+          </Rectangle>
         </Container>
       </ElementWrapper>
     </ThemeProvider>

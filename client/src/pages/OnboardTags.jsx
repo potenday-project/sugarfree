@@ -36,6 +36,9 @@ const constTags = [
 export const TagsDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
+  top: 430px;
+  left: 20px;
+  position: absolute;
   width: 260px;
 `;
 
@@ -62,22 +65,20 @@ export const TagMan = styled.p`
   margin-bottom: 6px;
 `;
 
-export const DESC = styled.p`
-  font-size: 14px;
-  color: gray;
-  margin-bottom: 18px;
-`;
-
 export const KeyWordP = styled.p`
-  font-size: 17px;
+  font-size: 24px;
+  top: 285px;
+  left: 20px;
+  position: absolute;
   font-weight: bold;
-  margin-top: 44px;
-  margin-bottom: 6px;
 `;
 
 export const KeyWordPExplain = styled.p`
   font-size: 14px;
   color: darkgray;
+  top: 361px;
+  left: 20px;
+  position: absolute;
   margin-bottom: 15px;
 `;
 
@@ -85,7 +86,7 @@ export const Xbutton = styled.span`
   cursor: pointer;
   color: darkgray;
   margin-left: 5px;
-  color: ${(props) => (props.isSelected ? "white" : "black")};
+  color: ${(props) => (props.$isSelected ? "#E8F8F9" : "black")};
 `;
 
 export const NickNameDiv = styled.div`
@@ -96,13 +97,14 @@ export const TagContainer = styled.div`
   width: 116px;
   height: 30px;
   display: flex;
+  font-size: 14px;
   justify-content: center;
   cursor: pointer;
   align-items: center;
   border-radius: 8px;
 
-  background-color: ${(props) => (props.isSelected ? "#2ab7c0" : "white")};
-  color: ${(props) => (props.isSelected ? "white" : "black")};
+  background-color: ${(props) => (props.$isSelected ? "#2ab7c0" : "white")};
+  color: ${(props) => (props.$isSelected ? "white" : "black")};
 
   &:hover {
     background-color: #2ab7c0;
@@ -128,6 +130,7 @@ export const Double = styled.div`
     background-color: #2ab7c0;
   }
 `;
+
 export const Change = styled.div`
   width: 51px;
   height: 33px;
@@ -142,11 +145,6 @@ export const Change = styled.div`
   &:hover {
     background-color: #2ab7c0;
   }
-`;
-
-export const HR = styled.hr`
-  width: 335px;
-  margin-bottom: 24px;
 `;
 
 export const NickNameChange = styled.div`
@@ -189,17 +187,8 @@ export const WriteImg = styled.img`
 
 const ElementWrapper = styled.div`
   background-color: #ffffff;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-`;
-
-const Container = styled.div`
-  background-color: #ffffff;
   height: 812px;
-  position: relative;
-  width: 375px;
+  width: 100%;
 `;
 
 const TextWrapper = styled.div`
@@ -211,7 +200,7 @@ const TextWrapper = styled.div`
   letter-spacing: -0.32px;
   line-height: 44.8px;
   position: absolute;
-  top: 284px;
+  top: 285px;
 `;
 
 const Rectangle = styled.div`
@@ -226,7 +215,7 @@ const Rectangle = styled.div`
 `;
 
 const TextWrapper2 = styled.div`
-  color: black;
+  color: white;
   cursor: pointer;
   font-family: "Pretendard-Bold", Helvetica;
   font-size: 15px;
@@ -265,70 +254,65 @@ export default function OnboardTags() {
 
   return (
     <>
-      <div>
-        {time ? (
+      {time ? (
+        <ThemeProvider theme={{}}>
+          <GlobalStyles />
+          <ElementWrapper>
+            <TextWrapper>
+              사용자님을
+              <br />
+              한마디로 표현한다면?
+            </TextWrapper>
+            <Rectangle></Rectangle>
+            <TextWrapper2 onClick={() => setTime(false)}>다음</TextWrapper2>
+          </ElementWrapper>
+        </ThemeProvider>
+      ) : (
+        <div>
           <ThemeProvider theme={{}}>
             <GlobalStyles />
             <ElementWrapper>
-              <Container>
-                <TextWrapper>
-                  사용자님을
-                  <br />
-                  한마디로 표현한다면?
-                </TextWrapper>
-                <Rectangle></Rectangle>
-                <TextWrapper2 onClick={() => setTime(false)}>다음</TextWrapper2>
-              </Container>
+              <KeyWordP>
+                00님을
+                <br /> 한마디로 표현한다면?
+              </KeyWordP>
+              <KeyWordPExplain>
+                00님을 가장 나타낼 수 있는 키워드를 하나 골라주세요!
+                <br /> 추후 마이페이지에서 수정할 수 있어요
+              </KeyWordPExplain>
+              <TagsDiv>
+                {constTags.map((el) => {
+                  return (
+                    <TagContainer key={el} $isSelected={tags.includes(el)}>
+                      <p onClick={() => onClickHandler2(el)}>{el}</p>
+                      <Xbutton
+                        onClick={() => onClickHandler(el, tags.includes(el))}
+                        isSelected={tags.includes(el)}
+                      >
+                        {tags.includes(el) ? (
+                          <img src="/images/tag_delete.svg" />
+                        ) : (
+                          <img src="/images/tag_plus.svg" />
+                        )}
+                      </Xbutton>
+                    </TagContainer>
+                  );
+                })}
+              </TagsDiv>
+              {tags.length > 0 ? (
+                <>
+                  <Rectangle />
+                  <TextWrapper2 onClick={() => navigate("/confirm")}>
+                    다음
+                  </TextWrapper2>
+                </>
+              ) : (
+                <></>
+              )}
             </ElementWrapper>
           </ThemeProvider>
-        ) : (
-          <div>
-            <ThemeProvider theme={{}}>
-              <GlobalStyles />
-              <ElementWrapper>
-                <Container>
-                  <TextWrapper></TextWrapper>
-                  <KeyWordP>키워드 관리</KeyWordP>
-                  <KeyWordPExplain>
-                    나를 가장 잘 나타낼 수 있는 키워드예요.
-                  </KeyWordPExplain>
-                  <TagsDiv>
-                    {constTags.map((el) => {
-                      return (
-                        <TagContainer key={el} isSelected={tags.includes(el)}>
-                          <p onClick={() => onClickHandler2(el)}>{el}</p>
-                          <Xbutton
-                            onClick={() =>
-                              onClickHandler(el, tags.includes(el))
-                            }
-                            isSelected={tags.includes(el)}
-                          >
-                            {tags.includes(el) ? (
-                              <img src="/images/tag_delete.svg" />
-                            ) : (
-                              <img src="/images/tag_plus.svg" />
-                            )}
-                          </Xbutton>
-                        </TagContainer>
-                      );
-                    })}
-                  </TagsDiv>
-                  {tags.length > 0 ? (
-                    <>
-                      <Rectangle />
-                      <TextWrapper2 onClick={() => navigate("/confirm")}>
-                        다음
-                      </TextWrapper2>
-                    </>
-                  ) : (
-                    <></>
-                  )}
-                </Container>
-              </ElementWrapper>
-            </ThemeProvider>
-          </div>
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
 }

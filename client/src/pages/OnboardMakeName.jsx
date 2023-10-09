@@ -1,5 +1,5 @@
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 // :root 내용을 직접 정의합니다.
 const GlobalStyles = createGlobalStyle`
@@ -50,38 +50,37 @@ const TextWrapper = styled.div`
   top: 284px;
 `;
 
-const OverlapGroup = styled.div`
-  background-color: var(--variable-collection-pale-gray);
+const TextWrapper2 = styled.input`
+  padding-left: 20px;
+  padding-top: 16px;
+  padding-bottom: 16px;
   border: 0.5px solid;
   border-color: var(--variable-collection-light-gray);
   border-radius: 8px;
-  height: 50px;
-  left: 20px;
-  position: absolute;
-  top: 430px;
   width: 335px;
-`;
-
-const TextWrapper2 = styled.input`
+  height: 50px;
   color: var(--variable-collection-black);
   font-family: "Pretendard-Regular", Helvetica;
   font-size: 14px;
   font-weight: 400;
-  left: 20px;
   letter-spacing: -0.14px;
   line-height: normal;
+  left: 20px;
   position: absolute;
-  top: 14px;
+  top: 430px;
 `;
 
 const Overlap = styled.div`
   background-color: var(--variable-collection-MAIN-turquoise);
   border-radius: 4px;
   height: 27px;
-  left: 258px;
+  right: 33px;
   position: absolute;
-  top: 11px;
+  top: 441px;
   width: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const TextWrapper3 = styled.div`
@@ -90,11 +89,11 @@ const TextWrapper3 = styled.div`
   font-family: "Pretendard-Regular", Helvetica;
   font-size: 14px;
   font-weight: 400;
-  left: 8px;
   letter-spacing: -0.14px;
   line-height: normal;
-  position: absolute;
-  top: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const DivWrapper = styled.div`
@@ -103,7 +102,7 @@ const DivWrapper = styled.div`
   height: 50px;
   left: 20px;
   position: absolute;
-  top: 713px;
+  bottom: 49px;
   width: 335px;
 `;
 const DivWrapper2 = styled.div`
@@ -118,6 +117,7 @@ const DivWrapper2 = styled.div`
 `;
 
 const TextWrapper4 = styled.div`
+  color: white;
   font-family: "Pretendard-Bold", Helvetica;
   font-size: 14px;
   font-weight: 700;
@@ -223,22 +223,9 @@ const FlexContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
-  height: 38px;
   left: 20px;
   position: absolute;
   top: 360px;
-  width: 206px;
-`;
-
-const Text = styled.p`
-  align-self: stretch;
-  color: var(--variable-collection-dark-gray);
-  font-family: "Pretendard-Regular", Helvetica;
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: -0.14px;
-  line-height: normal;
-  position: relative;
 `;
 
 const Span = styled.span`
@@ -247,10 +234,6 @@ const Span = styled.span`
   font-size: 14px;
   font-weight: 400;
   letter-spacing: -0.14px;
-`;
-
-const Span2 = styled.span`
-  color: var(--variable-collection-MAIN-turquoise);
 `;
 
 // React 컴포넌트 정의
@@ -272,16 +255,17 @@ export default function OnboardingMakeName() {
             <br />
             이름을 알고 싶어요
           </TextWrapper>
-          <OverlapGroup>
-            <TextWrapper2
-              onChange={onChangeHandler}
-              placeholder="단짠단짠"
-              value={name}
-            />
-            <Overlap>
-              <TextWrapper3>중복확인</TextWrapper3>
-            </Overlap>
-          </OverlapGroup>
+
+          <TextWrapper2
+            onChange={onChangeHandler}
+            placeholder="단짠단짠"
+            value={name}
+          />
+
+          <Overlap>
+            <TextWrapper3>중복확인</TextWrapper3>
+          </Overlap>
+
           {name.length > 0 ? (
             <DivWrapper2>
               <TextWrapper44 onClick={() => navigate("/check")}>
@@ -303,15 +287,8 @@ export default function OnboardingMakeName() {
           <TextWrapper5 onClick={() => navigate("/map")}>SKIP</TextWrapper5>
           <TextWrapper6 onClick={() => navigate("/name")}>이전</TextWrapper6>
           <FlexContainer>
-            <Text>
-              <Span>
-                앱에서 사용할 닉네임을 입력해주세요.
-                <br />
-              </Span>
-            </Text>
-            <Text>
-              <Span>닉네임의 길이는 최대 8글자입니다.</Span>
-            </Text>
+            <Span>앱에서 사용할 닉네임을 입력해주세요.</Span>
+            <Span>닉네임의 길이는 최대 8글자입니다.</Span>
           </FlexContainer>
         </Div>
       </ElementWrapper>

@@ -30,8 +30,8 @@ const TextWrapper = styled.div`
 `;
 
 const Overlap = styled.div`
-  background-color: ${(props) => (props.isselected ? "#2ab7c0" : "")};
-  color: ${(props) => (props.isselected ? "white" : "black")};
+  background-color: ${(props) => (props.$isselected ? "#2ab7c0" : "#E8F8F9")};
+  color: ${(props) => (props.$isselected ? "white" : "black")};
   cursor: pointer;
   &:hover {
     color: white;
@@ -46,16 +46,6 @@ const Overlap = styled.div`
 `;
 
 const Paragraph = styled.p`
-  background-color: ${(props) => (props.isselected ? "#2ab7c0" : "")};
-  color: ${(props) => (props.isselected ? "white" : "black")};
-  cursor: pointer;
-  &:hover {
-    color: white;
-    background-color: rgba(42, 183, 192, 1);
-  }
-  font-family: "Pretendard-Bold", Helvetica;
-  font-size: 14px;
-  font-weight: 400;
   left: 21px;
   letter-spacing: -0.14px;
   line-height: normal;
@@ -67,11 +57,13 @@ const Span = styled.span`
   font-weight: 700;
 `;
 
-const TextWrapper2 = styled.span``;
+const TextWrapper2 = styled.span`
+  font-size: 14px;
+`;
 
 const OverlapGroup = styled.div`
-  background-color: ${(props) => (props.isselected ? "#2ab7c0" : "")};
-  color: ${(props) => (props.isselected ? "white" : "black")};
+  background-color: ${(props) => (props.$isselected ? "#2ab7c0" : "#E8F8F9")};
+  color: ${(props) => (props.$isselected ? "white" : "black")};
   cursor: pointer;
   &:hover {
     color: white;
@@ -86,8 +78,8 @@ const OverlapGroup = styled.div`
 `;
 
 const DivWrapper = styled.div`
-  background-color: ${(props) => (props.isselected ? "#2ab7c0" : "")};
-  color: ${(props) => (props.isselected ? "white" : "black")};
+  background-color: ${(props) => (props.$isselected ? "#2ab7c0" : "#E8F8F9")};
+  color: ${(props) => (props.$isselected ? "white" : "black")};
   cursor: pointer;
   &:hover {
     color: white;
@@ -102,8 +94,8 @@ const DivWrapper = styled.div`
 `;
 
 const OverlapGroup2 = styled.div`
-  background-color: ${(props) => (props.isselected ? "#2ab7c0" : "")};
-  color: ${(props) => (props.isselected ? "white" : "black")};
+  background-color: ${(props) => (props.$isselected ? "#2ab7c0" : "#E8F8F9")};
+  color: ${(props) => (props.$isselected ? "white" : "black")};
   cursor: pointer;
   &:hover {
     color: white;
@@ -128,13 +120,11 @@ const Div2 = styled.p`
 `;
 
 const TextWrapper3 = styled.span`
-  font-size: 12px;
   font-weight: 400;
   letter-spacing: -0.14px;
 `;
 
 const TextWrapper4 = styled.span`
-  font-size: 12px;
   font-weight: 700;
 `;
 
@@ -174,7 +164,16 @@ const Rectangle = styled.div`
   border-radius: 100px;
   height: 50px;
   left: 20px;
-  position: relative;
+  position: absolute;
+  top: 713px;
+  width: 335px;
+`;
+const Rectangle2 = styled(Rectangle)`
+  background-color: #d6d6d6;
+  border-radius: 100px;
+  height: 50px;
+  left: 20px;
+  position: absolute;
   top: 713px;
   width: 335px;
 `;
@@ -228,20 +227,18 @@ const Ellipse4 = styled.div`
 `;
 
 const TextWrapper8 = styled.div`
-  z-index: 5;
+  color: white;
   position: absolute;
+  z-index: 5;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: -0.15px;
   line-height: normal;
   text-align: center;
+  bottom: 16px;
   white-space: nowrap;
   cursor: pointer;
-  top: 16px;
-  left: 155px;
-  &:hover {
-    color: white;
-  }
+  left: 154px;
 `;
 
 export default function OnboardingCheckPurpose() {
@@ -264,7 +261,7 @@ export default function OnboardingCheckPurpose() {
           </TextWrapper>
           <Overlap
             onClick={() => onClickHandler(0)}
-            isselected={idx === 0 ? true : false}
+            $isselected={idx === 0 ? true : false}
           >
             <Paragraph>
               <Span>당뇨</Span>
@@ -273,7 +270,7 @@ export default function OnboardingCheckPurpose() {
           </Overlap>
           <OverlapGroup
             onClick={() => onClickHandler(1)}
-            isselected={idx === 1 ? true : false}
+            $isselected={idx === 1 ? true : false}
           >
             <Paragraph>
               <Span>다이어트</Span>
@@ -282,7 +279,7 @@ export default function OnboardingCheckPurpose() {
           </OverlapGroup>
           <DivWrapper
             onClick={() => onClickHandler(2)}
-            isselected={idx === 2 ? true : false}
+            $isselected={idx === 2 ? true : false}
           >
             <Paragraph>
               <Span>임신성 당뇨</Span>
@@ -291,7 +288,7 @@ export default function OnboardingCheckPurpose() {
           </DivWrapper>
           <OverlapGroup2
             onClick={() => onClickHandler(3)}
-            isselected={idx === 3 ? true : false}
+            $isselected={idx === 3 ? true : false}
           >
             <Div2>
               <TextWrapper3>뚜렷한 목표는 없지만 </TextWrapper3>
@@ -310,15 +307,17 @@ export default function OnboardingCheckPurpose() {
             <Ellipse3 />
             <Ellipse4 />
           </Group>
-          <Rectangle>
-            {idx !== -1 ? (
+          {idx !== -1 ? (
+            <Rectangle>
               <TextWrapper8 onClick={() => navigate("/tags")}>
                 다음
               </TextWrapper8>
-            ) : (
-              <></>
-            )}
-          </Rectangle>
+            </Rectangle>
+          ) : (
+            <Rectangle2>
+              <TextWrapper8>다음</TextWrapper8>
+            </Rectangle2>
+          )}
         </Container>
       </ElementWrapper>
     </>

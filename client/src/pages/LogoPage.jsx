@@ -10,7 +10,6 @@ const LogoWrapper = styled.div`
   align-items: center;
   height: 100vh;
   z-index: 5;
-  position: absolute;
   background-color: #2ab7c0;
 `;
 
@@ -20,8 +19,13 @@ const BlockImg = styled.img`
 `;
 
 const LogoP = styled.p`
-  font-size: 3rem;
-  color: white;
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 140%; /* 25.2px */
+  letter-spacing: -0.18px;
 `;
 
 export default function LogoPage() {
