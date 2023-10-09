@@ -228,7 +228,6 @@ const Ellipse4 = styled.div`
 `;
 
 const TextWrapper8 = styled.div`
-  position: absolute;
   z-index: 5;
   font-size: 15px;
   font-weight: 700;
@@ -239,8 +238,10 @@ const TextWrapper8 = styled.div`
   top: 785px;
   white-space: nowrap;
   cursor: pointer;
-  left: 20px;
-  left: 640px;
+  left: 690px;
+  &:hover {
+    color: white;
+  }
 `;
 
 export default function OnboardingCheckPurpose() {
