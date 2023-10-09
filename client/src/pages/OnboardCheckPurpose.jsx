@@ -174,7 +174,7 @@ const Rectangle = styled.div`
   border-radius: 100px;
   height: 50px;
   left: 20px;
-  position: absolute;
+  position: relative;
   top: 713px;
   width: 335px;
 `;
@@ -229,16 +229,16 @@ const Ellipse4 = styled.div`
 
 const TextWrapper8 = styled.div`
   z-index: 5;
+  position: absolute;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: -0.15px;
   line-height: normal;
-  position: fixed;
   text-align: center;
-  top: 785px;
   white-space: nowrap;
   cursor: pointer;
-  left: 690px;
+  top: 16px;
+  left: 155px;
   &:hover {
     color: white;
   }
