@@ -68,7 +68,14 @@ export const InnerWrapper = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  position: relative;
+  background-color: rgba(0, 0, 0, 0.05);
+  z-index: 1;
+  width: 375px;
+  height: 812px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  pointer-events: none;
 `;
 
 export const BottomBar = styled.div`
@@ -102,10 +109,10 @@ export const BottomBar2 = styled.div`
 `;
 
 export const BottomBarClick = styled.p`
+  color: #d6d6d6;
   cursor: pointer;
   font-size: 3rem;
   font-weight: bold;
-  color: red;
 `;
 
 export const BottomBarSpan1 = styled.span`
@@ -127,11 +134,14 @@ export const BottomBarSpan2 = styled.span`
 `;
 
 export const Modal = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 375px;
+  height: 812px;
+  top: 0px;
+  left: 0px;
   background-color: rgba(0, 0, 0, 0.3);
-  z-index: 9;
+  z-index: 15;
   position: absolute;
+  backdrop-filter: blur(4px);
 `;
 
 export const BottomDiv = styled.div``;
@@ -140,8 +150,8 @@ export const ModalWrapper = styled.div`
   width: 257px;
   height: 223px;
   position: absolute;
-  top: 25%;
-  right: 39.5%;
+  top: 294px;
+  left: 59px;
   background-color: white;
   z-index: 10;
   display: flex;
@@ -342,10 +352,12 @@ export const Input = styled.input`
   padding: 1px;
   height: 42px;
   position: absolute;
-  top: 5%;
   border-radius: 10px;
-  left: 3%;
+  top: 54px;
+  left: 14px;
   padding-left: 46px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   z-index: 5;
   border: none;
   &:focus {
@@ -356,7 +368,7 @@ export const Input = styled.input`
 export const HamImg = styled.img`
   z-index: 6;
   position: absolute;
-  top: 53px;
+  top: 68px;
   left: 31px;
   cursor: pointer;
 `;
@@ -364,17 +376,21 @@ export const HamImg = styled.img`
 export const MagImg = styled.img`
   z-index: 6;
   position: absolute;
-  top: 6.3%;
-  right: 35px;
+  top: 65px;
+  right: 29px;
   cursor: pointer;
 `;
 
 export const AutoDiv = styled.div`
   width: 345px;
+  padding-left: 17px;
+  border-radius: 0 0 10px 10px;
+  font-size: 15px;
+  padding-top: 16px;
   position: absolute;
-  top: 9%;
+  top: 90px;
   z-index: 5;
-  left: 3.8%;
+  left: 16px;
   background-color: white;
 `;
 

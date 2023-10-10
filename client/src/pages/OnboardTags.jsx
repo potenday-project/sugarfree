@@ -270,12 +270,12 @@ export default function OnboardTags() {
               <TagsDiv>
                 {constTags.map((el) => {
                   return tags === el ? (
-                    <TagContainer2 key={el}>
-                      <p onClick={() => onClickHandler(el)}>{el}</p>
+                    <TagContainer2 key={el} onClick={() => onClickHandler(el)}>
+                      <p>{el}</p>
                     </TagContainer2>
                   ) : (
-                    <TagContainer key={el}>
-                      <p onClick={() => onClickHandler(el)}>{el}</p>
+                    <TagContainer key={el} onClick={() => onClickHandler(el)}>
+                      <p>{el}</p>
                     </TagContainer>
                   );
                 })}

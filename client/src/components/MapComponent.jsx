@@ -91,7 +91,7 @@ export const Confirm = styled.div`
   cursor: pointer;
 `;
 
-export default function MapComponent({ place, current }) {
+export default function MapComponent({ place, current, setCurrent }) {
   const [markers, setMarkers] = useState([]);
   const [kakaoMarkers, setKakaoMarkers] = useState([]);
   const [isModal, SetisModal] = useState(false);
@@ -117,14 +117,6 @@ export default function MapComponent({ place, current }) {
   };
 
   useEffect(() => {
-    setState({
-      center: {
-        lat: 33.450701,
-        lng: 126.570667,
-      },
-      isPanto: false,
-    });
-
     navigator.permissions
       .query({ name: "geolocation" })
       .then(function (result) {
@@ -142,18 +134,21 @@ export default function MapComponent({ place, current }) {
       });
 
     if (navigator.geolocation) {
+      if (!current) return;
+
       // GeoLocation을 이용해서 접속 위치를 얻어옵니다
       navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setState((prev) => ({
-            ...prev,
-            center: {
-              lat: position.coords.latitude, // 위도
-              lng: position.coords.longitude, // 경도
-            },
-            isLoading: false,
-          }));
-        },
+        (position) =>
+          setState((prev) => {
+            return {
+              ...prev,
+              center: {
+                lat: position.coords.latitude, // 위도
+                lng: position.coords.longitude, // 경도
+              },
+              isLoading: false,
+            };
+          }),
         (err) => {
           setState((prev) => ({
             ...prev,
@@ -176,6 +171,11 @@ export default function MapComponent({ place, current }) {
     const data = await axios.get("/dummy/dummy.json");
     setMarkers(data.data);
   };
+
+  useEffect(() => {
+    if (!map || !state.center || state.isLoading) return;
+    map.setCenter(new kakao.maps.LatLng(state.center.lat, state.center.lng));
+  }, [state.center]);
 
   useEffect(() => {
     if (!map) return;
@@ -219,18 +219,18 @@ export default function MapComponent({ place, current }) {
         isPanto={true}
         center={state.center}
         style={{
-          // 지도의 크기
           width: "375px",
           height: "812px",
         }}
         level={3} // 지도의 확대 레벨
         onCreate={setMap}
+        onDragEnd={() => setCurrent(false)}
       >
         {markers.map((marker, index) => (
           <div
             key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
           >
-            <CustomOverlayMap position={marker.position}>
+            <CustomOverlayMap position={marker.position} zIndex={150}>
               <CustomOveray
                 count={marker.count}
                 kakao={false}
@@ -260,13 +260,7 @@ export default function MapComponent({ place, current }) {
             </div>
           );
         })}
-        {!state.isLoading && (
-          <MapMarker position={state.center}>
-            <div style={{ padding: "5px", color: "#000" }}>
-              {state.errMsg ? state.errMsg : "현 위치"}
-            </div>
-          </MapMarker>
-        )}
+        {!state.isLoading && <MapMarker position={state.center}></MapMarker>}
       </Map>
       <div>
         {isModal ? (
@@ -306,4 +300,5 @@ MapComponent.propTypes = {
   place: PropTypes.string.isRequired,
   current: PropTypes.bool.isRequired,
   isSearch: PropTypes.bool.isRequired,
+  setCurrent: PropTypes.func.isRequired,
 };

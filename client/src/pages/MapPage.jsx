@@ -107,13 +107,16 @@ export default function MapPage() {
   };
 
   const imgHandler = () => {
-    setCurrent(!current);
-    if (current) {
-      imgRef.current.src = "/images/current.png";
-    } else {
-      imgRef.current.src = "/images/currentClicked.png";
-    }
+    setCurrent(true);
   };
+
+  useEffect(() => {
+    if (current) {
+      imgRef.current.src = "/images/currentClicked.png";
+    } else {
+      imgRef.current.src = "/images/current.png";
+    }
+  }, [current]);
 
   const bottomBarClick = () => {
     if (markerInfo.content === "") {
@@ -209,149 +212,144 @@ export default function MapPage() {
 
   return (
     <>
-      <Wrapper>
-        <HamImg src="/images/hamburger.svg" onClick={hamburgerClick} />
-        {ham && <HamburgerBar setHam={setHam} />}
-        <Input
-          onChange={onChangeHandler}
-          ref={inputRef}
-          type="text"
-          onKeyDown={onKeyDownHandler}
-          placeholder="키워드, 주소 검색"
-        />
-        <MagImg src="/images/magnify.svg" onClick={magClickHandler} />
-        <AutoDiv>
-          {isVisible ? (
-            inputRef.current?.value &&
-            cafesInfo
-              .filter((el) => {
-                return el.title.indexOf(auto) !== -1;
-              })
-              .map((el) => {
-                return (
-                  <AutoP onClick={() => autoHanlder(el.title)} key={el.title}>
-                    {el.title}
-                  </AutoP>
-                );
-              })
-          ) : (
-            <></>
-          )}
-        </AutoDiv>
-        <CurrentImg
-          onClick={imgHandler}
-          ref={imgRef}
-          src="/images/current.png"
-        />
-        <MapComponent
-          place={value ? value : "카페"}
-          current={current}
-          isSearch={isSearch}
-        />
-        {markerInfo.clicked ? (
-          <BottomBar>
-            <BottomBarClickContainer>
-              <BottomBarClick onClick={bottomBarClick}>ㅡ</BottomBarClick>
-            </BottomBarClickContainer>
-            <TitleP>{markerInfo.content}</TitleP>
-            <DistDiv>
-              <DistP>반경 {distance}m 내</DistP>
-              <AddressP>{markerInfo.address}</AddressP>
-            </DistDiv>
-            <p>{markerInfo.time}</p>
-            <IPP>
-              <img src="images/star.png" />
-              <StarP>{markerInfo.cafeStar}</StarP>
-              <ReviewP>리뷰 {reviews}</ReviewP>
-            </IPP>
-            <CafeHR />
-            {markerInfo.menu ? (
-              <>
-                <RatingDiv>
-                  <TitleP2>
-                    이 카페의 <PopSpan>인기 저당 음료</PopSpan>
-                  </TitleP2>
-                  <RatingSor>별점순</RatingSor>
-                  <span>|</span>
-                  <ReviewSor>후기순</ReviewSor>
-                </RatingDiv>
-              </>
-            ) : (
-              "정보없음"
-            )}
+      <HamImg src="/images/hamburger.svg" onClick={hamburgerClick} />
+      {ham && <HamburgerBar setHam={setHam} />}
+      <Input
+        onChange={onChangeHandler}
+        ref={inputRef}
+        type="text"
+        onKeyDown={onKeyDownHandler}
+        placeholder="키워드, 주소 검색"
+      />
+      <MagImg src="/images/magnify.svg" onClick={magClickHandler} />
 
-            <DropFlex>
-              {markerInfo.menu !== undefined ? (
-                markerInfo.menu.map((el, idx) => {
-                  return (
-                    <DropOuter key={idx}>
-                      <DropWrapper>
-                        <CoffeeImg2 src={el.img} />
-                        <span>{el.name}</span>
-                        <span>{el.price}원</span>
-                        <StarAndReviewDiv>
-                          <StarImg src="/images/star.png" />
-                          <MenuStarSpan>{el.menuStar}</MenuStarSpan>
-                          <DivideSpan>|</DivideSpan>
-                          <span>리뷰 {el.reviews.length}</span>
-                        </StarAndReviewDiv>
-                        <DetailDiv onClick={() => detailClickHandler(el)}>
-                          자세히 보기
-                        </DetailDiv>
-                      </DropWrapper>
-                    </DropOuter>
-                  );
-                })
-              ) : (
-                <></>
-              )}
-            </DropFlex>
-          </BottomBar>
-        ) : (
-          isSearch && (
-            <BottomBar3>
-              <BottomBarClick onClick={bottomBarClick2}>ㅡ</BottomBarClick>
-              {cafes.map((el) => {
-                return (
-                  <div key={el.content}>
-                    <BottomTitle>{el.content}</BottomTitle>
-                    <BottomAddress> {el.address}</BottomAddress>
-                    <BottomTime> {el.time}</BottomTime>
-                    <img src="/images/star.png" />
-                    <BottomStar> {el.cafeStar}</BottomStar>
-                    <BottomReviews>
-                      리뷰
-                      {el.menu.reduce(
-                        (acc, cur) => (acc += cur.reviews.length),
-                        0
-                      )}
-                    </BottomReviews>
-                    <hr />
-                  </div>
-                );
-              })}
-            </BottomBar3>
-          )
-        )}
-        <>
-          <BottomBar2>
+      {isVisible ? (
+        inputRef.current?.value &&
+        cafesInfo
+          .filter((el) => {
+            return el.title.indexOf(auto) !== -1;
+          })
+          .map((el) => {
+            return (
+              <AutoDiv key={el.title}>
+                <AutoP onClick={() => autoHanlder(el.title)}>{el.title}</AutoP>
+              </AutoDiv>
+            );
+          })
+      ) : (
+        <></>
+      )}
+
+      <CurrentImg onClick={imgHandler} ref={imgRef} src="/images/current.png" />
+      <MapComponent
+        place={value ? value : "카페"}
+        current={current}
+        isSearch={isSearch}
+        setCurrent={setCurrent}
+      />
+      {markerInfo.clicked ? (
+        <BottomBar>
+          <BottomBarClickContainer>
             <BottomBarClick onClick={bottomBarClick}>ㅡ</BottomBarClick>
-            <PopContainer>
-              <SpanFlexDiv>
-                <BottomBarSpan1>
-                  내 주변
-                  <ColoredSpan> 인기 저당 음료</ColoredSpan>
-                </BottomBarSpan1>
-                <BottomBarSpan2 onClick={onClickHandlerSpan}>
-                  {sort}
-                  <ArrowImg src="/images/arrowDown.svg" />
-                </BottomBarSpan2>
-              </SpanFlexDiv>
-              {cafes.length > 0 && <CarouselWrapper items={cafes} />}
-            </PopContainer>
-          </BottomBar2>
-        </>
-      </Wrapper>
+          </BottomBarClickContainer>
+          <TitleP>{markerInfo.content}</TitleP>
+          <DistDiv>
+            <DistP>반경 {distance}m 내</DistP>
+            <AddressP>{markerInfo.address}</AddressP>
+          </DistDiv>
+          <p>{markerInfo.time}</p>
+          <IPP>
+            <img src="images/star.png" />
+            <StarP>{markerInfo.cafeStar}</StarP>
+            <ReviewP>리뷰 {reviews}</ReviewP>
+          </IPP>
+          <CafeHR />
+          {markerInfo.menu ? (
+            <>
+              <RatingDiv>
+                <TitleP2>
+                  이 카페의 <PopSpan>인기 저당 음료</PopSpan>
+                </TitleP2>
+                <RatingSor>별점순</RatingSor>
+                <span>|</span>
+                <ReviewSor>후기순</ReviewSor>
+              </RatingDiv>
+            </>
+          ) : (
+            "정보없음"
+          )}
+
+          <DropFlex>
+            {markerInfo.menu !== undefined ? (
+              markerInfo.menu.map((el, idx) => {
+                return (
+                  <DropOuter key={idx}>
+                    <DropWrapper>
+                      <CoffeeImg2 src={el.img} />
+                      <span>{el.name}</span>
+                      <span>{el.price}원</span>
+                      <StarAndReviewDiv>
+                        <StarImg src="/images/star.png" />
+                        <MenuStarSpan>{el.menuStar}</MenuStarSpan>
+                        <DivideSpan>|</DivideSpan>
+                        <span>리뷰 {el.reviews.length}</span>
+                      </StarAndReviewDiv>
+                      <DetailDiv onClick={() => detailClickHandler(el)}>
+                        자세히 보기
+                      </DetailDiv>
+                    </DropWrapper>
+                  </DropOuter>
+                );
+              })
+            ) : (
+              <></>
+            )}
+          </DropFlex>
+        </BottomBar>
+      ) : (
+        isSearch && (
+          <BottomBar3>
+            <BottomBarClick onClick={bottomBarClick2}>ㅡ</BottomBarClick>
+            {cafes.map((el) => {
+              return (
+                <div key={el.content}>
+                  <BottomTitle>{el.content}</BottomTitle>
+                  <BottomAddress> {el.address}</BottomAddress>
+                  <BottomTime> {el.time}</BottomTime>
+                  <img src="/images/star.png" />
+                  <BottomStar> {el.cafeStar}</BottomStar>
+                  <BottomReviews>
+                    리뷰
+                    {el.menu.reduce(
+                      (acc, cur) => (acc += cur.reviews.length),
+                      0
+                    )}
+                  </BottomReviews>
+                  <hr />
+                </div>
+              );
+            })}
+          </BottomBar3>
+        )
+      )}
+      <>
+        <BottomBar2>
+          <BottomBarClick onClick={bottomBarClick}>ㅡ</BottomBarClick>
+          <PopContainer>
+            <SpanFlexDiv>
+              <BottomBarSpan1>
+                내 주변
+                <ColoredSpan> 인기 저당 음료</ColoredSpan>
+              </BottomBarSpan1>
+              <BottomBarSpan2 onClick={onClickHandlerSpan}>
+                {sort}
+                <ArrowImg src="/images/arrowDown.svg" />
+              </BottomBarSpan2>
+            </SpanFlexDiv>
+            {cafes.length > 0 && <CarouselWrapper items={cafes} />}
+          </PopContainer>
+        </BottomBar2>
+      </>
 
       {/* modal */}
       {isModal ? (
@@ -381,6 +379,7 @@ export default function MapPage() {
       ) : (
         <></>
       )}
+      <Wrapper></Wrapper>
     </>
   );
 }

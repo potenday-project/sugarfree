@@ -5,11 +5,13 @@ import {
   Img,
   ModalSpan,
   ModalDiv,
+  MarkerContent,
 } from "../styles/CustomOveray";
 import PropTypes from "prop-types";
 import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { setMarker, onDrop } from "../redux/markerSlice";
+
 export default function CustomOveray({
   count,
   kakao,
@@ -80,7 +82,7 @@ export default function CustomOveray({
           </ModalDiv>
         )}
       </div>
-      <p>{marker.content}</p>
+      <MarkerContent>{marker.content}</MarkerContent>
     </>
   );
 }
