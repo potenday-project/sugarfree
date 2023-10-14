@@ -32,24 +32,20 @@ export default function CustomOveray({
   useEffect(() => {
     if (index === selected) {
       if (!kakao) {
-        imgRef.current.src = "/images/whiteCup.png";
-        modalRef.current.style.backgroundColor = "#2ab7c0";
+        imgRef.current.src = "/images/lowColor.svg";
         spanRef.current.style.color = "white";
       } else {
-        imgRef2.current.src = "/images/highMenuClicked.png";
-        modalRef2.current.style.backgroundColor = "#d6d6d6";
+        imgRef2.current.src = "/images/highColor.svg";
         spanRef2.current.style.color = "white";
       }
       dispatch(setMarker(marker));
       dispatch(onDrop({ clicked: true }));
     } else {
       if (!kakao) {
-        imgRef.current.src = "/images/lowMenu.png";
-        modalRef.current.style.backgroundColor = "white";
+        imgRef.current.src = "/images/lowNot.svg";
         spanRef.current.style.color = "#2ab7c0";
       } else {
-        imgRef2.current.src = "/images/highMenu.png";
-        modalRef2.current.style.backgroundColor = "white";
+        imgRef2.current.src = "/images/highNot.svg";
         spanRef2.current.style.color = "gray";
       }
     }
@@ -66,7 +62,7 @@ export default function CustomOveray({
           <ModalDivKakao ref={modalRef2} onClick={onClickHandler}>
             <WrapperDiv className="wrap">
               <div>
-                <Img2 ref={imgRef2} src="images/highCafe.svg" />
+                <Img2 ref={imgRef2} src="images/highNot.svg" />
                 <ModalSpan ref={spanRef2}>{count}</ModalSpan>
               </div>
             </WrapperDiv>
@@ -75,7 +71,7 @@ export default function CustomOveray({
           <ModalDiv ref={modalRef} onClick={onClickHandler}>
             <WrapperDiv className="wrap">
               <div>
-                <Img ref={imgRef} src="images/lowCafe.svg" />
+                <Img ref={imgRef} src="images/lowNot.svg" />
                 <ModalSpan ref={spanRef}>{count}</ModalSpan>
               </div>
             </WrapperDiv>

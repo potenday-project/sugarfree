@@ -61,6 +61,8 @@ import {
   BottomTime,
   BottomStar,
   BottomReviews,
+  SortDiv,
+  ArrowDiv,
 } from "../styles/MapPage";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -131,7 +133,6 @@ export default function MapPage() {
     //   position: markerInfo.position, content:markerInfo.content, currentPosition : markerInfo.currentPosition
     // });
     const response = await axios.get("/dummy/dummy2.json");
-
     setDistance(response.data.distance);
   };
 
@@ -341,10 +342,14 @@ export default function MapPage() {
                 내 주변
                 <ColoredSpan> 인기 저당 음료</ColoredSpan>
               </BottomBarSpan1>
-              <BottomBarSpan2 onClick={onClickHandlerSpan}>
-                {sort}
-                <ArrowImg src="/images/arrowDown.svg" />
-              </BottomBarSpan2>
+              <SortDiv>
+                <BottomBarSpan2 onClick={onClickHandlerSpan}>
+                  {sort}
+                </BottomBarSpan2>
+                <ArrowDiv onClick={onClickHandlerSpan}>
+                  <ArrowImg src="/images/arrowDown.svg" />
+                </ArrowDiv>
+              </SortDiv>
             </SpanFlexDiv>
             {cafes.length > 0 && <CarouselWrapper items={cafes} />}
           </PopContainer>

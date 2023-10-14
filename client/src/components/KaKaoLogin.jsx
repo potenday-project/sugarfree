@@ -29,6 +29,7 @@ const P2 = styled.p`
   font-weight: 500;
   line-height: normal;
   letter-spacing: -0.15px;
+  cursor: pointer;
 `;
 
 const Img = styled.img`

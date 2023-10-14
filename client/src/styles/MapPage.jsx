@@ -116,11 +116,20 @@ export const BottomBarClick = styled.p`
 `;
 
 export const BottomBarSpan1 = styled.span`
+  text-align: right;
   display: block;
-  margin-right: 4rem;
+  margin-right: 45px;
+  margin-left: 48px;
   font-size: 17px;
   margin-bottom: 16px;
   font-weight: bold;
+  color: var(--Black, #252525);
+  font-family: "Pretendard";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.14px;
 `;
 
 export const ColoredSpan = styled.span`
@@ -129,8 +138,11 @@ export const ColoredSpan = styled.span`
 `;
 
 export const BottomBarSpan2 = styled.span`
+  display: flex;
+  justify-content: end;
   margin-left: 110px;
   cursor: pointer;
+  text-align: center;
 `;
 
 export const Modal = styled.div`
@@ -149,9 +161,11 @@ export const BottomDiv = styled.div``;
 export const ModalWrapper = styled.div`
   width: 257px;
   height: 223px;
-  position: absolute;
-  top: 294px;
-  left: 59px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
   background-color: white;
   z-index: 10;
   display: flex;
@@ -404,6 +418,9 @@ export const AutoP = styled.p`
 
 export const SpanFlexDiv = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 40px;
 `;
 
 export const BottomTitle = styled.p`
@@ -429,4 +446,17 @@ export const BottomStar = styled.p`
 export const BottomReviews = styled.p`
   color: gray;
   font-size: 12px;
+`;
+
+export const SortDiv = styled.div`
+  display: flex;
+  align-items: flex-end;
+`;
+
+export const ArrowDiv = styled.div`
+  display: flex;
+  height: 16px;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
 `;

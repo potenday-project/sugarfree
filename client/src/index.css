@@ -136,6 +136,7 @@ table {
 
 body {
   display: flex;
+  font-family: "Pretendard";
   flex-direction: column;
   justify-content: center;
   align-items: center;

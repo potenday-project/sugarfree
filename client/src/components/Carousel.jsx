@@ -78,7 +78,7 @@ export const MenuP = styled.p`
 `;
 
 export const ViewPort = styled.div`
-  overflow-x: hidden;
+  margin-left: 40px;
 `;
 
 export const FlexDiv3 = styled.div`
