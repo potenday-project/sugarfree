@@ -65,6 +65,7 @@ export default function CustomOveray({
                 <Img2 ref={imgRef2} src="images/highNot.svg" />
                 <ModalSpan ref={spanRef2}>{count}</ModalSpan>
               </div>
+              <MarkerContent>{marker.content}</MarkerContent>
             </WrapperDiv>
           </ModalDivKakao>
         ) : (
@@ -74,11 +75,11 @@ export default function CustomOveray({
                 <Img ref={imgRef} src="images/lowNot.svg" />
                 <ModalSpan ref={spanRef}>{count}</ModalSpan>
               </div>
+              <MarkerContent>{marker.content}</MarkerContent>
             </WrapperDiv>
           </ModalDiv>
         )}
       </div>
-      <MarkerContent>{marker.content}</MarkerContent>
     </>
   );
 }

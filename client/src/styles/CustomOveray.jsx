@@ -10,11 +10,13 @@ export const ModalDivKakao = styled(ModalDiv)`
   display: flex;
   border: none;
   z-index: 6;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const WrapperDiv = styled.div`
-  width: 73px;
-  height: 48px;
+  width: 100px;
+  height: 100px;
   display: flex;
   position: relative;
 `;
@@ -32,8 +34,8 @@ export const Img2 = styled.img`
 `;
 
 export const ModalSpan = styled.span`
-  right: 0%;
-  top: 43%;
+  right: 27%;
+  top: 20%;
   position: absolute;
   color: var(--Black, #252525);
   text-align: center;
@@ -48,6 +50,10 @@ export const ModalSpan = styled.span`
 `;
 
 export const MarkerContent = styled.p`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 40%);
   color: #252525;
   text-align: center;
   /* drop shadow_1_down */
@@ -58,6 +64,5 @@ export const MarkerContent = styled.p`
   font-weight: 700;
   line-height: normal;
   letter-spacing: -0.14px;
-  margin-top: 8px;
-  padding-right: 8px;
+  margin-top: 5px;
 `;
